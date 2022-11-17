@@ -1,0 +1,65 @@
+@import "../node_modules/kpmp-common-styles/index.scss";
+
+.flyout {
+	background-color: white;
+	height: 100%;
+  position: absolute;  
+  right: 0;
+	top: 0;
+  width: 36%;
+	z-index: 10;
+	overflow-y: scroll;
+	@media screen and (max-width: 1335px) {
+		width: 37%;
+	}
+	@media screen and (max-width: 1275px) {
+		width: 40%;
+	}
+	@media screen and (max-width: 1155px) {
+		width: 45%;
+	}
+	@media screen and (max-width: 1100px) {
+		width: 50%;
+	}
+	@media screen and (max-width: 955px) {
+		width: 55%;
+	}
+	@media screen and (max-width: 900px) {
+		width: 60%;
+	}
+	@media screen and (max-width: 800px) {
+		width: 80%;
+	}
+	@media screen and (max-width: 760px) {
+		width: 100%;
+	}
+}
+
+.flyout.open {
+  transform: translate(.25%);
+}
+
+.flyout.closed {
+  transform: translate(100.25%);
+}
+
+.flyout .header {
+	background-color: $kpmp-blue;
+	color: white;
+}
+
+.flyout .u-border-helper table {
+    border-top: 2px solid #dee2e6;
+		border-collapse: collapse;
+}
+
+.flyout .report-card thead {
+	display: none;
+}
+
+.flyout .report-card td {
+  text-overflow: ellipsis;
+}
+.flyout h4 {
+	font-size: 16px;
+}
