@@ -52,7 +52,7 @@ store.subscribe(saveState);
 
 const connector = new AppSearchAPIConnector({
   searchKey: process.env.REACT_APP_SEARCH_KEY,
-  engineName: "spatial-viewer",
+  engineName: "atlas-repository",
   endpointBase: "/spatial-viewer/search",
   cacheResponses: false
 })
@@ -60,16 +60,37 @@ const connector = new AppSearchAPIConnector({
 const searchConfig = {
   apiConnector: connector,
   searchQuery: {
-      disjunctiveFacets: ["sex", "age", "redcapid", "tissuetype", "imagetype", "datatype", "configtype", "level"],
+      disjunctiveFacets: [
+        "id",
+        "data_format",
+        "access",
+        "cases",
+        "file_name",
+        "data_category",
+        "workflow_type",
+        "package_id",
+        "platform",
+        "file_size",
+        "file_id",
+        "data_type",
+        "dois",
+        "experimental_strategy"
+      ],
       facets: {
-        sex: { type: "value", size: 100},
-        age: { type: "value", size: 100},
-        redcapid: { type: "value", size: 100 },
-        tissuetype: { type: "value", size: 100},
-        imagetype: { type: "value", size: 100},
-        datatype: { type: "value", size: 100 },
-        configtype: { type: "value", size: 100},
-        level: { type: "value", size: 100},
+        id: { type: "value", size: 100},
+        data_format: { type: "value", size: 100},
+        access: { type: "value", size: 100},
+        cases: { type: "value", size: 100},
+        file_name: { type: "value", size: 100},
+        data_category: { type: "value", size: 100},
+        workflow_type: { type: "value", size: 100},
+        package_id: { type: "value", size: 100},
+        platform: { type: "value", size: 100},
+        file_size: { type: "value", size: 100},
+        file_id: { type: "value", size: 100},
+        data_type: { type: "value", size: 100},
+        dois: { type: "value", size: 100},
+        experimental_strategy: { type: "value", size: 100},
       }
   },
   initialState: {

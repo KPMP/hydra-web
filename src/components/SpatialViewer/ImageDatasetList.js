@@ -46,7 +46,7 @@ class ImageDatasetList extends Component {
         });
         this.state = {
             filterTabActive: true,
-            activeFilterTab: 'DATASET',
+            activeFilterTab: 'FILE',
             tableData: [],
             cards: this.props.props.tableSettings.cards || columnCards,
             currentPage: this.props.props.tableSettings.currentPage,
@@ -90,48 +90,87 @@ class ImageDatasetList extends Component {
 
     // This is used for column ordering too.
     getColumns = () => {
-        const { setSelectedImageDataset } = this.props.props;
         let columns = [
             {
-                name: 'spectrackSampleId',
-                title: 'Sample ID',
+                name: 'file_id',
+                title: 'File UUID',
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => <button onClick={() => setSelectedImageDataset(row)} type='button' data-toggle="popover" data-content="" className='table-column btn btn-link text-left p-0'>{row["spectracksampleid"]}</button>
             },
             {
-                name: 'redcapid',
-                title: 'Participant ID',
+                name: 'access',
+                title: 'Access',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+            },   
+            {
+                name: 'file_name',
+                title: 'File Name',
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
             },
             {
-                name: 'datatype',
+                name: 'data_category',
+                title: 'Data Category',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+            },
+            {
+                name: 'data_format',
+                title: 'Data Format',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+            },
+            {
+                name: 'file_size',
+                title: 'Size',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+            },
+            {
+                name: 'data_type',
                 title: 'Data Type',
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
             },
             {
-                name: 'filename',
-                title: 'Filename',
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },            
-            {
-                name: 'imagetype',
-                title: 'Image Type',
+                name: 'experimental_strategy',
+                title: 'Experimental Strategy',
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
-                getCellValue: this.getImageTypeCell
+            },            
+            {
+                name: 'workflow_type',
+                title: 'Workflow Type',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
             },
             {
-                name: 'level',
-                title: 'Level',
+                name: 'platform',
+                title: 'Platform',
+                sortable: true,
+                hideable: true,
+                defaultHidden: true,
+            },
+            {
+                name: 'id',
+                title: 'Participant ID',
+                sortable: true,
+                hideable: true,
+                defaultHidden: true,
+            },
+            {
+                name: 'dois',
+                title: 'DOIs',
                 sortable: true,
                 hideable: true,
                 defaultHidden: true,
@@ -165,12 +204,21 @@ class ImageDatasetList extends Component {
 
     getDefaultColumnWidths = () => {
         return [
-            { columnName: 'spectrackSampleId', width: 145 },
-            { columnName: 'datatype', width: 250 },
-            { columnName: 'imagetype', width: 350 },
-            { columnName: 'redcapid', width: 145 },
-            { columnName: 'filename', width: 250 },
-            { columnName: 'level', width: 100 },
+            { columnName: 'data_format', width: 200 },
+            { columnName: 'id', width: 200 },
+            { columnName: 'data_format', width: 200 },
+            { columnName: 'access', width: 200 },
+            { columnName: 'cases', width: 200 },
+            { columnName: 'file_name', width: 200 },
+            { columnName: 'data_category', width: 200 },
+            { columnName: 'workflow_type', width: 200 },
+            { columnName: 'package_id', width: 200 },
+            { columnName: 'platform', width: 200 },
+            { columnName: 'file_size', width: 200 },
+            { columnName: 'file_id', width: 200 },
+            { columnName: 'data_type', width: 200 },
+            { columnName: 'dois', width: 200 },
+            { columnName: 'experimental_strategy', width: 200 }
         ]
     };
 
@@ -210,8 +258,8 @@ class ImageDatasetList extends Component {
 
     render() {
         const tabEnum = {
-            DATASET: 'DATASET',
             PARTICIPANT: 'PARTICIPANT',
+            FILE: 'FILE'
         };
 
         const { pagingSize, columnWidths, hiddenColumnNames, sorting, currentPage} = this.props.props.tableSettings;
@@ -222,11 +270,18 @@ class ImageDatasetList extends Component {
                     <Col xl={3}>
                         <div className={`filter-panel-wrapper ${this.state.filterTabActive ? '': 'hidden'}`}>
                         <div className="filter-panel-tab-wrapper">
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.DATASET)}}
-                                className={`filter-tab ${this.props.activeFilterTab === tabEnum.DATASET ? 'active' : ''} rounded border`}>DATASET</div>
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
-                                className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>PARTICIPANT</div>
                             
+                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
+                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
+                                    PARTICIPANT
+                            </div>
+
+                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
+                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
+                                    FILE
+                            </div>
+
+
                             <div className="filter-tab filter-tab-control-icon clickable"
                                  alt="Close Filter Tab"
                                  onClick={() => {this.toggleFilterTab()}}>                                
@@ -235,27 +290,81 @@ class ImageDatasetList extends Component {
                             </div>
                         </div>
                             <React.Fragment>
-                            {this.props.activeFilterTab === tabEnum.DATASET &&
-                            <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                                <Row className="mb-2"><Col><Facet field="datatype" label="Experimental Strategy" filterType="any"
-                                                                  view={MultiCheckboxFacet}/></Col></Row>
-                                <Row className="mb-2"><Col><Facet field="imagetype" label="Image Type" filterType="any"
-                                                                  view={MultiCheckboxFacet}/></Col></Row>
-                            </Container>
-                            }{this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                        <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                            <Row className="mb-2"><Col><Facet field="sex" label="Sex" filterType="any"
-                                                              view={MultiCheckboxFacet}/></Col></Row>
-                            <Row className="mb-2"><Col><Facet field="age" label="Age" filterType="any"
-                                                              view={MultiCheckboxFacet}/></Col></Row>
-                            <Row className="mb-2"><Col><Facet field="tissuetype" label="Tissue Type"
-                                                              filterType="any"
-                                                              view={MultiCheckboxFacet}/></Col></Row>
-                            <Row className="mb-2"><Col><Facet inputProps={{ placeholder: "cusaceholder" }} isFilterable={true}  field="redcapid" label="Participant ID"
-                                                              filterType="any"
-                                                              view={(props) => <MultiCheckboxFacet {...props} searchPlaceholder={"Search..."}/>}/></Col></Row>
-                        </Container>
-                        }
+                           
+                            {this.props.activeFilterTab === tabEnum.FILE &&
+                                <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="data_category" label="Data Category" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="data_type" label="Data Type" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="experimental_strategy" label="Experimental Strategy" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="workflow_type" label="Workflow Type" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="data_type" label="Data Format" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="platform" label="Platform" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="access" label="Access" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="dois" label="DOIs" filterType="any" view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            }
+
+                            {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
+                                <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="sex" label="Sex" filterType="any" view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="age" label="Age" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="tissuetype" label="Tissue Type" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet inputProps={{ placeholder: "placeholder" }}
+                                                isFilterable={true} field="redcapid"
+                                                label="Participant ID"
+                                                filterType="any"
+                                                view={(props) => <MultiCheckboxFacet {...props}
+                                                searchPlaceholder={"Search..."}/>}/>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            }
                             </React.Fragment>
                         </div>
 
@@ -297,11 +406,8 @@ class ImageDatasetList extends Component {
                                             sorting={sorting}/>
                                         <IntegratedSorting 
                                             columnExtensions={[
-                                                { columnName: 'spectrackSampleId', compare: compareTableStrings },
-                                                { columnName: 'datatype',          compare: compareTableStrings },
-                                                { columnName: 'filename',          compare: compareTableStrings },
-                                                { columnName: 'imagetype',         compare: compareTableStrings },
-                                                { columnName: 'redcapid',          compare: compareTableStrings }]}
+                                                { columnName: 'data_type', compare: compareTableStrings },
+                                            ]}
                                         />
                                         <PagingState
                                             currentPage={currentPage}

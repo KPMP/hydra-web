@@ -8,7 +8,7 @@ class ImageDatasetListSubContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeFilterTab: 'DATASET',
+            activeFilterTab: 'PARTICIPANT',
         };
 
     }
