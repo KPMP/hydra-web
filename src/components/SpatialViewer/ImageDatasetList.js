@@ -7,6 +7,7 @@ import { getImageTypeTooltipCopy } from "./viewConfigHelper";
 import { faXmark, faAnglesRight, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
+import prettyBytes from 'pretty-bytes';
 import {
     SortingState,
     IntegratedSorting,
@@ -88,6 +89,10 @@ class ImageDatasetList extends Component {
         this.setCards(cards)
     };
 
+    getWorkflowTypeValue = (row) => {
+        return row['workflow_type']
+    }
+
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
@@ -132,6 +137,7 @@ class ImageDatasetList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
+                getCellValue: row => { return prettyBytes(parseInt(row['file_size'])) }
             },
             {
                 name: 'data_type',
@@ -153,6 +159,8 @@ class ImageDatasetList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
+                getCellValue: row => { console.log(row['workflow_type']); return (row['workflow_type'] ? row['workflow_type'] : '--') }
+
             },
             {
                 name: 'platform',
@@ -168,13 +176,13 @@ class ImageDatasetList extends Component {
                 hideable: true,
                 defaultHidden: true,
             },
-            {
-                name: 'dois',
-                title: 'DOIs',
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
+            // {
+            //     name: 'dois',
+            //     title: 'DOIs',
+            //     sortable: true,
+            //     hideable: true,
+            //     defaultHidden: true,
+            // },
         ];
         return columns;
     };
@@ -204,12 +212,12 @@ class ImageDatasetList extends Component {
 
     getDefaultColumnWidths = () => {
         return [
-            { columnName: 'data_format', width: 200 },
-            { columnName: 'id', width: 200 },
-            { columnName: 'data_format', width: 200 },
-            { columnName: 'access', width: 200 },
-            { columnName: 'cases', width: 200 },
-            { columnName: 'file_name', width: 200 },
+            { columnName: 'data_format', width: 100 },
+            { columnName: 'id', width: 100 },
+            { columnName: 'data_format', width: 100 },
+            { columnName: 'access', width: 100 },
+            { columnName: 'cases', width: 100 },
+            { columnName: 'file_name', width: 100 },
             { columnName: 'data_category', width: 200 },
             { columnName: 'workflow_type', width: 200 },
             { columnName: 'package_id', width: 200 },
@@ -310,7 +318,7 @@ class ImageDatasetList extends Component {
                                     </Row>
                                     <Row className="mb-2">
                                         <Col>
-                                            <Facet field="workflow_type" label="Workflow Type" filterType="any"view={MultiCheckboxFacet}/>
+                                            <Facet field="workflow_type" label="Workflow Type" filterType="any" view={MultiCheckboxFacet}/>
                                         </Col>
                                     </Row>
                                     <Row className="mb-2">
@@ -338,22 +346,22 @@ class ImageDatasetList extends Component {
 
                             {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
                                 <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                                    <Row className="mb-2">
+                                    {/* <Row className="mb-2">
                                         <Col>
                                             <Facet field="sex" label="Sex" filterType="any" view={MultiCheckboxFacet}/>
                                         </Col>
-                                    </Row>
-                                    <Row className="mb-2">
+                                    </Row> */}
+                                    {/* <Row className="mb-2">
                                         <Col>
                                             <Facet field="age" label="Age" filterType="any"view={MultiCheckboxFacet}/>
                                         </Col>
-                                    </Row>
+                                    </Row> */}
                                     <Row className="mb-2">
                                         <Col>
                                             <Facet field="tissuetype" label="Tissue Type" filterType="any"view={MultiCheckboxFacet}/>
                                         </Col>
                                     </Row>
-                                    <Row className="mb-2">
+                                    {/* <Row className="mb-2">
                                         <Col>
                                             <Facet inputProps={{ placeholder: "placeholder" }}
                                                 isFilterable={true} field="redcapid"
@@ -362,7 +370,7 @@ class ImageDatasetList extends Component {
                                                 view={(props) => <MultiCheckboxFacet {...props}
                                                 searchPlaceholder={"Search..."}/>}/>
                                         </Col>
-                                    </Row>
+                                    </Row> */}
                                 </Container>
                             }
                             </React.Fragment>
