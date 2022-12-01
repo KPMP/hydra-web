@@ -12,8 +12,7 @@ import ErrorBoundaryContainer from './components/Error/ErrorBoundaryContainer';
 import Oops from './components/Error/Oops';
 import NotFoundPage from './components/Error/NotFoundPage';
 import ImageDatasetListContainer from "./components/SpatialViewer/ImageDatasetListContainer";
-import SpatialViewerContainer from "./components/SpatialViewer/SpatialViewerContainer";
-import { baseURL } from '../package.json';
+import packagejson from '../package.json';
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
 
@@ -52,8 +51,8 @@ store.subscribe(saveState);
 
 const connector = new AppSearchAPIConnector({
   searchKey: process.env.REACT_APP_SEARCH_KEY,
-  engineName: "spatial-viewer",
   endpointBase: "/spatial-viewer/search",
+  engineName: "atlas-repository",
   cacheResponses: false
 })
 
@@ -87,12 +86,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <SearchProvider config={searchConfig}>
-        <BrowserRouter history={history} basename={baseURL}>
+        <BrowserRouter history={history} basename={packagejson.baseURL}>
           <ErrorBoundaryContainer>
             <NavBar app='atlas' />
             <Switch>
               <Route exact path="/" component={ImageDatasetListContainer} store={store} />
-              <Route exact path="/view" component={SpatialViewerContainer} store={store} />
               <Route exact path="/oops" component={Oops} />
               <Route path='*' component={NotFoundPage} />
             </Switch>
