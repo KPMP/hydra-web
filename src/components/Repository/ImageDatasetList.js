@@ -4,7 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
 import { getImageTypeTooltipCopy } from "./viewConfigHelper";
-import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
@@ -145,7 +145,7 @@ class ImageDatasetList extends Component {
                     row['access'] === 'controlled' ?
                         this.toggleAccessAlertModal() : 
                         this.downloadFile(`https://atlas.kpmp.org/api/v1/file/download/${row['package_id']}/${row['file_name']}`, row['file_name'])
-                }} className="clickable">
+                }} className="clickable download-btn">
                     <FontAwesomeIcon
                         className="fas fa-angles-left " icon={faDownload} />
                     </span>
@@ -159,7 +159,7 @@ class ImageDatasetList extends Component {
                 defaultHidden: false,
                 getCellValue: row => { return <span>
                     <FontAwesomeIcon
-                    className="fas fa-angles-left " icon={row['access'] === 'controlled' ? faLock: faLockOpen } /> {row['access']}</span> }
+                    className="fas fa-angles-left " icon={row['access'] === 'controlled' ? faUnlock: faUnlockKeyhole } /> {row['access']}</span> }
             },   
             {
                 name: 'file_id',
