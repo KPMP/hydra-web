@@ -226,7 +226,7 @@ class ImageDatasetList extends Component {
             { columnName: 'file_id', width: 200 },
             { columnName: 'data_type', width: 200 },
             { columnName: 'dois', width: 200 },
-            { columnName: 'experimental_strategy', width: 200 }
+            { columnName: 'experimental_strategy', width: 200 },
         ]
     };
 
@@ -346,19 +346,15 @@ class ImageDatasetList extends Component {
 
                             {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
                                 <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                                    {/* <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="sex" label="Sex" filterType="any" view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row> */}
+                        
                                     {/* <Row className="mb-2">
                                         <Col>
                                             <Facet field="age" label="Age" filterType="any"view={MultiCheckboxFacet}/>
                                         </Col>
-                                    </Row> */}
+                                    </Row>
                                     <Row className="mb-2">
                                         <Col>
-                                            <Facet field="tissuetype" label="Tissue Type" filterType="any"view={MultiCheckboxFacet}/>
+                                            <Facet field="tissuetype" label="Tissue Type" filterType="any" view={MultiCheckboxFacet}/>
                                         </Col>
                                     </Row>
                                     {/* <Row className="mb-2">

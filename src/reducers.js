@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { resetStateReducer } from './resetStateReducer';
-import { selectedImageDataset, tableSettings } from "./components/SpatialViewer/imageDatasetReducer";
-import { summaryDatasets, clinicalDatasets } from "./components/SpatialViewer/clinicalDatasetReducer";
-import { experimentalDataCounts } from "./components/SpatialViewer/experimentalDataCountReducer";
+import { selectedImageDataset, tableSettings } from "./components/Repository/imageDatasetReducer";
+import { summaryDatasets, clinicalDatasets } from "./components/Repository/clinicalDatasetReducer";
+import { experimentalDataCounts } from "./components/Repository/experimentalDataCountReducer";
 
 
 const appReducer = combineReducers({
