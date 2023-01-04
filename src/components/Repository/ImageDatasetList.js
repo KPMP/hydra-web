@@ -8,6 +8,7 @@ import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faLock, faLockOpen } 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
+import fetch from 'node-fetch';
 import {
     SortingState,
     IntegratedSorting,
@@ -119,6 +120,18 @@ class ImageDatasetList extends Component {
 
         </div>
     }
+    downloadFile = (url, filename) => {
+        fetch(url)
+        .then(response => {
+            response.blob().then(blob => {
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+            });
+    });
+      }
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
@@ -129,7 +142,9 @@ class ImageDatasetList extends Component {
                 hideable: false,
                 defaultHidden: false,
                 getCellValue: row => { return <span onClick={(e) => {
-                    row['access'] == 'controlled' ? this.toggleAccessAlertModal() : console.log('download')
+                    row['access'] === 'controlled' ?
+                        this.toggleAccessAlertModal() : 
+                        this.downloadFile(`https://atlas.kpmp.org/api/v1/file/download/${row['package_id']}/${row['file_name']}`, row['file_name'])
                 }} className="clickable">
                     <FontAwesomeIcon
                         className="fas fa-angles-left " icon={faDownload} />
@@ -144,7 +159,7 @@ class ImageDatasetList extends Component {
                 defaultHidden: false,
                 getCellValue: row => { return <span>
                     <FontAwesomeIcon
-                    className="fas fa-angles-left " icon={row['access'] == 'controlled' ? faLock: faLockOpen } /> {row['access']}</span> }
+                    className="fas fa-angles-left " icon={row['access'] === 'controlled' ? faLock: faLockOpen } /> {row['access']}</span> }
             },   
             {
                 name: 'file_id',
@@ -255,7 +270,7 @@ class ImageDatasetList extends Component {
 
     getDefaultColumnWidths = () => {
         return [
-            { columnName: 'download', width: 10 },
+            { columnName: 'download', width: 25 },
             { columnName: 'data_format', width: 100 },
             { columnName: 'id', width: 100 },
             { columnName: 'data_format', width: 100 },
@@ -472,7 +487,7 @@ class ImageDatasetList extends Component {
                                         <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} />
                                         <Table />
                                         <TableColumnResizing
-                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={10}
+                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={25}
                                             onColumnWidthsChange={(columnWidths) =>  this.props.props.setTableSettings({columnWidths: columnWidths})}
                                             columnWidths={columnWidths}
                                         />
