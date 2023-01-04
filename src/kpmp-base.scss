@@ -93,3 +93,15 @@ body {
 .hidden {
 	display: none !important;
 }
+.btn-primary {
+	background-color: rgb(40, 60, 94);
+	border: 1px solid transparent;
+	color: white;
+	transition: all 0.25s ease 0s;
+}
+.btn-primary:hover {
+	background-color: rgb(67, 100, 157);
+	border: 1px solid transparent;
+	color: white;
+	transition: all 0.25s ease 0s;
+}

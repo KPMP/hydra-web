@@ -110,7 +110,6 @@ class ImageDatasetList extends Component {
             </ModalBody>
             <ModalFooter>
                 <Button 
-                color='primary'
                 className="btn btn-primary"
                     onClick={(e) => {this.toggleAccessAlertModal()}}>Cancel</Button>{' '}
                 <Button color='primary'
@@ -270,7 +269,7 @@ class ImageDatasetList extends Component {
 
     getDefaultColumnWidths = () => {
         return [
-            { columnName: 'download', width: 25 },
+            { columnName: 'download', width: 30 },
             { columnName: 'data_format', width: 100 },
             { columnName: 'id', width: 100 },
             { columnName: 'data_format', width: 100 },
@@ -487,7 +486,7 @@ class ImageDatasetList extends Component {
                                         <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} />
                                         <Table />
                                         <TableColumnResizing
-                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={25}
+                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={30}
                                             onColumnWidthsChange={(columnWidths) =>  this.props.props.setTableSettings({columnWidths: columnWidths})}
                                             columnWidths={columnWidths}
                                         />
