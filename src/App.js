@@ -11,7 +11,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import ErrorBoundaryContainer from './components/Error/ErrorBoundaryContainer';
 import Oops from './components/Error/Oops';
 import NotFoundPage from './components/Error/NotFoundPage';
-import ImageDatasetListContainer from "./components/SpatialViewer/ImageDatasetListContainer";
+import ImageDatasetListContainer from "./components/Repository/ImageDatasetListContainer";
 import packagejson from '../package.json';
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
@@ -73,7 +73,7 @@ const searchConfig = {
         "file_id",
         "data_type",
         "dois",
-        "experimental_strategy"
+        "experimental_strategy",
       ],
       facets: {
         id: { type: "value", size: 100},
