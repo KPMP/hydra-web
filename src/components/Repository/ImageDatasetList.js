@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Col, Container, Row, Spinner } from "reactstrap";
+import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
 import { getImageTypeTooltipCopy } from "./viewConfigHelper";
-import { faXmark, faAnglesRight, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
@@ -46,6 +46,7 @@ class ImageDatasetList extends Component {
             return {id: index, text: item.title, name: item.name, hideable: item.hideable}
         });
         this.state = {
+            accessAlertModal: false,
             filterTabActive: true,
             activeFilterTab: 'FILE',
             tableData: [],
@@ -93,15 +94,47 @@ class ImageDatasetList extends Component {
         return row['workflow_type']
     }
 
+    toggleAccessAlertModal = () => {
+        this.setState({accessAlertModal: !this.state.accessAlertModal})
+        return
+    }
+
+    accessAlertModal = () => {
+        return <div>
+            <Modal isOpen={this.state.accessAlertModal} toggle={this.toggle} className={this.props.className}>
+            <ModalHeader toggle={this.toggle}>Access Alert</ModalHeader>
+            <ModalBody>
+            <p>You are attempting to download files that are considered controlled access. To protect the privacy of our study participants, a signed Data Use Agreement is required to gain access to this data.</p>
+            <p>Click the button below to request access.</p>    
+            </ModalBody>
+            <ModalFooter>
+                <Button 
+                color='primary'
+                className="btn btn-primary"
+                    onClick={(e) => {this.toggleAccessAlertModal()}}>Cancel</Button>{' '}
+                <Button color='primary'
+              className="btn btn-primary" onClick={(e)=>{window.open("https://app.smartsheet.com/b/form/9f20e0eb3f334b388f78a539e3396fd5")}}>Request Access</Button>
+            </ModalFooter>
+            </Modal>
+
+        </div>
+    }
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
             {
-                name: 'file_id',
-                title: 'File UUID',
+                name: 'download',
+                title: 'download',
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
+                getCellValue: row => { return <span onClick={(e) => {
+                    row['access'] == 'controlled' ? this.toggleAccessAlertModal() : console.log('download')
+                }} className="clickable">
+                    <FontAwesomeIcon
+                        className="fas fa-angles-left " icon={faDownload} />
+                    </span>
+                    }
             },
             {
                 name: 'access',
@@ -109,7 +142,17 @@ class ImageDatasetList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
+                getCellValue: row => { return <span>
+                    <FontAwesomeIcon
+                    className="fas fa-angles-left " icon={row['access'] == 'controlled' ? faLock: faLockOpen } /> {row['access']}</span> }
             },   
+            {
+                name: 'file_id',
+                title: 'File UUID',
+                sortable: true,
+                hideable: false,
+                defaultHidden: false,
+            },
             {
                 name: 'file_name',
                 title: 'File Name',
@@ -212,6 +255,7 @@ class ImageDatasetList extends Component {
 
     getDefaultColumnWidths = () => {
         return [
+            { columnName: 'download', width: 10 },
             { columnName: 'data_format', width: 100 },
             { columnName: 'id', width: 100 },
             { columnName: 'data_format', width: 100 },
@@ -297,6 +341,7 @@ class ImageDatasetList extends Component {
                                     className="fas fa-angles-left " icon={faAnglesLeft} />
                             </div>
                         </div>
+                        {this.accessAlertModal()}
                             <React.Fragment>
                            
                             {this.props.activeFilterTab === tabEnum.FILE &&
@@ -427,7 +472,7 @@ class ImageDatasetList extends Component {
                                         <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} />
                                         <Table />
                                         <TableColumnResizing
-                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={145}
+                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={10}
                                             onColumnWidthsChange={(columnWidths) =>  this.props.props.setTableSettings({columnWidths: columnWidths})}
                                             columnWidths={columnWidths}
                                         />
