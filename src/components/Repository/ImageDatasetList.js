@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Col, Container, Row, Spinner } from "reactstrap";
+import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
 import { getImageTypeTooltipCopy } from "./viewConfigHelper";
-import { faXmark, faAnglesRight, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
+import prettyBytes from 'pretty-bytes';
+import fetch from 'node-fetch';
 import {
     SortingState,
     IntegratedSorting,
@@ -45,8 +47,9 @@ class ImageDatasetList extends Component {
             return {id: index, text: item.title, name: item.name, hideable: item.hideable}
         });
         this.state = {
+            accessAlertModal: false,
             filterTabActive: true,
-            activeFilterTab: 'DATASET',
+            activeFilterTab: 'FILE',
             tableData: [],
             cards: this.props.props.tableSettings.cards || columnCards,
             currentPage: this.props.props.tableSettings.currentPage,
@@ -88,54 +91,155 @@ class ImageDatasetList extends Component {
         this.setCards(cards)
     };
 
+    getWorkflowTypeValue = (row) => {
+        return row['workflow_type']
+    }
+
+    toggleAccessAlertModal = () => {
+        this.setState({accessAlertModal: !this.state.accessAlertModal})
+        return
+    }
+
+    accessAlertModal = () => {
+        return <div>
+            <Modal isOpen={this.state.accessAlertModal} toggle={this.toggle} className={this.props.className}>
+            <ModalHeader toggle={this.toggle}>Access Alert</ModalHeader>
+            <ModalBody>
+            <p>You are attempting to download files that are considered controlled access. To protect the privacy of our study participants, a signed Data Use Agreement is required to gain access to this data.</p>
+            <p>Click the button below to request access.</p>    
+            </ModalBody>
+            <ModalFooter>
+                <Button 
+                className="btn btn-primary"
+                    onClick={(e) => {this.toggleAccessAlertModal()}}>Cancel</Button>{' '}
+                <Button color='primary'
+              className="btn btn-primary" onClick={(e)=>{window.open("https://app.smartsheet.com/b/form/9f20e0eb3f334b388f78a539e3396fd5")}}>Request Access</Button>
+            </ModalFooter>
+            </Modal>
+
+        </div>
+    }
+    downloadFile = (url, filename) => {
+        fetch(url)
+        .then(response => {
+            response.blob().then(blob => {
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+            });
+    });
+      }
     // This is used for column ordering too.
     getColumns = () => {
-        const { setSelectedImageDataset } = this.props.props;
         let columns = [
             {
-                name: 'spectrackSampleId',
-                title: 'Sample ID',
+                name: 'download',
+                title: 'download',
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => <button onClick={() => setSelectedImageDataset(row)} type='button' data-toggle="popover" data-content="" className='table-column btn btn-link text-left p-0'>{row["spectracksampleid"]}</button>
+                getCellValue: row => { return <span onClick={(e) => {
+                    row['access'] === 'controlled' ?
+                        this.toggleAccessAlertModal() : 
+                        this.downloadFile(`https://atlas.kpmp.org/api/v1/file/download/${row['package_id']}/${row['file_name']}`, row['file_name'])
+                }} className="clickable download-btn">
+                    <FontAwesomeIcon
+                        className="fas fa-angles-left " icon={faDownload} />
+                    </span>
+                    }
             },
             {
-                name: 'redcapid',
-                title: 'Participant ID',
+                name: 'access',
+                title: 'Access',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+                getCellValue: row => { return <span>
+                    <FontAwesomeIcon
+                    className="fas fa-angles-left " icon={row['access'] === 'controlled' ? faUnlock: faUnlockKeyhole } /> {row['access']}</span> }
+            },   
+            {
+                name: 'file_id',
+                title: 'File UUID',
+                sortable: true,
+                hideable: false,
+                defaultHidden: false,
+            },
+            {
+                name: 'file_name',
+                title: 'File Name',
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
             },
             {
-                name: 'datatype',
+                name: 'data_category',
+                title: 'Data Category',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+            },
+            {
+                name: 'data_format',
+                title: 'Data Format',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+            },
+            {
+                name: 'file_size',
+                title: 'Size',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+                getCellValue: row => { return prettyBytes(parseInt(row['file_size'])) }
+            },
+            {
+                name: 'data_type',
                 title: 'Data Type',
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
             },
             {
-                name: 'filename',
-                title: 'Filename',
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },            
-            {
-                name: 'imagetype',
-                title: 'Image Type',
+                name: 'experimental_strategy',
+                title: 'Experimental Strategy',
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
-                getCellValue: this.getImageTypeCell
+            },            
+            {
+                name: 'workflow_type',
+                title: 'Workflow Type',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+                getCellValue: row => { console.log(row['workflow_type']); return (row['workflow_type'] ? row['workflow_type'] : '--') }
+
             },
             {
-                name: 'level',
-                title: 'Level',
+                name: 'platform',
+                title: 'Platform',
                 sortable: true,
                 hideable: true,
                 defaultHidden: true,
             },
+            {
+                name: 'id',
+                title: 'Participant ID',
+                sortable: true,
+                hideable: true,
+                defaultHidden: true,
+            },
+            // {
+            //     name: 'dois',
+            //     title: 'DOIs',
+            //     sortable: true,
+            //     hideable: true,
+            //     defaultHidden: true,
+            // },
         ];
         return columns;
     };
@@ -165,12 +269,22 @@ class ImageDatasetList extends Component {
 
     getDefaultColumnWidths = () => {
         return [
-            { columnName: 'spectrackSampleId', width: 145 },
-            { columnName: 'datatype', width: 250 },
-            { columnName: 'imagetype', width: 350 },
-            { columnName: 'redcapid', width: 145 },
-            { columnName: 'filename', width: 250 },
-            { columnName: 'level', width: 100 },
+            { columnName: 'download', width: 30 },
+            { columnName: 'data_format', width: 100 },
+            { columnName: 'id', width: 100 },
+            { columnName: 'data_format', width: 100 },
+            { columnName: 'access', width: 100 },
+            { columnName: 'cases', width: 100 },
+            { columnName: 'file_name', width: 100 },
+            { columnName: 'data_category', width: 200 },
+            { columnName: 'workflow_type', width: 200 },
+            { columnName: 'package_id', width: 200 },
+            { columnName: 'platform', width: 200 },
+            { columnName: 'file_size', width: 200 },
+            { columnName: 'file_id', width: 200 },
+            { columnName: 'data_type', width: 200 },
+            { columnName: 'dois', width: 200 },
+            { columnName: 'experimental_strategy', width: 200 },
         ]
     };
 
@@ -210,8 +324,8 @@ class ImageDatasetList extends Component {
 
     render() {
         const tabEnum = {
-            DATASET: 'DATASET',
             PARTICIPANT: 'PARTICIPANT',
+            FILE: 'FILE'
         };
 
         const { pagingSize, columnWidths, hiddenColumnNames, sorting, currentPage} = this.props.props.tableSettings;
@@ -222,11 +336,18 @@ class ImageDatasetList extends Component {
                     <Col xl={3}>
                         <div className={`filter-panel-wrapper ${this.state.filterTabActive ? '': 'hidden'}`}>
                         <div className="filter-panel-tab-wrapper">
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.DATASET)}}
-                                className={`filter-tab ${this.props.activeFilterTab === tabEnum.DATASET ? 'active' : ''} rounded border`}>DATASET</div>
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
-                                className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>PARTICIPANT</div>
                             
+                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
+                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
+                                    PARTICIPANT
+                            </div>
+
+                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
+                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
+                                    FILE
+                            </div>
+
+
                             <div className="filter-tab filter-tab-control-icon clickable"
                                  alt="Close Filter Tab"
                                  onClick={() => {this.toggleFilterTab()}}>                                
@@ -234,28 +355,79 @@ class ImageDatasetList extends Component {
                                     className="fas fa-angles-left " icon={faAnglesLeft} />
                             </div>
                         </div>
+                        {this.accessAlertModal()}
                             <React.Fragment>
-                            {this.props.activeFilterTab === tabEnum.DATASET &&
-                            <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                                <Row className="mb-2"><Col><Facet field="datatype" label="Experimental Strategy" filterType="any"
-                                                                  view={MultiCheckboxFacet}/></Col></Row>
-                                <Row className="mb-2"><Col><Facet field="imagetype" label="Image Type" filterType="any"
-                                                                  view={MultiCheckboxFacet}/></Col></Row>
-                            </Container>
-                            }{this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                        <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                            <Row className="mb-2"><Col><Facet field="sex" label="Sex" filterType="any"
-                                                              view={MultiCheckboxFacet}/></Col></Row>
-                            <Row className="mb-2"><Col><Facet field="age" label="Age" filterType="any"
-                                                              view={MultiCheckboxFacet}/></Col></Row>
-                            <Row className="mb-2"><Col><Facet field="tissuetype" label="Tissue Type"
-                                                              filterType="any"
-                                                              view={MultiCheckboxFacet}/></Col></Row>
-                            <Row className="mb-2"><Col><Facet inputProps={{ placeholder: "cusaceholder" }} isFilterable={true}  field="redcapid" label="Participant ID"
-                                                              filterType="any"
-                                                              view={(props) => <MultiCheckboxFacet {...props} searchPlaceholder={"Search..."}/>}/></Col></Row>
-                        </Container>
-                        }
+                           
+                            {this.props.activeFilterTab === tabEnum.FILE &&
+                                <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="data_category" label="Data Category" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="data_type" label="Data Type" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="experimental_strategy" label="Experimental Strategy" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="workflow_type" label="Workflow Type" filterType="any" view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="data_type" label="Data Format" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="platform" label="Platform" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="access" label="Access" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="dois" label="DOIs" filterType="any" view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            }
+
+                            {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
+                                <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
+                        
+                                    {/* <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="age" label="Age" filterType="any"view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            <Facet field="tissuetype" label="Tissue Type" filterType="any" view={MultiCheckboxFacet}/>
+                                        </Col>
+                                    </Row>
+                                    {/* <Row className="mb-2">
+                                        <Col>
+                                            <Facet inputProps={{ placeholder: "placeholder" }}
+                                                isFilterable={true} field="redcapid"
+                                                label="Participant ID"
+                                                filterType="any"
+                                                view={(props) => <MultiCheckboxFacet {...props}
+                                                searchPlaceholder={"Search..."}/>}/>
+                                        </Col>
+                                    </Row> */}
+                                </Container>
+                            }
                             </React.Fragment>
                         </div>
 
@@ -297,11 +469,8 @@ class ImageDatasetList extends Component {
                                             sorting={sorting}/>
                                         <IntegratedSorting 
                                             columnExtensions={[
-                                                { columnName: 'spectrackSampleId', compare: compareTableStrings },
-                                                { columnName: 'datatype',          compare: compareTableStrings },
-                                                { columnName: 'filename',          compare: compareTableStrings },
-                                                { columnName: 'imagetype',         compare: compareTableStrings },
-                                                { columnName: 'redcapid',          compare: compareTableStrings }]}
+                                                { columnName: 'data_type', compare: compareTableStrings },
+                                            ]}
                                         />
                                         <PagingState
                                             currentPage={currentPage}
@@ -317,7 +486,7 @@ class ImageDatasetList extends Component {
                                         <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} />
                                         <Table />
                                         <TableColumnResizing
-                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={145}
+                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={30}
                                             onColumnWidthsChange={(columnWidths) =>  this.props.props.setTableSettings({columnWidths: columnWidths})}
                                             columnWidths={columnWidths}
                                         />
