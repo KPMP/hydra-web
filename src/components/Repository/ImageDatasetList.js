@@ -102,19 +102,19 @@ class ImageDatasetList extends Component {
 
     accessAlertModal = () => {
         return <div>
-            <Modal isOpen={this.state.accessAlertModal} toggle={this.toggle} className={this.props.className}>
-            <ModalHeader toggle={this.toggle}>Access Alert</ModalHeader>
-            <ModalBody>
-            <p>You are attempting to download files that are considered controlled access. To protect the privacy of our study participants, a signed Data Use Agreement is required to gain access to this data.</p>
-            <p>Click the button below to request access.</p>    
-            </ModalBody>
-            <ModalFooter>
-                <Button 
-                className="btn btn-primary"
-                    onClick={(e) => {this.toggleAccessAlertModal()}}>Cancel</Button>{' '}
-                <Button color='primary'
-              className="btn btn-primary" onClick={(e)=>{window.open("https://app.smartsheet.com/b/form/9f20e0eb3f334b388f78a539e3396fd5")}}>Request Access</Button>
-            </ModalFooter>
+            <Modal isOpen={this.state.accessAlertModal}>
+                <ModalHeader toggle={this.toggle}>Access Alert</ModalHeader>
+                <ModalBody>
+                <p>You are attempting to download files that are considered controlled access. To protect the privacy of our study participants, a signed Data Use Agreement is required to gain access to this data.</p>
+                <p>Click the button below to request access.</p>    
+                </ModalBody>
+                <ModalFooter>
+                    <Button 
+                    className="btn btn-primary"
+                        onClick={(e) => {this.toggleAccessAlertModal()}}>Cancel</Button>{' '}
+                    <Button color='primary'
+                className="btn btn-primary" onClick={(e)=>{window.open("https://app.smartsheet.com/b/form/9f20e0eb3f334b388f78a539e3396fd5")}}>Request Access</Button>
+                </ModalFooter>
             </Modal>
 
         </div>
