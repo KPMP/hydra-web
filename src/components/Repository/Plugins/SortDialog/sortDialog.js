@@ -30,7 +30,7 @@ function SortDialog({
       <div>
         {(sortDialogOpenValue) &&
           <div>
-            <div className="modal-backdrop"
+            <div className="dialog-modal-backdrop"
               onClick={() => {
                 closeDialogs()}}>
             </div>
