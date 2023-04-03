@@ -3,7 +3,7 @@ import FileList from "./FileList";
 
 import { WithSearch } from "@elastic/react-search-ui";
 
-class ImageDatasetListSubContainer extends Component {
+class FileListHolder extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,4 +38,4 @@ class ImageDatasetListSubContainer extends Component {
     }
 }
 
-export default ImageDatasetListSubContainer;
+export default FileListHolder;

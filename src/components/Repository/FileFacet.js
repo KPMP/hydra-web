@@ -25,26 +25,7 @@ class FileFacet extends Component {
             </Row>
             <Row className="mb-2">
                 <Col>
-                    <Facet field="workflow_type" label="Workflow Type" filterType="any" view={MultiCheckboxFacet}
-                    mapContextToProps={(context) => {
-                        console.log(context)
-                        if (!context.facets.states) return context;
-                        return {
-                            ...context,
-                            facets: {
-                                ...(context.facets || {}),
-                                states: context.facets.states.map((s) => ({
-                                    ...s,
-                                    data: () => {
-                                        return s.value == '' ? 'EMPTY': s.value
-                                    }
-                                         
-                                }))
-
-                                
-                            }
-                        }
-                    }}/>
+                    <Facet field="workflow_type" label="Workflow Type" filterType="any" view={MultiCheckboxFacet}/>
                 </Col>
             </Row>
             <Row className="mb-2">

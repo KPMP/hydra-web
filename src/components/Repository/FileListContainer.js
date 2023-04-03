@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import { withRouter } from 'react-router';
 import {setSelectedImageDataset, setTableSettings} from "../../actions/Images/imageDatasetActions";
-import ImageDatasetListSubContainer from "./ImageDatasetListSubContainer";
+import FileListHolder from "./FileListHolder";
 
 const mapStateToProps = (state, props) =>
     ({
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch, props) =>
          }
     });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ImageDatasetListSubContainer))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FileListHolder))
