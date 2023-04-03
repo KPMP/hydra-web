@@ -3,7 +3,6 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
-import { getImageTypeTooltipCopy } from "./viewConfigHelper";
 import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
@@ -34,12 +33,10 @@ import { ToolbarButton } from './Plugins/toolbar-button.js';
 import { PaginationState } from './Plugins/pagination-state.js';
 import { Pagination } from './Plugins/pagination.js';
 
-import { Facet } from "@elastic/react-search-ui";
-import { MultiCheckboxFacet } from "@elastic/react-search-ui-views";
-
+import FileFacet from './FileFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
-class ImageDatasetList extends Component {
+class FileList extends Component {
 
     constructor(props) {
         super(props);
@@ -59,8 +56,8 @@ class ImageDatasetList extends Component {
     }
 
     getSearchResults = () => {
-        let spatialData = resultConverter(this.props.results);
-        this.setState({ "tableData": spatialData });
+        let data = resultConverter(this.props.results);
+        this.setState({ "tableData": data });
     };
 
     async componentDidMount() {
@@ -216,7 +213,7 @@ class ImageDatasetList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
-                getCellValue: row => { console.log(row['workflow_type']); return (row['workflow_type'] ? row['workflow_type'] : '--') }
+                getCellValue: row => { return (row['workflow_type'] ? row['workflow_type'] : '--') }
 
             },
             {
@@ -252,20 +249,6 @@ class ImageDatasetList extends Component {
           })
     };
 
-    getImageTypeCell = (row) => {
-        return row["imagetype"] !== "" &&
-            <div className={`image-type-cell ${(getImageTypeTooltipCopy(row["imagetype"]) !== "") ? 'clickable': '' }`}>
-                <span className='mr-1'>{row["imagetype"]}</span>
-                {getImageTypeTooltipCopy(row["imagetype"]) !== "" &&
-                <div>
-                    <div className='tooltip-parent-sibling'></div>
-                    <div className='tooltip-parent rounded border shadow mt-2 p-2'>
-                        <span className='tooltip-child'>{getImageTypeTooltipCopy(row["imagetype"])}</span>
-                    </div>
-                </div>
-                }
-            </div>
-    };
 
     getDefaultColumnWidths = () => {
         return [
@@ -359,48 +342,7 @@ class ImageDatasetList extends Component {
                             <React.Fragment>
                            
                             {this.props.activeFilterTab === tabEnum.FILE &&
-                                <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="data_category" label="Data Category" filterType="any"view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="data_type" label="Data Type" filterType="any"view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="experimental_strategy" label="Experimental Strategy" filterType="any"view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="workflow_type" label="Workflow Type" filterType="any" view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="data_type" label="Data Format" filterType="any"view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="platform" label="Platform" filterType="any"view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="access" label="Access" filterType="any"view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-2">
-                                        <Col>
-                                            <Facet field="dois" label="DOIs" filterType="any" view={MultiCheckboxFacet}/>
-                                        </Col>
-                                    </Row>
-                                </Container>
+                                <FileFacet/>
                             }
 
                             {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
@@ -528,4 +470,4 @@ class ImageDatasetList extends Component {
     }
 }
 
-export default ImageDatasetList;
+export default FileList;

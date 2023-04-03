@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ImageDatasetList from "./ImageDatasetList";
+import FileList from "./FileList";
 
 import { WithSearch } from "@elastic/react-search-ui";
 
@@ -22,7 +22,7 @@ class ImageDatasetListSubContainer extends Component {
                 {(context) => {
                 const { filters, results, searchContext, setResultsPerPage, removeFilter } = context;
                 return (
-                    <ImageDatasetList
+                    <FileList
                         props={this.props}
                         filters={filters}
                         results={results}
