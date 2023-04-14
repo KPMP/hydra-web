@@ -5,7 +5,6 @@ export const resultConverter = (results) => {
             if (newRow['redcap_id'].length > 1)
             newRow['redcap_id'] = 'Multiple Participants';
         }
-        console.log( newRow)
         return newRow;
     })
 };
