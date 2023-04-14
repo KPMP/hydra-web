@@ -8,27 +8,48 @@ class ParticipantFacet extends Component {
     render() {
         return (
             <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
-                        
-                {/* <Row className="mb-2">
+                <Row className='mb-2'>
                     <Col>
-                        <Facet field="cases.age" label="Age" filterType="any"view={MultiCheckboxFacet}/>
+                        <Facet field='sex' label='Sex' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
                 </Row>
-                <Row className="mb-2">
+                <Row className='mb-2'>
                     <Col>
-                        <Facet field="tissuetype" label="Tissue Type" filterType="any" view={MultiCheckboxFacet}/>
+                        <Facet field='age_binned' label='Age' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
                 </Row>
-                <Row className="mb-2">
+                <Row className='mb-2'>
+                    <Col>
+                        <Facet field='tissue_type' label='Tissue Type' filterType='any' view={MultiCheckboxFacet}/>
+                    </Col>
+                </Row>
+                <Row className='mb-2'>
+                    <Col>
+                        <Facet field='sample_type' label='Sample Type' filterType='any' view={MultiCheckboxFacet}/>
+                    </Col>
+                </Row>                
+                <Row className='mb-2'>
                     <Col>
                         <Facet inputProps={{ placeholder: "placeholder" }}
-                            isFilterable={true} field="redcapid"
+                            isFilterable={true} field="redcap_id"
                             label="Participant ID"
                             filterType="any"
                             view={(props) => <MultiCheckboxFacet {...props}
                             searchPlaceholder={"Search..."}/>}/>
                     </Col>
-                </Row> */}
+                </Row>
+                <Row className='mb-2'>
+                    <Col>
+                        <Facet field='tissue_source' label='Tissue Source' filterType='any' view={MultiCheckboxFacet}/>
+                    </Col>
+                </Row>      
+                <Row className='mb-2'>
+                    <Col>
+                        <Facet field='protocol' label='Protocol' filterType='any' view={MultiCheckboxFacet}/>
+                    </Col>
+                </Row>                          
+                        
+                
             </Container>
         )
     }

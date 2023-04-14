@@ -63,7 +63,7 @@ const searchConfig = {
         "id",
         "data_format",
         "access",
-        "cases",
+        "redcap_id",
         "file_name",
         "data_category",
         "workflow_type",
@@ -74,12 +74,18 @@ const searchConfig = {
         "data_type",
         "dois",
         "experimental_strategy",
+        "sex",
+        "age_binned",
+        "tissue_type",
+        "sample_type",
+        "tissue_source",
+        "protocol"
       ],
       facets: {
         id: { type: "value", size: 100},
         data_format: { type: "value", size: 100},
         access: { type: "value", size: 100},
-        cases: { type: "value", size: 100},
+        redcap_id: { type: "value", size: 100},
         file_name: { type: "value", size: 100},
         data_category: { type: "value", size: 100},
         workflow_type: { type: "value", size: 100},
@@ -90,6 +96,12 @@ const searchConfig = {
         data_type: { type: "value", size: 100},
         dois: { type: "value", size: 100},
         experimental_strategy: { type: "value", size: 100},
+        sex: { type: "value", size: 100},
+        age_binned: { type: "value", size: 100},
+        tissue_type: { type: "value", size:100},
+        sample_type: { type: "value", size: 100},
+        tissue_source: { type: "value", size: 100},
+        protocol: { type: "value", size: 100}
       }
   },
   initialState: {

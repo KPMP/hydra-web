@@ -1,10 +1,11 @@
 export const resultConverter = (results) => {
     return results.map(row => {
         let newRow =  Object.keys(row).reduce((attrs, key)=> ({...attrs, [key]: row[key].raw}), {});
-        if (newRow["filename"]) {
-            newRow["longfilename"] = newRow["filename"];
-            newRow["filename"] = removeUUID(newRow["filename"]);
+        if (newRow["redcap_id"]) {
+            if (newRow['redcap_id'].length > 1)
+            newRow['redcap_id'] = 'Multiple Participants';
         }
+        console.log( newRow)
         return newRow;
     })
 };
@@ -45,9 +46,7 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
     if (!data || data === {}) {
         return result;
     }
-    if (data['redcapId']) {
-        result['Participant ID'] = data['redcapId'] ? data['redcapId'] : "";
-    }
+
     if (data['tissueType']) {
         result['Disease Type'] = data['tissueType'] ? data['tissueType'] : "";
     }
