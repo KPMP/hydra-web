@@ -193,7 +193,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
-                //getCellValue: row => { return prettyBytes(parseInt(row['file_size'])) }
+                getCellValue: row => { return row['file_size'] }
             },
             {
                 name: 'data_type',
