@@ -392,7 +392,7 @@ class FileList extends Component {
                                             ]}
                                         />
                                         <DataTypeProvider
-                                            for = {"file_size"}
+                                            for = {["file_size"]}
                                             formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
                                         />
                                         <PagingState
