@@ -5,7 +5,7 @@ import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, Mo
 import { resultConverter } from "../../helpers/dataHelper";
 import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {compareFileSize, compareTableStrings} from "./spatialHelper";
+import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
 import fetch from 'node-fetch';
 import {
@@ -388,7 +388,7 @@ class FileList extends Component {
                                         <IntegratedSorting 
                                             columnExtensions={[
                                                 { columnName: 'data_type', compare: compareTableStrings },
-                                                { columnName: 'file_size', compare: compareFileSize }
+                                                { columnName: 'file_size', compare: (a, b) => a - b }
                                             ]}
                                         />
                                         <DataTypeProvider

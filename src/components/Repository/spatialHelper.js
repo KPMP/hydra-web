@@ -117,13 +117,3 @@ export const compareTableStrings = (a, b) => {
 
     return compareValue
 }
-
-export const compareFileSize = (a, b) => {
-    let bytes = {GB: 1000000000, MB: 1000000, KB: 1000}
-    let aArr = a.split(" ")
-    let bArr = b.split(" ")
-    let aBytes = parseInt(aArr[0]) * bytes[aArr[1]]
-    let bBytes = parseInt(bArr[0]) * bytes[bArr[1]]
-    return aBytes - bBytes
-}
-
