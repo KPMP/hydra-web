@@ -304,13 +304,6 @@ class FileList extends Component {
             })
     };
 
-    FileSizeTypeProvider = props => {
-        return <DataTypeProvider
-            formatterComponent = {(value) => <span>{prettyBytes(parseInt(value))}</span>}
-            {...props}
-        />
-    }
-
     render() {
         const tabEnum = {
             PARTICIPANT: 'PARTICIPANT',
@@ -398,8 +391,9 @@ class FileList extends Component {
                                                 { columnName: 'data_type', compare: compareTableStrings }
                                             ]}
                                         />
-                                        <FileSizeTypeProvider
-                                            for={"file_size"}
+                                        <DataTypeProvider
+                                            for = {"file_size"}
+                                            formatterComponent = {(value) => <span>{prettyBytes(parseInt(value))}</span>}
                                         />
                                         <PagingState
                                             currentPage={currentPage}
