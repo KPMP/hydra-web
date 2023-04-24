@@ -13,6 +13,7 @@ import {
     IntegratedSorting,
     IntegratedPaging,
     PagingState,
+    DataTypeProvider
 } from '@devexpress/dx-react-grid';
 import {
     Grid,
@@ -192,7 +193,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
-                getCellValue: row => { return prettyBytes(parseInt(row['file_size'])) }
+                //getCellValue: row => { return prettyBytes(parseInt(row['file_size'])) }
             },
             {
                 name: 'data_type',
@@ -303,6 +304,13 @@ class FileList extends Component {
             })
     };
 
+    FileSizeTypeProvider = props => {
+        return <DataTypeProvider
+            formatterComponent = {(value) => <span>{prettyBytes(parseInt(value))}</span>}
+            {...props}
+        />
+    }
+
     render() {
         const tabEnum = {
             PARTICIPANT: 'PARTICIPANT',
@@ -387,8 +395,11 @@ class FileList extends Component {
                                             sorting={sorting}/>
                                         <IntegratedSorting 
                                             columnExtensions={[
-                                                { columnName: 'data_type', compare: compareTableStrings },
+                                                { columnName: 'data_type', compare: compareTableStrings }
                                             ]}
+                                        />
+                                        <FileSizeTypeProvider
+                                            for={"file_size"}
                                         />
                                         <PagingState
                                             currentPage={currentPage}
