@@ -163,14 +163,14 @@ class FileList extends Component {
                 name: 'file_id',
                 title: 'File UUID',
                 sortable: true,
-                hideable: false,
-                defaultHidden: false,
+                hideable: true,
+                defaultHidden: true,
             },
             {
                 name: 'file_name',
                 title: 'File Name',
                 sortable: true,
-                hideable: true,
+                hideable: false,
                 defaultHidden: false,
             },
             {
@@ -199,21 +199,21 @@ class FileList extends Component {
                 title: 'Data Type',
                 sortable: true,
                 hideable: true,
-                defaultHidden: false,
+                defaultHidden: true,
             },
             {
                 name: 'experimental_strategy',
                 title: 'Experimental Strategy',
                 sortable: true,
                 hideable: true,
-                defaultHidden: false,
+                defaultHidden: true,
             },            
             {
                 name: 'workflow_type',
                 title: 'Workflow Type',
                 sortable: true,
                 hideable: true,
-                defaultHidden: false,
+                defaultHidden: true,
                 getCellValue: row => { return (row['workflow_type'] ? row['workflow_type'] : '--') }
 
             },
@@ -222,22 +222,22 @@ class FileList extends Component {
                 title: 'Platform',
                 sortable: true,
                 hideable: true,
-                defaultHidden: true,
+                defaultHidden: false,
             },
             {
                 name: 'redcap_id',
                 title: 'Participant ID',
                 sortable: true,
                 hideable: true,
-                defaultHidden: true, 
+                defaultHidden: false, 
             },
-            // {
-            //     name: 'dois',
-            //     title: 'DOIs',
-            //     sortable: true,
-            //     hideable: true,
-            //     defaultHidden: true,
-            // },
+            {
+                name: 'dois',
+                title: 'DOIs',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+            },
         ];
         return columns;
     };
@@ -253,19 +253,19 @@ class FileList extends Component {
 
     getDefaultColumnWidths = () => {
         return [
-            { columnName: 'download', width: 30 },
-            { columnName: 'data_format', width: 100 },
-            { columnName: 'redcap_id', width: 100 },
+            { columnName: 'download', width: 32 },
+            { columnName: 'data_format', width: 132 },
+            { columnName: 'redcap_id', width: 153 },
             { columnName: 'access', width: 100 },
-            { columnName: 'file_name', width: 100 },
-            { columnName: 'data_category', width: 200 },
+            { columnName: 'file_name', width: 983 },
+            { columnName: 'data_category', width: 151 },
             { columnName: 'workflow_type', width: 200 },
             { columnName: 'platform', width: 200 },
-            { columnName: 'file_size', width: 200 },
+            { columnName: 'file_size', width: 74 },
             { columnName: 'file_id', width: 200 },
             { columnName: 'data_type', width: 200 },
             { columnName: 'dois', width: 200 },
-            { columnName: 'experimental_strategy', width: 200 },
+            { columnName: 'experimental_strategy', width: 210 },
         ]
     };
 
