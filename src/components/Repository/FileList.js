@@ -80,7 +80,7 @@ class FileList extends Component {
 
     setCards = (cards) => {
         this.setState({cards});
-        this.props.props.setTableSettings({cards: cards});
+        // this.props.props.setTableSettings({cards: cards});
     };
     
     setDefaultCards = () => {

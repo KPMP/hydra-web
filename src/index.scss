@@ -66,63 +66,69 @@
     border-bottom-right-radius: 0px !important;
 }
 
-.spatial-data-table-wrapper {
+.data-table-wrapper {
     margin-bottom: 30px;
 }
-.spatial-data-table {
+.data-table {
     position: relative;
     padding-top: 0px;
-}
-.spatial-data-table thead tr {
-    text-transform: uppercase;
-}
-.spatial-data-table .card-header {
-    background-color: rgba(0, 0, 0, 0);
-    border-bottom: 0px solid rgba(0,0,0,0);
-    padding: .5rem 0 !important;
-}
 
-.spatial-data-table .card-header .btn.btn-light {
-    background-color: #fff;
-}
+    thead tr {
+        text-transform: uppercase;
+    }
 
-.spatial-data-table .card-header .btn.btn-light:hover {
-    background-color: rgb(245, 245, 245);
-    cursor: pointer;
-}
-.spatial-data-table .table-responsive {
-    padding: 1rem !important;
-    background-color: #fff;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
-    border-radius: .25rem !important;
-    border: 1px solid #dee2e6 !important;
-}
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background-color: #fff;
+    }
 
-.spatial-data-table .card-footer {
-    padding: 10px 0px 0px 0px;
-    background-color: transparent;
-    margin-top: 20px;
-    border-top: 0px solid rgba(0,0,0,0);
-    z-index: 5;
-}
+    td {
+        padding: 5px;
+    }
 
-.spatial-data-table .card-footer .d-inline-block {
-    display: none !important;
-}
-.spatial-data-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    background-color: #fff;
-}
+    .card-header {
+        background-color: rgba(0, 0, 0, 0);
+        border-bottom: 0px solid rgba(0,0,0,0);
+        padding: .5rem 0 !important;
 
-.spatial-data-table td {
-    padding: 5px;
-}
 
-.spatial-data-table .filter-list {
-    top: 223%;
-    background-color: #fff;
+    }
+
+    .card-header .btn.btn-light {
+        background-color: #fff;
+    }
+
+    .card-header .btn.btn-light:hover {
+        background-color: rgb(245, 245, 245);
+        cursor: pointer;
+    }
+
+    .table-responsive {
+        padding: 1rem !important;
+        background-color: #fff;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+        border-radius: .25rem !important;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .card-footer {
+        padding: 10px 0px 0px 0px;
+        background-color: transparent;
+        margin-top: 20px;
+        border-top: 0px solid rgba(0,0,0,0);
+        z-index: 5;
+    }
+
+    .card-footer .d-inline-block {
+        display: none !important;
+    }
+
+    .filter-list {
+        top: 223%;
+        background-color: #fff;
+    }
 }
 
 #vitessce-container {
