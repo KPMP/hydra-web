@@ -26,6 +26,7 @@ export class ToolbarButtonState extends React.PureComponent {
   }
 
   closeDialogs = () => {
+    console.log("closing from button state")
     this.setState({
       sortDialogOpen: false,
       arrangeColumnsDialogOpen: false
@@ -34,36 +35,36 @@ export class ToolbarButtonState extends React.PureComponent {
 
   addSortedColumn = (sortObj) => {
     const sortedColumns = this.state.sortedColumns;
-    if(sortedColumns.findIndex((el)=>{if(el.columnName===sortObj.columnName){return true}else{return false}}) === -1 ){
+    if (sortedColumns.findIndex((el) => { if (el.columnName === sortObj.columnName) { return true } else { return false } }) === -1) {
       sortedColumns.push(sortObj);
-      this.setState({sortedColumns});
-    }else{
-      sortedColumns[sortedColumns.findIndex((el)=>{if(el.columnName===sortObj.columnName){return true}else{return false}})].direction = sortObj.direction
-      this.setState({sortedColumns})
+      this.setState({ sortedColumns });
+    } else {
+      sortedColumns[sortedColumns.findIndex((el) => { if (el.columnName === sortObj.columnName) { return true } else { return false } })].direction = sortObj.direction
+      this.setState({ sortedColumns })
     }
   }
 
   removeSortedColumn = (columnName) => {
     const sortedColumns = this.state.sortedColumns
     sortedColumns.splice(
-      sortedColumns.findIndex((el)=>{if(el.columnName===columnName){return true}else{return false}}), 1
+      sortedColumns.findIndex((el) => { if (el.columnName === columnName) { return true } else { return false } }), 1
     )
-    this.setState({sortedColumns})
+    this.setState({ sortedColumns })
   }
 
-  getComputedSortedColumns = ({sorting, columns}) => {
-    const result1 = sorting.filter((o1)=>{
-      return (this.state.sortedColumns).some((o2)=>{
-         return ( o1.columnName === o2.columnName && o1.direction === o2.direction );
-       });
-     });
-    
-    if (result1.length !== sorting.length ) {
+  getComputedSortedColumns = ({ sorting, columns }) => {
+    const result1 = sorting.filter((o1) => {
+      return (this.state.sortedColumns).some((o2) => {
+        return (o1.columnName === o2.columnName && o1.direction === o2.direction);
+      });
+    });
+
+    if (result1.length !== sorting.length) {
       columns.forEach(column => {
         this.removeSortedColumn(column.columnName)
       })
       sorting.forEach(sortedElement => {
-        this.addSortedColumn(sortedElement)  
+        this.addSortedColumn(sortedElement)
       });
     }
     return this.state.sortedColumns
@@ -73,10 +74,10 @@ export class ToolbarButtonState extends React.PureComponent {
     return columns.filter(col => col.sortable === true);
   }
 
-  getColumns = ({columns}) => {
+  getColumns = ({ columns }) => {
     return columns
   }
-  
+
   render() {
     const { sortDialogOpen, arrangeColumnsDialogOpen } = this.state;
 

@@ -56,6 +56,7 @@ export class ToolbarFilterState extends React.PureComponent {
   }
 
   closeDialogs() {
+    console.log("closing")
     this.setState({
       sortDialogOpen: false,
       arrangeColumnsDialogOpen: false
