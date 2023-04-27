@@ -26,7 +26,6 @@ export class ToolbarButtonState extends React.PureComponent {
   }
 
   closeDialogs = () => {
-    console.log("closing from button state")
     this.setState({
       sortDialogOpen: false,
       arrangeColumnsDialogOpen: false

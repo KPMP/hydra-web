@@ -54,7 +54,7 @@ function ColumnArrangementDialog(
     <div className='column-arrage-dialog'>
       {(arrangeColumnsDialogOpen) &&
         <div>
-          <div className="dialog-modal-backdrop" onClick={() => { closeDialogs() }}>
+          <div className="modal-backdrop" onClick={() => { closeDialogs() }}>
           </div>
           <div className="sort-dialog border rounded">
             <div className="column-filter-wrapper">

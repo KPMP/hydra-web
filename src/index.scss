@@ -442,11 +442,6 @@ td:hover {
     font-size: 13px;
 }
 
-.dialog-modal-backdrop {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.0);
-    z-index: 100;
-}
 
 .fake-link {
     color: rgb(0, 91, 124);
@@ -514,5 +509,7 @@ td:hover {
     color: white;
 }
 .modal-backdrop {
-    background-color: #333;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.0);
+    z-index: 100;
 }
