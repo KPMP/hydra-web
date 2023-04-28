@@ -80,7 +80,6 @@ class FileList extends Component {
 
     setCards = (cards) => {
         this.setState({cards});
-        this.props.props.setTableSettings({cards: cards});
     };
     
     setDefaultCards = () => {
@@ -374,8 +373,8 @@ class FileList extends Component {
                             </Col>
                         </Row>
                         <DndProvider backend={HTML5Backend}>
-                            <div className='container-max spatial-data-table-wrapper'>
-                                <div className="spatial-data-table">
+                            <div className='container-max data-table-wrapper'>
+                                <div className="data-table">
                                     <React.Fragment>
                                     { this.state.isLoaded ?
                                     <Grid
