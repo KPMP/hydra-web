@@ -7,7 +7,7 @@ import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKey
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
-import fetch from 'node-fetch';
+
 import {
     SortingState,
     IntegratedSorting,
@@ -45,6 +45,7 @@ class FileList extends Component {
         const columnCards = this.getColumns().map((item, index) => {
             return {id: index, text: item.title, name: item.name, hideable: item.hideable}
         });
+        const defaultHiddenColumns = this.getDefaultHiddenColumnNames(this.getColumns())
         this.state = {
             accessAlertModal: false,
             filterTabActive: true,
@@ -52,7 +53,8 @@ class FileList extends Component {
             tableData: [],
             cards: this.props.props.tableSettings.cards || columnCards,
             currentPage: this.props.props.tableSettings.currentPage,
-            isLoaded: false
+            isLoaded: false,
+            hiddenColumnNames: defaultHiddenColumns
         };
 
     }
@@ -81,6 +83,10 @@ class FileList extends Component {
     setCards = (cards) => {
         this.setState({cards});
     };
+
+    setShowHide = (hiddenColumnNames) => {
+        this.setState({hiddenColumnNames: hiddenColumnNames});
+    }
     
     setDefaultCards = () => {
         const cards = this.getColumns().map((item, index) => {
@@ -304,7 +310,7 @@ class FileList extends Component {
             FILE: 'FILE'
         };
 
-        const { pagingSize, columnWidths, hiddenColumnNames, sorting, currentPage} = this.props.props.tableSettings;
+        const { pagingSize, columnWidths, sorting, currentPage} = this.props.props.tableSettings;
 
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
@@ -416,8 +422,8 @@ class FileList extends Component {
                                         <TableHeaderRow showSortingControls />
                                         <TableColumnVisibility
                                             defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
-                                            hiddenColumnNames={hiddenColumnNames}
-                                            onHiddenColumnNamesChange={(hiddenColumnNames) => {this.props.props.setTableSettings({hiddenColumnNames: hiddenColumnNames})}}
+                                            hiddenColumnNames={this.state.hiddenColumnNames}
+                                            onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
                                         />
                                         <ColumnChooser />
                                         

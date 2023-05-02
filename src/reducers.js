@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { resetStateReducer } from './resetStateReducer';
-import { selectedImageDataset, tableSettings } from "./components/Repository/imageDatasetReducer";
+import { selectedImageDataset, tableSettings } from "./components/Repository/fileListReducer";
 import { summaryDatasets, clinicalDatasets } from "./components/Repository/clinicalDatasetReducer";
 import { experimentalDataCounts } from "./components/Repository/experimentalDataCountReducer";
 
