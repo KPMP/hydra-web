@@ -117,18 +117,14 @@ class FileList extends Component {
 
         </div>
     }
-    downloadFile = (url, filename) => {
-        fetch(url)
-        .then(response => {
-            response.blob().then(blob => {
-                let url = window.URL.createObjectURL(blob);
-                let a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                a.click();
-            });
-    });
-      }
+    downloadFile = (url) => {
+        let a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
