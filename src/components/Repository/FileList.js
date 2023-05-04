@@ -177,7 +177,7 @@ class FileList extends Component {
                 hideable: false,
                 defaultHidden: false,
                 getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={navigator.clipboard.writeText(row['file_name'])}>
-                    <FontAwesomeIcon icon={faCopy}/>{row['file_name']}<Tooltip id='copy' openOnClick='true'/></span>}
+                    <FontAwesomeIcon icon={faCopy}/>{row['file_name']}<Tooltip id='copy' openOnClick='true' place='left'/></span>}
             },
             {
                 name: 'data_category',
