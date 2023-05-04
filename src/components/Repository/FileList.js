@@ -7,6 +7,7 @@ import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKey
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
+import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import {
     SortingState,
@@ -365,7 +366,7 @@ class FileList extends Component {
                                 {this.props.filters.length === 0 ?
 
                                 <Row className="filter-pill-row inactive-filters">
-                                    <i class="fa fa-long-arrow-left"></i><span> Select a spatial dataset from the list below to visualize it in the <a target="_blank" rel="noreferrer" href="http://vitessce.io/">Vitessce</a> visual integration tool.</span>
+                                    <FontAwesomeIcon icon={faLongArrowLeft}/><span> Start searching by selecting a facet</span>
                                 </Row>
                                 :
                                 <Row className="filter-pill-row">
