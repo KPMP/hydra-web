@@ -366,7 +366,7 @@ class FileList extends Component {
                                 {this.props.filters.length === 0 ?
 
                                 <Row className="filter-pill-row inactive-filters">
-                                    <FontAwesomeIcon icon={faLongArrowLeft}/><span> Start searching by selecting a facet</span>
+                                    <span><FontAwesomeIcon icon={faLongArrowLeft}/> Start searching by selecting a facet</span>
                                 </Row>
                                 :
                                 <Row className="filter-pill-row">
