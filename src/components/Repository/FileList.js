@@ -182,7 +182,7 @@ class FileList extends Component {
                 hideable: false,
                 defaultHidden: false,
                 getCellValue: row => { return (row["file_name"],
-                    <span onClick={this.copyFileName(row['file_name'])}><FontAwesomeIcon icon={faCopy}/></span>
+                    <span ref={ref => this.tooltipElement = ref} data-tip='Copied' onClick={this.copyFileName(row['file_name'])}><FontAwesomeIcon icon={faCopy}/></span>
                 )}
             },
             {
