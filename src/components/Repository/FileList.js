@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from 'react-tooltip';
 import {
     SortingState,
     IntegratedSorting,
