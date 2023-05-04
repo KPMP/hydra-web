@@ -135,8 +135,8 @@ class FileList extends Component {
         document.body.removeChild(a);
     }
 
-    copyFileName = () => {
-        copy(this.props.text)
+    copyFileName() {
+        copy(this.props.text);
     }
 
     // This is used for column ordering too.
