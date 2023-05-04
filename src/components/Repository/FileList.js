@@ -181,8 +181,8 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => { return <span id="tooltip" data-tooltip-id='copy' data-tooltip-content='Copied' onClick={() => this.copyFileName(row['file_name'])}>
-                    <FontAwesomeIcon icon={faCopy}/> {row['file_name']}<Tooltip id='copy' openOnClick='true' place='left'/></span>}
+                getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={() => this.copyFileName(row['file_name'])}>
+                    <FontAwesomeIcon icon={faCopy}/> {row['file_name']}<span id='tooltip'><Tooltip id='copy' openOnClick='true' place='left'/></span></span>}
             },
             {
                 name: 'data_category',
