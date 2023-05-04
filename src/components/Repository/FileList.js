@@ -311,11 +311,7 @@ class FileList extends Component {
     };
 
     render() {
-        <Tooltip
-            id='copy'
-            content='Copied'
-            events={['click']}
-        />
+      
         const tabEnum = {
             PARTICIPANT: 'PARTICIPANT',
             FILE: 'FILE'
@@ -325,6 +321,11 @@ class FileList extends Component {
 
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
+                  <Tooltip
+                    id='copy'
+                    content='Copied'
+                    openOnClick='true'
+                  />
                 <Row>
                     <Col xl={3}>
                         <div className={`filter-panel-wrapper ${this.state.filterTabActive ? '': 'hidden'}`}>
