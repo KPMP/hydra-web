@@ -174,7 +174,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => { return <span onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{ row['file_name']}</span>
+                getCellValue: row => { return <span title='Copy' data-tip='Copied' onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{ row['file_name']}</span>
                 }
             },
             {
