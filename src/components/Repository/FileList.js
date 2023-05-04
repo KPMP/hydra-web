@@ -68,6 +68,7 @@ class FileList extends Component {
     async componentDidMount() {
         await this.getSearchResults();
         this.setState({isLoaded: true})
+        
     };
 
     componentDidUpdate(prevProps) {
@@ -175,8 +176,9 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => { return <span title='Copy' data-tip='Copied' onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{ row['file_name']}</span>
-                }
+                //getCellValue: row => { return <span title='Copy' data-tip='Copied' onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{ row['file_name']}</span>
+                //}
+                getCellValue: row => { return <span data-tooltip-id='copy' onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{row['file_name']}</span>}
             },
             {
                 name: 'data_category',
@@ -309,6 +311,11 @@ class FileList extends Component {
     };
 
     render() {
+        <Tooltip
+            id='copy'
+            content='Copied'
+            events={['click']}
+        />
         const tabEnum = {
             PARTICIPANT: 'PARTICIPANT',
             FILE: 'FILE'
