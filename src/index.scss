@@ -529,3 +529,8 @@ td:hover {
     position: relative;
     outline: none;
 }
+
+#tooltip{
+    z-index: -1;
+    position: relative;
+}
