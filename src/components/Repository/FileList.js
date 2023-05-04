@@ -135,6 +135,10 @@ class FileList extends Component {
         document.body.removeChild(a);
     }
 
+    copyFileName = () => {
+        copy(this.props.text)
+    }
+
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
@@ -177,7 +181,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={() => this.copy(this.props.text)}>
+                getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={() => this.copyFileName()}>
                     <FontAwesomeIcon icon={faCopy}/>{row['file_name']}<Tooltip id='copy' openOnClick='true' place='left'/></span>}
             },
             {
