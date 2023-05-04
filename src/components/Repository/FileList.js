@@ -134,10 +134,10 @@ class FileList extends Component {
         document.body.removeChild(a);
     }
 
-    copyFileName = () => {
+    copyFileName = (fileName) => {
         ReactToolTip.show(this.tooltipElement);
         setTimeout(() => ReactToolTip.hide(), 1000);
-        copy(this.props.text);
+        copy(fileName);
     }
     // This is used for column ordering too.
     getColumns = () => {
@@ -181,8 +181,9 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => { return <span ref={ref => this.tooltipElement = ref} data-tip="Copied" onClick={() => this.copyFileName()}><FontAwesomeIcon icon={faCopy}/></span>
-                }
+                Cell: row => (
+                    <span onClick={this.copyFileName(row['file_name'])}><FontAwesomeIcon icon={faCopy}/></span>
+                )
             },
             {
                 name: 'data_category',
