@@ -181,9 +181,9 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                Cell: row => (
+                getCellValue: row => { return (row["file_name"],
                     <span onClick={this.copyFileName(row['file_name'])}><FontAwesomeIcon icon={faCopy}/></span>
-                )
+                )}
             },
             {
                 name: 'data_category',
