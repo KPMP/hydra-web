@@ -7,8 +7,6 @@ import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKey
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
-import copy from 'copy-to-clipboard';
-import {Tooltip as ReactToolTip} from 'react-tooltip'
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import {
     SortingState,
@@ -176,7 +174,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => { return <span><FontAwesomeIcon icon={faCopy}/>{row['file_name']}</span>
+                getCellValue: row => { return <span onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{ row['file_name']}</span>
                 }
             },
             {
