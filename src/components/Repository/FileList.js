@@ -376,8 +376,8 @@ class FileList extends Component {
                         </Row>
                         <DndProvider backend={HTML5Backend}>
                             <div className='container-max data-table-wrapper'>
-                                <p><strong>IMPORTANT: Please follow this <a href="https://www.kpmp.org/help-docs/study-overview?tabname=citingkpmpdata" target="_blank" rel="noreferrer">citation guideline</a> when presenting or publishing KPMP data.</strong></p>
                                 <div className="data-table">
+                                <p><strong>IMPORTANT: Please follow this <a href="https://www.kpmp.org/help-docs/study-overview?tabname=citingkpmpdata" target="_blank" rel="noreferrer">citation guideline</a> when presenting or publishing KPMP data.</strong></p>
                                     <React.Fragment>
                                     { this.state.isLoaded ?
                                     <Grid
