@@ -513,3 +513,19 @@ td:hover {
     background-color: rgba(0, 0, 0, 0.0);
     z-index: 100;
 }
+
+#empty-space-wrapper{
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 0px 0px 2rem;
+}
+
+#empty-space{
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    position: relative;
+    outline: none;
+}
