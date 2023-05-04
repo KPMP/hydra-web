@@ -365,7 +365,7 @@ class FileList extends Component {
                                 {this.props.filters.length === 0 ?
 
                                 <Row className="filter-pill-row inactive-filters">
-                                    <span>Select a spatial dataset from the list below to visualize it in the <a target="_blank" rel="noreferrer" href="http://vitessce.io/">Vitessce</a> visual integration tool.</span>
+                                    <i class="fa fa-long-arrow-left"></i><span> Select a spatial dataset from the list below to visualize it in the <a target="_blank" rel="noreferrer" href="http://vitessce.io/">Vitessce</a> visual integration tool.</span>
                                 </Row>
                                 :
                                 <Row className="filter-pill-row">
