@@ -9,6 +9,7 @@ import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
+import copy from 'copy-to-clipboard';
 import {
     SortingState,
     IntegratedSorting,
@@ -176,7 +177,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={navigator.clipboard.writeText(row['file_name'])}>
+                getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={() => this.copy(this.props.text)}>
                     <FontAwesomeIcon icon={faCopy}/>{row['file_name']}<Tooltip id='copy' openOnClick='true' place='left'/></span>}
             },
             {
