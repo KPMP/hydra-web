@@ -176,9 +176,8 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
-                //getCellValue: row => { return <span title='Copy' data-tip='Copied' onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{ row['file_name']}</span>
-                //}
-                getCellValue: row => { return <span data-tooltip-id='copy' onClick={() => navigator.clipboard.writeText(row['file_name'])}><FontAwesomeIcon icon={faCopy}/>{row['file_name']}</span>}
+                getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={this.copyFileNameButton(row['file_name'])}>
+                    <FontAwesomeIcon icon={faCopy}/>{row['file_name']}<Tooltip id='copy' openOnClick='true'/></span>}
             },
             {
                 name: 'data_category',
@@ -321,11 +320,6 @@ class FileList extends Component {
 
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
-                  <Tooltip
-                    id='copy'
-                    content='Copied'
-                    openOnClick='true'
-                  />
                 <Row>
                     <Col xl={3}>
                         <div className={`filter-panel-wrapper ${this.state.filterTabActive ? '': 'hidden'}`}>
