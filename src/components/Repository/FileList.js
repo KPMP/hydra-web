@@ -7,7 +7,9 @@ import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKey
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
-
+import copy from 'copy-to-clipboard';
+import ReactToolTip from 'react-tooltip';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import {
     SortingState,
     IntegratedSorting,
@@ -131,6 +133,12 @@ class FileList extends Component {
         a.click();
         document.body.removeChild(a);
     }
+
+    copyFileName = () => {
+        ReactToolTip.show(this.tooltipElement);
+        setTimeout(() => ReactToolTip.hide(), 1000);
+        copy(this.props.text);
+    }
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
@@ -173,6 +181,8 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
+                getCellValue: row => { return <span ref={ref => this.tooltipElement = ref} data-tip="Copied" onClick={() => this.copyFileName()}><FontAwesomeIcon icon={faCopy}/></span>
+                }
             },
             {
                 name: 'data_category',
