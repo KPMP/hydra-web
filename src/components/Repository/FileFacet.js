@@ -25,7 +25,12 @@ class FileFacet extends Component {
             </Row>
             <Row className="mb-2">
                 <Col>
-                    <Facet field="workflow_type" label="Workflow Type" filterType="any" view={MultiCheckboxFacet}/>
+                    <Facet inputProps={{ placeholder: "placeholder" }}
+                        isFilterable={true} field="workflow_type"
+                        label="Workflow Type"
+                        filterType="any"
+                        view={(props) => <MultiCheckboxFacet {...props}
+                        searchPlaceholder={"Search..."}/>}/>
                 </Col>
             </Row>
             <Row className="mb-2">
