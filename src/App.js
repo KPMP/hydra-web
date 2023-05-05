@@ -16,7 +16,7 @@ import packagejson from '../package.json';
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
 
-const cacheStore = window.sessionStorage.getItem('hubble-redux-store');
+const cacheStore = window.sessionStorage.getItem('hyrda-redux-store');
 const initialState = cacheStore ? JSON.parse(cacheStore) : loadedState;
 export const store = applyMiddleware(thunk)(createStore)(
   appReducer,
@@ -25,7 +25,7 @@ export const store = applyMiddleware(thunk)(createStore)(
 );
 const saveState = () => {
   window.sessionStorage.setItem(
-    'hubble-redux-store',
+    'hydra-redux-store',
     JSON.stringify(store.getState())
   );
 };
