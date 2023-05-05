@@ -30,7 +30,7 @@ class FileFacet extends Component {
             </Row>
             <Row className="mb-2">
                 <Col>
-                    <Facet field="data_type" label="Data Format" filterType="any" view={MultiCheckboxFacet}/>
+                    <Facet field="data_format" label="Data Format" filterType="any" view={MultiCheckboxFacet}/>
                 </Col>
             </Row>
             <Row className="mb-2">
