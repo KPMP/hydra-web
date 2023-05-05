@@ -7,6 +7,9 @@ import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKey
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from 'react-tooltip';
+import copy from 'copy-to-clipboard';
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -68,6 +71,7 @@ class FileList extends Component {
     async componentDidMount() {
         await this.getSearchResults();
         this.setState({isLoaded: true})
+        
     };
 
     componentDidUpdate(prevProps) {
@@ -132,6 +136,11 @@ class FileList extends Component {
         a.click();
         document.body.removeChild(a);
     }
+
+    copyFileName(fileName) {
+        copy(fileName);
+    }
+
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
@@ -174,6 +183,8 @@ class FileList extends Component {
                 sortable: true,
                 hideable: false,
                 defaultHidden: false,
+                getCellValue: row => { return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={() => this.copyFileName(row['file_name'])}>
+                    <FontAwesomeIcon icon={faCopy}/> {row['file_name']}<span id='tooltip'><Tooltip id='copy' openOnClick='true' place='left'/></span></span>}
             },
             {
                 name: 'data_category',
@@ -306,6 +317,7 @@ class FileList extends Component {
     };
 
     render() {
+      
         const tabEnum = {
             PARTICIPANT: 'PARTICIPANT',
             FILE: 'FILE'
