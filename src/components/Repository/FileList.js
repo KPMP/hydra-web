@@ -395,7 +395,8 @@ class FileList extends Component {
                                         <IntegratedSorting 
                                             columnExtensions={[
                                                 { columnName: 'data_type', compare: compareTableStrings },
-                                                { columnName: 'file_size', compare: (a, b) => a - b }
+                                                { columnName: 'file_size', compare: (a, b) => a - b },
+                                                { columnName: 'data_format', compare: compareTableStrings}
                                             ]}
                                         />
                                         <DataTypeProvider
