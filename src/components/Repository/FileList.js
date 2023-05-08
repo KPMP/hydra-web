@@ -403,7 +403,7 @@ class FileList extends Component {
                                         columns={this.getColumns()}>
                                         <SortingState
                                             defaultSorting={[]}
-                                            onSortingChange={(sorting) =>  this.props.props.setTableSettings({sorting: sorting})}
+                                            onSortingChange={(sorting) =>  this.props.props.setTableSettings({sorting: sorting, currentPage: 0})}
                                             sorting={sorting}/>
                                         <IntegratedSorting 
                                             columnExtensions={[
