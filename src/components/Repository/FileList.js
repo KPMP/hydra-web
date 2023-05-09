@@ -427,6 +427,7 @@ class FileList extends Component {
                                         <Toolbar
                                             cards={this.state.cards}
                                             setCards={this.state.setCards}
+                                            resultCount={this.state.resultCount}
                                         />
                                         <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} />
                                         <Table />
