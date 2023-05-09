@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FileList from "./FileList";
 
 import { WithSearch } from "@elastic/react-search-ui";
+import { PagingInfo } from "@elastic/react-search-ui";
+
 
 class FileListHolder extends Component {
     constructor(props) {
@@ -22,6 +24,7 @@ class FileListHolder extends Component {
                 {(context) => {
                 const { filters, results, searchContext, setResultsPerPage, removeFilter } = context;
                 return (
+                    <PagingInfo>
                     <FileList
                         props={this.props}
                         filters={filters}
@@ -32,6 +35,7 @@ class FileListHolder extends Component {
                         setActiveFilterTab={this.setActiveFilterTab}
                         activeFilterTab={this.state.activeFilterTab}
                     />
+                    </PagingInfo>
                 )}}
                 </WithSearch>
         )

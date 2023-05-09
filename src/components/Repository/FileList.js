@@ -72,6 +72,7 @@ class FileList extends Component {
 
     async componentDidMount() {
         await this.getSearchResults();
+        console.log(this.props)
         this.setState({isLoaded: true})
         
     };
@@ -394,7 +395,7 @@ class FileList extends Component {
                                 <div className="data-table">
                                     <p>
                                         <div id="empty-space-wrapper">
-                                            <div id="empty-space">                                        <PagingInfo />
+                                            <div id="empty-space">
                                             </div>
                                         </div>
                                         <strong>IMPORTANT: Please follow this <a href="https://www.kpmp.org/help-docs/study-overview?tabname=citingkpmpdata" target="_blank" rel="noreferrer">citation guideline</a> when presenting or publishing KPMP data.</strong>
