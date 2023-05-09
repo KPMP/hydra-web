@@ -399,7 +399,11 @@ class FileList extends Component {
                                     </p>
                                     <React.Fragment>
                                     { this.state.isLoaded ?
-
+                                        <div className="filter-panel-wrapper">
+                                            <div className="filter-panel-tab-wrapper">
+                                                <div className={"filter-tab active rounded border"}>
+                                                    Files ({this.state.resultCount})
+                                                </div>
                                     <Grid
                                         rows={this.state.tableData}
                                         columns={this.getColumns()}>
@@ -459,6 +463,7 @@ class FileList extends Component {
                                             pagingSize={pagingSize}/>
                                         <Pagination pageSizes={this.getPageSizes()} />
                                     </Grid>
+                                            </div></div>
                                     : <Spinner animation="border" variant="primary">
                                             <span className="visually-hidden">Loading...</span>
                                         </Spinner> }
