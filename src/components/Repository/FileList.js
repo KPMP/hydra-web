@@ -55,6 +55,7 @@ class FileList extends Component {
             filterTabActive: true,
             activeFilterTab: 'FILE',
             tableData: [],
+            resultCount: 0,
             cards: this.props.props.tableSettings.cards || columnCards,
             currentPage: this.props.props.tableSettings.currentPage,
             isLoaded: false,
@@ -65,7 +66,7 @@ class FileList extends Component {
 
     getSearchResults = () => {
         let data = resultConverter(this.props.results);
-        this.setState({ "tableData": data });
+        this.setState({ tableData: data, resultCount: data.length });
     };
 
     async componentDidMount() {
@@ -398,6 +399,7 @@ class FileList extends Component {
                                     </p>
                                     <React.Fragment>
                                     { this.state.isLoaded ?
+
                                     <Grid
                                         rows={this.state.tableData}
                                         columns={this.getColumns()}>

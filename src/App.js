@@ -51,7 +51,7 @@ store.subscribe(saveState);
 
 const connector = new AppSearchAPIConnector({
   searchKey: process.env.REACT_APP_SEARCH_KEY,
-  endpointBase: "/spatial-viewer/search",
+  endpointBase: process.env.REACT_APP_SEARCH_ENDPOINT,
   engineName: "atlas-repository",
   cacheResponses: false
 })
