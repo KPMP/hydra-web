@@ -24,7 +24,6 @@ class FileListHolder extends Component {
                 {(context) => {
                 const { filters, results, searchContext, setResultsPerPage, removeFilter } = context;
                 return (
-                    <PagingInfo>
                     <FileList
                         props={this.props}
                         filters={filters}
@@ -35,7 +34,6 @@ class FileListHolder extends Component {
                         setActiveFilterTab={this.setActiveFilterTab}
                         activeFilterTab={this.state.activeFilterTab}
                     />
-                    </PagingInfo>
                 )}}
                 </WithSearch>
         )
