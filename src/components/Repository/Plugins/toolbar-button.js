@@ -41,8 +41,6 @@ export class ToolbarButton extends React.PureComponent {
                 removeSortedColumn,
               }
             ) => (
-                <div className="container-fluid">
-                <div className="mr-auto">test</div>
               <div className="ml-auto">
                 <button type="button" className="btn btn-light border rounded" onClick={toggleArrangeColumnsDialog}>
                   <span className="icon-info spatial-info-cell spatial-button">
@@ -79,7 +77,6 @@ export class ToolbarButton extends React.PureComponent {
                   removeSortedColumn={removeSortedColumn}
                   rows={rows}
                 />
-                </div>
                 </div>
             )}
           </TemplateConnector>
