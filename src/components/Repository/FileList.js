@@ -128,6 +128,13 @@ class FileList extends Component {
 
         </div>
     }
+
+    naturalSort(redcap_id){
+        let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+        let arr = [redcap_id,];
+        return arr.sort(collator.compare);
+    }
+
     downloadFile = (url) => {
         let a = document.createElement('a');
         a.style.display = 'none';
@@ -243,6 +250,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false, 
+                sortType: row => { this.naturalSort(row['redcap_id']) }
             },
             {
                 name: 'dois',
