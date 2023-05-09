@@ -11,7 +11,6 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
 import copy from 'copy-to-clipboard';
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { SearchContextState } from "@elastic/search-ui";
 
 import {
     SortingState,
@@ -72,7 +71,7 @@ class FileList extends Component {
 
     async componentDidMount() {
         await this.getSearchResults();
-        console.log(SearchContextState)
+        console.log(this.props.totalResults)
         this.setState({isLoaded: true})
         
     };
