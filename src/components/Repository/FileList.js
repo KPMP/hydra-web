@@ -11,6 +11,7 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
 import copy from 'copy-to-clipboard';
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { PagingInfo } from "@elastic/react-search-ui";
 
 import {
     SortingState,
@@ -393,13 +394,13 @@ class FileList extends Component {
                                 <div className="data-table">
                                     <p>
                                         <div id="empty-space-wrapper">
-                                            <div id="empty-space"></div>
+                                            <div id="empty-space">                                        <PagingInfo />
+                                            </div>
                                         </div>
                                         <strong>IMPORTANT: Please follow this <a href="https://www.kpmp.org/help-docs/study-overview?tabname=citingkpmpdata" target="_blank" rel="noreferrer">citation guideline</a> when presenting or publishing KPMP data.</strong>
                                     </p>
                                     <React.Fragment>
                                     { this.state.isLoaded ?
-
                                     <Grid
                                         rows={this.state.tableData}
                                         columns={this.getColumns()}>
