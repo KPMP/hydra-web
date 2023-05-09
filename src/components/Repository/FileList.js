@@ -427,7 +427,6 @@ class FileList extends Component {
                                         <Toolbar
                                             cards={this.state.cards}
                                             setCards={this.state.setCards}
-                                            resultCount={this.state.resultCount}
                                         />
                                         <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} />
                                         <Table />
@@ -449,7 +448,8 @@ class FileList extends Component {
                                         />
                                         <ColumnChooser />
                                         
-                                        <ToolbarButton 
+                                        <ToolbarButton
+                                            resultCount={this.state.resultCount}
                                             cards={this.state.cards}
                                             setCards={this.setCards}
                                             setDefaultCards={this.setDefaultCards}
