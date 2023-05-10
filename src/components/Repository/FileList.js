@@ -55,6 +55,7 @@ class FileList extends Component {
             filterTabActive: true,
             activeFilterTab: 'FILE',
             tableData: [],
+            resultCount: 0,
             cards: this.props.props.tableSettings.cards || columnCards,
             currentPage: this.props.props.tableSettings.currentPage,
             isLoaded: false,
@@ -65,7 +66,7 @@ class FileList extends Component {
 
     getSearchResults = () => {
         let data = resultConverter(this.props.results);
-        this.setState({ "tableData": data });
+        this.setState({ tableData: data, resultCount: this.props.totalResults });
     };
 
     async componentDidMount() {
@@ -400,7 +401,8 @@ class FileList extends Component {
                                 <div className="data-table">
                                     <p>
                                         <div id="empty-space-wrapper">
-                                            <div id="empty-space"></div>
+                                            <div id="empty-space">
+                                            </div>
                                         </div>
                                         <strong>IMPORTANT: Please follow this <a href="https://www.kpmp.org/help-docs/study-overview?tabname=citingkpmpdata" target="_blank" rel="noreferrer">citation guideline</a> when presenting or publishing KPMP data.</strong>
                                     </p>
@@ -454,7 +456,8 @@ class FileList extends Component {
                                         />
                                         <ColumnChooser />
                                         
-                                        <ToolbarButton 
+                                        <ToolbarButton
+                                            resultCount={this.state.resultCount}
                                             cards={this.state.cards}
                                             setCards={this.setCards}
                                             setDefaultCards={this.setDefaultCards}

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FileList from "./FileList";
 
 import { WithSearch } from "@elastic/react-search-ui";
+import { PagingInfo } from "@elastic/react-search-ui";
+
 
 class FileListHolder extends Component {
     constructor(props) {
@@ -17,13 +19,14 @@ class FileListHolder extends Component {
     };
     render() {
         return (
-            <WithSearch mapContextToProps={({ filters, results, searchContext,setResultsPerPage,removeFilter}) =>
-             ({filters, results, searchContext,setResultsPerPage,removeFilter})}>
+            <WithSearch mapContextToProps={({ filters, results, searchContext, setResultsPerPage, removeFilter, totalResults }) =>
+             ({ filters, results, searchContext, setResultsPerPage, removeFilter, totalResults })}>
                 {(context) => {
-                const { filters, results, searchContext, setResultsPerPage, removeFilter } = context;
+                const { filters, results, searchContext, setResultsPerPage, removeFilter, totalResults } = context;
                 return (
                     <FileList
                         props={this.props}
+                        totalResults={totalResults}
                         filters={filters}
                         results={results}
                         searchContext={searchContext}
