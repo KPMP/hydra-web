@@ -66,12 +66,11 @@ class FileList extends Component {
 
     getSearchResults = () => {
         let data = resultConverter(this.props.results);
-        this.setState({ tableData: data, resultCount: data.length });
+        this.setState({ tableData: data, resultCount: this.props.totalResults });
     };
 
     async componentDidMount() {
         await this.getSearchResults();
-        console.log(this.props.totalResults)
         this.setState({isLoaded: true})
         
     };
