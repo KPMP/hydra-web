@@ -46,8 +46,9 @@ class FileList extends Component {
 
     constructor(props) {
         super(props);
-        const columnCards = this.getColumns().map((item, index) => {
+        const columnCards = this.getColumns().slice(1).map((item, index) => {
             return {id: index, text: item.title, name: item.name, hideable: item.hideable}
+            
         });
         const defaultHiddenColumns = this.getDefaultHiddenColumnNames(this.getColumns())
         this.state = {
@@ -155,7 +156,7 @@ class FileList extends Component {
             {
                 name: 'download',
                 title: 'download',
-                sortable: true,
+                sortable: false,
                 hideable: false,
                 defaultHidden: false,
                 getCellValue: row => { return <span onClick={(e) => {
