@@ -47,7 +47,12 @@ class FileList extends Component {
     constructor(props) {
         super(props);
         const columnCards = this.getColumns().map((item, index) => {
-            return {id: index, text: item.title, name: item.name, hideable: item.hideable}
+            if(item.name === 'download'){
+                return {id: index+1, text: item.title, name: item.name, hideable: item.hideable}
+            }else{
+                return {id: index, text: item.title, name: item.name, hideable: item.hideable}
+            }
+            
         });
         const defaultHiddenColumns = this.getDefaultHiddenColumnNames(this.getColumns())
         this.state = {
