@@ -155,7 +155,7 @@ class FileList extends Component {
             {
                 name: 'download',
                 title: 'download',
-                sortable: true,
+                sortable: false,
                 hideable: false,
                 defaultHidden: false,
                 getCellValue: row => { return <span onClick={(e) => {
