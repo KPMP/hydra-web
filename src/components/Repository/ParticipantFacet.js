@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {  Col, Container, Row, UncontrolledAccordion } from "reactstrap";
+import {  Col, Container, Row, UncontrolledAccordion, AccordionItem, AccordionHeader, AccordionBody } from "reactstrap";
 import { Facet } from "@elastic/react-search-ui";
 import { MultiCheckboxFacet } from "@elastic/react-search-ui-views";
 
@@ -23,12 +23,12 @@ class ParticipantFacet extends Component {
                 >
                     <AccordionItem>
                         <AccordionHeader targetId="1">
-                            Accordion Item 1
+                            Sex
                         </AccordionHeader>
                         <AccordionBody accordionId="1">
                 <Row className='mb-2'>
                     <Col>
-                        <Facet field='sex' label='Sex' filterType='any' view={MultiCheckboxFacet}/>
+                        <Facet field='sex' label='' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
                 </Row>
                         </AccordionBody>
@@ -76,7 +76,7 @@ class ParticipantFacet extends Component {
                     </Col>
                 </Row>                          
                         
-                
+                </UncontrolledAccordion>
             </Container>
         )
     }
