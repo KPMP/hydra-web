@@ -35,46 +35,76 @@ class ParticipantFacet extends Component {
                     </AccordionItem>
                     <AccordionItem>
                         <AccordionHeader targetId="2">
-                            Accordion Item 1
+                            Age
                         </AccordionHeader>
                         <AccordionBody accordionId="2">
                 <Row className='mb-2'>
                     <Col>
-                        <Facet field='age_binned' label='Age' filterType='any' view={MultiCheckboxFacet}/>
+                        <Facet field='age_binned' label='' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
                 </Row>
                         </AccordionBody>
                     </AccordionItem>
+                    <AccordionItem>
+                        <AccordionHeader targetId="3">
+                            Tissue Type
+                        </AccordionHeader>
+                        <AccordionBody accordionId="3">
                 <Row className='mb-2'>
                     <Col>
-                        <Facet field='tissue_type' label='Tissue Type' filterType='any' view={MultiCheckboxFacet}/>
+                        <Facet field='tissue_type' label='' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
                 </Row>
+                        </AccordionBody></AccordionItem>
+                    <AccordionItem>
+                        <AccordionHeader targetId="4">
+                            Sample Type
+                        </AccordionHeader>
+                        <AccordionBody accordionId="4">
                 <Row className='mb-2'>
                     <Col>
-                        <Facet field='sample_type' label='Sample Type' filterType='any' view={MultiCheckboxFacet}/>
+                        <Facet field='sample_type' label='' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
-                </Row>                
+                </Row>
+                        </AccordionBody></AccordionItem>
+                    <AccordionItem>
+                        <AccordionHeader targetId="5">
+                            Participant ID
+                        </AccordionHeader>
+                        <AccordionBody accordionId="5">
                 <Row className='mb-2'>
                     <Col>
                         <Facet inputProps={{ placeholder: "placeholder" }}
                             isFilterable={true} field="redcap_id"
-                            label="Participant ID"
+                            label=""
                             filterType="any"
                             view={(props) => <MultiCheckboxFacet {...props}
                             searchPlaceholder={"Search..."}/>}/>
                     </Col>
                 </Row>
+                        </AccordionBody></AccordionItem>
+                    <AccordionItem>
+                        <AccordionHeader targetId="6">
+                            Tissue Source
+                        </AccordionHeader>
+                        <AccordionBody accordionId="6">
                 <Row className='mb-2'>
                     <Col>
-                        <Facet field='tissue_source' label='Tissue Source' filterType='any' view={MultiCheckboxFacet}/>
+                        <Facet field='tissue_source' label='' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
-                </Row>      
+                </Row>
+                        </AccordionBody></AccordionItem>
+                    <AccordionItem>
+                        <AccordionHeader targetId="7">
+                            Protocol
+                        </AccordionHeader>
+                        <AccordionBody accordionId="7">
                 <Row className='mb-2'>
                     <Col>
-                        <Facet field='protocol' label='Protocol' filterType='any' view={MultiCheckboxFacet}/>
+                        <Facet field='protocol' label='' filterType='any' view={MultiCheckboxFacet}/>
                     </Col>
-                </Row>                          
+                </Row>
+                        </AccordionBody></AccordionItem>
                         
                 </UncontrolledAccordion>
             </Container>
