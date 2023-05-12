@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {  Col, Container, Row, UncontrolledAccordion, AccordionItem, AccordionHeader, AccordionBody } from "reactstrap";
-import { Facet } from "@elastic/react-search-ui";
-import { MultiCheckboxFacet } from "@elastic/react-search-ui-views";
+import {Col, Container, Row, UncontrolledAccordion, AccordionItem, AccordionHeader, AccordionBody} from "reactstrap";
+import {Facet} from "@elastic/react-search-ui";
+import {MultiCheckboxFacet} from "@elastic/react-search-ui-views";
 
 class ParticipantFacet extends Component {
 
@@ -15,10 +15,7 @@ class ParticipantFacet extends Component {
         return (
             <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
                 <UncontrolledAccordion
-                    defaultOpen={[
-                        '1',
-                        '2'
-                    ]}
+                    defaultOpen={['1', '2', '3', '4', '5', '6', '7']}
                     stayOpen
                 >
                     <AccordionItem>
@@ -26,11 +23,11 @@ class ParticipantFacet extends Component {
                             Sex
                         </AccordionHeader>
                         <AccordionBody accordionId="1">
-                <Row className='mb-2'>
-                    <Col>
-                        <Facet field='sex' label='' filterType='any' view={MultiCheckboxFacet}/>
-                    </Col>
-                </Row>
+                            <Row className='mb-2'>
+                                <Col>
+                                    <Facet field='sex' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                </Col>
+                            </Row>
                         </AccordionBody>
                     </AccordionItem>
                     <AccordionItem>
@@ -38,11 +35,11 @@ class ParticipantFacet extends Component {
                             Age
                         </AccordionHeader>
                         <AccordionBody accordionId="2">
-                <Row className='mb-2'>
-                    <Col>
-                        <Facet field='age_binned' label='' filterType='any' view={MultiCheckboxFacet}/>
-                    </Col>
-                </Row>
+                            <Row className='mb-2'>
+                                <Col>
+                                    <Facet field='age_binned' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                </Col>
+                            </Row>
                         </AccordionBody>
                     </AccordionItem>
                     <AccordionItem>
@@ -50,62 +47,62 @@ class ParticipantFacet extends Component {
                             Tissue Type
                         </AccordionHeader>
                         <AccordionBody accordionId="3">
-                <Row className='mb-2'>
-                    <Col>
-                        <Facet field='tissue_type' label='' filterType='any' view={MultiCheckboxFacet}/>
-                    </Col>
-                </Row>
+                            <Row className='mb-2'>
+                                <Col>
+                                    <Facet field='tissue_type' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                </Col>
+                            </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
                         <AccordionHeader targetId="4">
                             Sample Type
                         </AccordionHeader>
                         <AccordionBody accordionId="4">
-                <Row className='mb-2'>
-                    <Col>
-                        <Facet field='sample_type' label='' filterType='any' view={MultiCheckboxFacet}/>
-                    </Col>
-                </Row>
+                            <Row className='mb-2'>
+                                <Col>
+                                    <Facet field='sample_type' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                </Col>
+                            </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
                         <AccordionHeader targetId="5">
                             Participant ID
                         </AccordionHeader>
                         <AccordionBody accordionId="5">
-                <Row className='mb-2'>
-                    <Col>
-                        <Facet inputProps={{ placeholder: "placeholder" }}
-                            isFilterable={true} field="redcap_id"
-                            label=""
-                            filterType="any"
-                            view={(props) => <MultiCheckboxFacet {...props}
-                            searchPlaceholder={"Search..."}/>}/>
-                    </Col>
-                </Row>
+                            <Row className='mb-2'>
+                                <Col>
+                                    <Facet inputProps={{placeholder: "placeholder"}}
+                                           isFilterable={true} field="redcap_id"
+                                           label=""
+                                           filterType="any"
+                                           view={(props) => <MultiCheckboxFacet {...props}
+                                                                                searchPlaceholder={"Search..."}/>}/>
+                                </Col>
+                            </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
                         <AccordionHeader targetId="6">
                             Tissue Source
                         </AccordionHeader>
                         <AccordionBody accordionId="6">
-                <Row className='mb-2'>
-                    <Col>
-                        <Facet field='tissue_source' label='' filterType='any' view={MultiCheckboxFacet}/>
-                    </Col>
-                </Row>
+                            <Row className='mb-2'>
+                                <Col>
+                                    <Facet field='tissue_source' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                </Col>
+                            </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
                         <AccordionHeader targetId="7">
                             Protocol
                         </AccordionHeader>
                         <AccordionBody accordionId="7">
-                <Row className='mb-2'>
-                    <Col>
-                        <Facet field='protocol' label='' filterType='any' view={MultiCheckboxFacet}/>
-                    </Col>
-                </Row>
+                            <Row className='mb-2'>
+                                <Col>
+                                    <Facet field='protocol' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                </Col>
+                            </Row>
                         </AccordionBody></AccordionItem>
-                        
+
                 </UncontrolledAccordion>
             </Container>
         )
