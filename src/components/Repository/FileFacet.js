@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Facet} from "@elastic/react-search-ui";
 import {MultiCheckboxFacet} from "@elastic/react-search-ui-views";
-import {AccordionHeader, Col, Container, Row, UncontrolledAccordion, AccordionItem, AccordionHeader, AccordionBody} from "reactstrap";
+import {Col, Container, Row, UncontrolledAccordion, AccordionItem, AccordionHeader, AccordionBody} from "reactstrap";
 
 class FileFacet extends Component {
 
