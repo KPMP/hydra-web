@@ -41,7 +41,7 @@ import { Pagination } from './Plugins/pagination.js';
 import FileFacet from './FileFacet';
 import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
-import {handleGoogleAnalyticsEvent} from "../../helpers/googleAnalyticsHelper";
+import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
 
 class FileList extends Component {
 
