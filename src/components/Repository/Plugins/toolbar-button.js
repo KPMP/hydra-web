@@ -43,7 +43,7 @@ export class ToolbarButton extends React.PureComponent {
             ) => (
                 <React.Fragment>
                 <div className="mr-auto">Files ({this.props.resultCount})</div>
-              <div className="ml-auto">
+              <div className="ms-auto">
                 <button type="button" className="btn btn-light border rounded" onClick={toggleArrangeColumnsDialog}>
                   <span className="icon-info spatial-info-cell spatial-button">
                       <FontAwesomeIcon alt="Arrange Columns" className="fas fa-bars" icon={faBars} />
