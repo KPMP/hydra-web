@@ -311,15 +311,12 @@ class FileList extends Component {
                         <div
                             key={(filter.field).toString() + value.toString()}
                             className="border rounded activeFilter">
-                            <span>{value} 
-                                <FontAwesomeIcon
-                                    alt="Close Filter"
+                            <span>{value} <FontAwesomeIcon alt="Close Filter"
                                     onClick={()=>{
                                         this.props.removeFilter(filter.field, value)
                                     }}
                                     className="close-button fas fa-xmark ml-2"
-                                    icon={faXmark} />
-                            </span>
+                                    icon={faXmark} /> </span>
                         </div>)
                 })
             })
