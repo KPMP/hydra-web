@@ -311,6 +311,7 @@ td:hover {
     display: inline-block;
     position: relative;
     cursor: pointer;
+    width: fit-content
 }
 
 .activeFilter .close-button {
@@ -534,3 +535,13 @@ td:hover {
 #tooltip{
     z-index: 9999;
 }
+
+.accordion-item:first-of-type .accordion-button {
+    color: black;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e7f1ff;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+    color: black;
+  }
