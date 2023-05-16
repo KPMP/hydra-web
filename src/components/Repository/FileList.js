@@ -311,7 +311,7 @@ class FileList extends Component {
                         <div
                             key={(filter.field).toString() + value.toString()}
                             className="border rounded activeFilter">
-                            <span>{value}
+                            <span>{value} 
                                 <FontAwesomeIcon
                                     alt="Close Filter"
                                     onClick={()=>{
