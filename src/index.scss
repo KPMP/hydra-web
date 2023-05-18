@@ -1,6 +1,17 @@
 @import "kpmp-base.scss";
 @import "../node_modules/kpmp-common-styles/index.scss";
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
+//import bootstrap functions
+@import "../node_modules/bootstrap/scss/functions";
+
+//default variable overrides
+$accordion-button-active-color: black;
+$accordion-button-color: black;
+
+//required
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+//import accordion component
 @import "../node_modules/bootstrap/scss/accordion.scss";
 
 #navbar .navbar-brand img.logo {
