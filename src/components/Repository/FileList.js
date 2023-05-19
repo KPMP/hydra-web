@@ -148,10 +148,8 @@ class FileList extends Component {
     }
 
     cleanResults = () => {
-        // Create copy so that tableData is not modified
         var results = this.state.tableData.slice(0);
-        
-        // Get non-hidden columns
+
         let cols = this.getColumns()
         .filter((column) => {
             return !this.state.hiddenColumnNames.includes(column.name);
@@ -159,7 +157,6 @@ class FileList extends Component {
         .map((column) => {
             return column.name;
         })
-        // Include package ID
         cols.push("package_id");
         
         results.forEach((res, index) => {
@@ -172,7 +169,6 @@ class FileList extends Component {
                 experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"] : ""
             };
             
-            // Filter table data based on the user's shown columns
             results[index] = Object.keys(res)
             .filter((key) => {
                 return cols.includes(key)
