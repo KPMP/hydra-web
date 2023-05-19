@@ -26,6 +26,7 @@ export class ToolbarButtonState extends React.PureComponent {
   }
 
   closeDialogs = () => {
+    this.props.setTableSettings({cards: this.props.order, hiddenColumns: this.props.hidden})
     this.setState({
       sortDialogOpen: false,
       arrangeColumnsDialogOpen: false
