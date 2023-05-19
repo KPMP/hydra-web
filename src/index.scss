@@ -1,7 +1,7 @@
 @import "kpmp-base.scss";
 @import "../node_modules/kpmp-common-styles/index.scss";
 //import bootstrap functions
-// @import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/functions";
 
 //default variable overrides
 $accordion-button-active-color: black;
