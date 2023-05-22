@@ -11,6 +11,7 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
 import copy from 'copy-to-clipboard';
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { CSVLink } from "react-csv";
 
 import {
     SortingState,
@@ -145,6 +146,40 @@ class FileList extends Component {
         a.click();
         document.body.removeChild(a);
     }
+
+    cleanResults = () => {
+        var results = this.state.tableData.slice(0);
+
+        let cols = this.getColumns()
+        .filter((column) => {
+            return !this.state.hiddenColumnNames.includes(column.name);
+        })
+        .map((column) => {
+            return column.name;
+        })
+        cols.push("package_id");
+        
+        results.forEach((res, index) => {
+            
+            // CSV output discards null columns, so replace the null cell values with empty strings
+            res = {...res, 
+                dois: res['dois'] ? res['dois'] : "",
+                workflow_type: res['workflow_type'] ? res['workflow_type'] : "",
+                platform: res['platform'] ? res['platform'] : "",
+                experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"] : ""
+            };
+            
+            results[index] = Object.keys(res)
+            .filter((key) => {
+                return cols.includes(key)
+            })
+            .reduce((obj, key) => {
+                obj[key] = res[key];
+                return obj;
+            }, {});
+        });
+        return results;
+    };
 
     copyFileName(fileName) {
         copy(fileName);
@@ -290,6 +325,10 @@ class FileList extends Component {
             { columnName: 'experimental_strategy', width: 210 },
         ]
     };
+
+    getExportFilename = () => {
+        return "atlas_repository_filelist-" + new Date().toISOString().split('T')[0].replace(/\D/g,'');
+    }
 
     toggleFilterTab = () => {
         if(this.state.filterTabActive) {
@@ -464,6 +503,14 @@ class FileList extends Component {
                                             setTableSettings={this.props.props.setTableSettings}
                                             pagingSize={pagingSize}/>
                                         <Pagination pageSizes={this.getPageSizes()} />
+                                        <CSVLink
+                                            onClick={() => handleGoogleAnalyticsEvent('Repository', 'Download', this.getExportFilename())}
+                                            data={this.cleanResults()}
+                                            filename={this.getExportFilename()}
+                                            target="_blank"
+                                            className="text-body icon-container">
+                                                <FontAwesomeIcon icon={faDownload} />
+                                        </CSVLink>
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
                                             <span className="visually-hidden">Loading...</span>
