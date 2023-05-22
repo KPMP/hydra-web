@@ -497,8 +497,7 @@ class FileList extends Component {
                                             cards={this.state.cards}
                                             setCards={this.setCards}
                                             setDefaultCards={this.setDefaultCards}
-                                            // sortableToolbarColumns={this.state.cards}
-                                            defaultOrder={this.getColumns()} />
+                                            defaultOrder={this.getColumns().map(item => item.name)} />
                                         <PaginationState
                                             currentPage={currentPage}
                                             setTableSettings={this.props.props.setTableSettings}
