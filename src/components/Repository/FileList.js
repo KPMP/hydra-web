@@ -47,7 +47,6 @@ class FileList extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.props.tableSettings);
         const columnCards = this.getColumns().slice(1).map((item, index) => {
             return {id: index, text: item.title, name: item.name, hideable: item.hideable}
             
