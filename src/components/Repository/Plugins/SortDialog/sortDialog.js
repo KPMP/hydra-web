@@ -56,7 +56,7 @@ function SortDialog({
                               sortedColumns, item.name)}
                             name={item.name}
                             value="sort"></input>
-                          <span>{item.title}</span>
+                          <span>{item.text}</span>
                         </div>
                         
                         <div className="sort-dialog-radio-wrapper">
@@ -68,7 +68,7 @@ function SortDialog({
                               addSortedColumn,
                               forceUpdate)}>
                               <FontAwesomeIcon
-                                alt="Sort Column Descending"
+                                alt="Sort Column Ascending"
                                 className="fas fa-arrow-up"
                                 icon={faArrowUp} />
                             <input checked={
