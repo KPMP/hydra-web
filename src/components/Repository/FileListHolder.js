@@ -19,13 +19,14 @@ class FileListHolder extends Component {
     };
     render() {
         return (
-            <WithSearch mapContextToProps={({ filters, results, searchContext, setResultsPerPage, removeFilter, totalResults }) =>
-             ({ filters, results, searchContext, setResultsPerPage, removeFilter, totalResults })}>
+            <WithSearch mapContextToProps={({ filters, results, searchContext, setResultsPerPage, removeFilter, totalResults, setSort }) =>
+             ({ filters, results, searchContext, setResultsPerPage, removeFilter, totalResults, setSort })}>
                 {(context) => {
-                const { filters, results, searchContext, setResultsPerPage, removeFilter, totalResults } = context;
+                const { filters, results, searchContext, setResultsPerPage, removeFilter, totalResults, setSort } = context;
                 return (
                     <FileList
                         props={this.props}
+                        setSort={setSort}
                         totalResults={totalResults}
                         filters={filters}
                         results={results}
