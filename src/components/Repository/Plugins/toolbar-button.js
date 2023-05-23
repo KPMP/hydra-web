@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const pluginDependencies = [
   { name: "Toolbar" },
-  { name: "IntegratedSorting" }, 
+  // { name: "IntegratedSorting" },
   { name: "ToolbarButtonState" }
 ];
 

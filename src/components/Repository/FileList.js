@@ -410,14 +410,13 @@ class FileList extends Component {
                                         columns={this.getColumns()}>
                                         <SortingState
                                             defaultSorting={[]}
-                                            onSortingChange={(sorting) =>  this.props.props.setTableSettings({sorting: sorting, currentPage: 0})}
+                                            onSortingChange={(sorting) => {
+                                                let sortOptions = sorting.map(val => ({ field: val.columnName, direction: val.direction }))
+                                                this.props.setSort(sortOptions);
+                                                this.props.props.setTableSettings({sorting: sorting, currentPage: 0});
+                                            }
+                                            }
                                             sorting={sorting}/>
-                                        <IntegratedSorting 
-                                            columnExtensions={[
-                                                { columnName: 'data_type', compare: compareTableStrings },
-                                                { columnName: 'file_size', compare: (a, b) => a - b },
-                                            ]}
-                                        />
                                         <DataTypeProvider
                                             for = {["file_size"]}
                                             formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
