@@ -5,7 +5,6 @@ import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, Mo
 import { resultConverter } from "../../helpers/dataHelper";
 import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { compareTableStrings } from "./spatialHelper";
 import prettyBytes from 'pretty-bytes';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
