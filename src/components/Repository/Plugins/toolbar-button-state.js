@@ -71,7 +71,7 @@ export class ToolbarButtonState extends React.PureComponent {
   }
 
   getSortableToolbarColumns = ({ columns }) => {
-    return this.props.cards;
+    return this.props.order;
   }
 
   getColumns = ({ columns }) => {
