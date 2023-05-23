@@ -472,7 +472,7 @@ class FileList extends Component {
                                             cards={this.state.cards}
                                             setCards={this.state.setCards}
                                         />
-                                        <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} order={this.state.cards} hidden={this.state.hiddenColumnNames}/>
+                                        <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} order={this.state.cards} hidden={this.state.hiddenColumnNames} />
                                         <Table />
                                         <TableColumnResizing
                                             defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={30}
