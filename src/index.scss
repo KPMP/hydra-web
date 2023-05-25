@@ -568,7 +568,11 @@ td:hover {
     --bs-accordion-active-color: $accordion-button-active-color
 }
 
-.clear-filters {
+.action-button {
     background-color: rgb(67, 100, 157);
     color: white;
+}
+.action-button:hover {
+    color: white;
+    text-decoration: none;
 }
