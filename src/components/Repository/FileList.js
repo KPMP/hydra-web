@@ -10,7 +10,6 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
 import copy from 'copy-to-clipboard';
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { CSVLink } from "react-csv";
 
 import {
     SortingState,
@@ -149,14 +148,15 @@ class FileList extends Component {
     cleanResults = () => {
         var results = this.state.tableData.slice(0);
 
-        let cols = this.getColumns()
-        .filter((column) => {
-            return !this.state.hiddenColumnNames.includes(column.name);
-        })
-        .map((column) => {
-            return column.name;
-        })
-        cols.push("package_id");
+        let cols = {};
+        this.getColumns()
+            .filter((column) => {
+                return !this.state.hiddenColumnNames.includes(column.name);
+            })
+            .forEach((column) => {
+                cols[column.name] = column.title;
+            })
+        cols["package_id"] = "Internal Package ID";
         
         results.forEach((res, index) => {
             
@@ -170,10 +170,10 @@ class FileList extends Component {
             
             results[index] = Object.keys(res)
             .filter((key) => {
-                return cols.includes(key)
+                return cols.hasOwnProperty(key)
             })
             .reduce((obj, key) => {
-                obj[key] = res[key];
+                obj[cols[key]] = res[key];
                 return obj;
             }, {});
         });
@@ -325,10 +325,6 @@ class FileList extends Component {
         ]
     };
 
-    getExportFilename = () => {
-        return "atlas_repository_filelist-" + new Date().toISOString().split('T')[0].replace(/\D/g,'');
-    }
-
     toggleFilterTab = () => {
         if(this.state.filterTabActive) {
             this.setState({filterTabActive: false});
@@ -426,7 +422,7 @@ class FileList extends Component {
                                 </Row>
                                 :
                                 <Row className="filter-pill-row">
-                                    <div className="border rounded activeFilter clear-filters">
+                                    <div className="border rounded activeFilter action-button">
                                         <span 
                                             onClick={()=>{
                                                 this.props.clearFilters()
@@ -503,20 +499,14 @@ class FileList extends Component {
                                             cards={this.state.cards}
                                             setCards={this.setCards}
                                             setDefaultCards={this.setDefaultCards}
-                                            defaultOrder={this.getColumns().map(item => item.name)} />
+                                            defaultOrder={this.getColumns().map(item => item.name)}
+                                            cleanResults={this.cleanResults}
+                                            />
                                         <PaginationState
                                             currentPage={currentPage}
                                             setTableSettings={this.props.props.setTableSettings}
                                             pagingSize={pagingSize}/>
                                         <Pagination pageSizes={this.getPageSizes()} />
-                                        <CSVLink
-                                            onClick={() => handleGoogleAnalyticsEvent('Repository', 'Download', this.getExportFilename())}
-                                            data={this.cleanResults()}
-                                            filename={this.getExportFilename()}
-                                            target="_blank"
-                                            className="text-body icon-container">
-                                                <FontAwesomeIcon icon={faDownload} />
-                                        </CSVLink>
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
                                             <span className="visually-hidden">Loading...</span>
