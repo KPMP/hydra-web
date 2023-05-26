@@ -10,6 +10,7 @@ class FileListHolder extends Component {
         super(props);
         this.state = {
             activeFilterTab: 'PARTICIPANT',
+            filterTabActive: true
         };
 
     }
@@ -17,6 +18,15 @@ class FileListHolder extends Component {
     setActiveFilterTab = (tabName) => {
         this.setState({activeFilterTab: tabName});
     };
+    
+    toggleFilterTab = () => {
+        if(this.state.filterTabActive) {
+            this.setState({filterTabActive: false});
+        } else {
+            this.setState({filterTabActive: true});
+        }
+    };
+
     render() {
         return (
             <WithSearch mapContextToProps={({ filters, results, searchContext, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort }) =>
@@ -36,6 +46,8 @@ class FileListHolder extends Component {
                         clearFilters={clearFilters}
                         setActiveFilterTab={this.setActiveFilterTab}
                         activeFilterTab={this.state.activeFilterTab}
+                        filterTabActive={this.state.filterTabActive}
+                        toggleFilterTab={this.toggleFilterTab}
                     />
                 )}}
                 </WithSearch>
