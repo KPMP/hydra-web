@@ -212,7 +212,14 @@ class FileList extends Component {
                 getCellValue: row => { return <span>
                     <FontAwesomeIcon
                     className="fas fa-angles-left " icon={row['access'] === 'controlled' ? faUnlock: faUnlockKeyhole } /> {row['access']}</span> }
-            },   
+            },  
+            {
+                name: 'redcap_id',
+                title: 'Participant ID',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false, 
+            }, 
             {
                 name: 'file_id',
                 title: 'File UUID',
@@ -279,13 +286,6 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
-            },
-            {
-                name: 'redcap_id',
-                title: 'Participant ID',
-                sortable: true,
-                hideable: true,
-                defaultHidden: false, 
             },
             {
                 name: 'dois',
