@@ -164,7 +164,8 @@ class FileList extends Component {
                 dois: res['dois'] ? res['dois'] : "",
                 workflow_type: res['workflow_type'] ? res['workflow_type'] : "",
                 platform: res['platform'] ? res['platform'] : "",
-                experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"] : ""
+                experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"] : "",
+                file_size: prettyBytes(parseInt(res["file_size"]))
             };
             
             results[index] = Object.keys(res)
