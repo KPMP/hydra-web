@@ -576,9 +576,10 @@ td:hover {
     color: white;
     text-decoration: none;
 }
-.col-xl-3{
-    flex: 0 0 auto;
-    width: 25%;
-    height: calc(100vh - #{$header-height-padded + $footer-height-padded});
-    overflow-y: scroll;
+
+.p-3{
+    padding-top:1rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-bottom:4rem;
 }
