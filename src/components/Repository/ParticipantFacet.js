@@ -13,7 +13,7 @@ class ParticipantFacet extends Component {
 
     render() {
         return (
-            <Container className="mt-3 rounded border p-3 shadow-sm spatial-filter-panel container-max">
+            <Container id="spatial-filter" className="mt-3 rounded border shadow-sm spatial-filter-panel container-max">
                 <UncontrolledAccordion
                     defaultOpen={['1', '2', '3', '4', '5', '6', '7']}
                     stayOpen

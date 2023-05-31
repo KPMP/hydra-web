@@ -10,12 +10,7 @@ $accordion-button-active-color: black;
 $accordion-button-color: black;
 $bs-border-color: #dee2e6;
 
-.p-3{
-    padding-top:1rem;
-    padding-left:1rem;
-    padding-right:1rem;
-    padding-bottom:4rem;
-}
+
 
 //pass variable overrides
 @import "../node_modules/bootstrap/scss/variables";
@@ -586,3 +581,9 @@ td:hover {
     text-decoration: none;
 }
 
+#spatial-filter{
+    padding-top:1rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-bottom:4rem;
+}
