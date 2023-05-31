@@ -10,6 +10,13 @@ $accordion-button-active-color: black;
 $accordion-button-color: black;
 $bs-border-color: #dee2e6;
 
+.p-3{
+    padding-top:1rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-bottom:4rem;
+}
+
 //pass variable overrides
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
@@ -50,7 +57,8 @@ $bs-border-color: #dee2e6;
     margin-top: 3.5rem !important;
     border-top-left-radius: 0px !important;
     min-height: 70vh;
-    height: auto;
+    height: calc(100vh - #{$header-height-padded + $footer-height-padded});
+    overflow-y: scroll;
 }
 
 .filter-tab {
@@ -577,9 +585,3 @@ td:hover {
     text-decoration: none;
 }
 
-.p-3{
-    padding-top:1rem;
-    padding-left:1rem;
-    padding-right:1rem;
-    padding-bottom:4rem;
-}
