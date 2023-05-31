@@ -1,5 +1,6 @@
 @import "kpmp-base.scss";
 @import "../node_modules/kpmp-common-styles/index.scss";
+@import "../node_modules/kpmp-common-styles/common-values.scss";
 
 //importing pieces of bootstrap instead of importing all of bootstrap
 @import "../node_modules/bootstrap/scss/functions";
@@ -574,4 +575,10 @@ td:hover {
 .action-button:hover {
     color: white;
     text-decoration: none;
+}
+.col-xl-3{
+    flex: 0 0 auto;
+    width: 25%;
+    height: calc(100vh - #{$header-height-padd + $footer-height-padded});
+    overflow-y: scroll;
 }

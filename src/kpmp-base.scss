@@ -47,7 +47,7 @@ body {
 
 #root {
 	position: relative;
-	overflow-y: scroll;
+	overflow-y: hidden;
 
 	/* xs to sm */
 	top: calc(#{$header-height-padded});
