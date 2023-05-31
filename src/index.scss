@@ -579,6 +579,6 @@ td:hover {
 .col-xl-3{
     flex: 0 0 auto;
     width: 25%;
-    height: calc(100vh - #{$header-height-padd + $footer-height-padded});
+    height: calc(100vh - #{$header-height-padded + $footer-height-padded});
     overflow-y: scroll;
 }
