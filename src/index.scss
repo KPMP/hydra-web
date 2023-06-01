@@ -52,7 +52,7 @@ $bs-border-color: #dee2e6;
     margin-top: 3.5rem !important;
     border-top-left-radius: 0px !important;
     min-height: 70vh;
-    height: calc(100vh - #{$header-height-padded + $footer-height-padded});
+    height: calc(83vh - #{$header-height-padded + $footer-height-padded});
     overflow-y: scroll;
 }
 
