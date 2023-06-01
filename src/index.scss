@@ -1,5 +1,6 @@
 @import "kpmp-base.scss";
 @import "../node_modules/kpmp-common-styles/index.scss";
+@import "../node_modules/kpmp-common-styles/common-values.scss";
 
 //importing pieces of bootstrap instead of importing all of bootstrap
 @import "../node_modules/bootstrap/scss/functions";
@@ -8,6 +9,8 @@
 $accordion-button-active-color: black;
 $accordion-button-color: black;
 $bs-border-color: #dee2e6;
+
+
 
 //pass variable overrides
 @import "../node_modules/bootstrap/scss/variables";
@@ -49,7 +52,8 @@ $bs-border-color: #dee2e6;
     margin-top: 3.5rem !important;
     border-top-left-radius: 0px !important;
     min-height: 70vh;
-    height: auto;
+    height: calc(83vh - #{$header-height-padded + $footer-height-padded});
+    overflow-y: scroll;
 }
 
 .filter-tab {
@@ -113,6 +117,7 @@ $bs-border-color: #dee2e6;
         box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
         border-radius: .25rem !important;
         border: 1px solid #dee2e6 !important;
+        height: calc(68vh - #{$header-height-padded + $footer-height-padded});
     }
 
     .card-footer {
@@ -574,4 +579,11 @@ td:hover {
 .action-button:hover {
     color: white;
     text-decoration: none;
+}
+
+#spatial-filter{
+    padding-top:1rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-bottom:4rem;
 }
