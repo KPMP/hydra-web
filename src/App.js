@@ -79,7 +79,10 @@ const searchConfig = {
         "tissue_type",
         "sample_type",
         "tissue_source",
-        "protocol"
+        "protocol",
+        "file_name_sort",
+        "participant_id_sort",
+        "platform_sort"
       ],
       facets: {
         id: { type: "value", size: 100},
@@ -101,7 +104,10 @@ const searchConfig = {
         tissue_type: { type: "value", size:100},
         sample_type: { type: "value", size: 100},
         tissue_source: { type: "value", size: 100},
-        protocol: { type: "value", size: 100}
+        protocol: { type: "value", size: 100},
+        file_name_sort: { type: "value", size: 100},
+        participant_id_sort: { type: "value", size: 100},
+        platform_sort: { type: "value", size: 100}
       }
   },
   initialState: {
