@@ -30,7 +30,6 @@ $bs-border-color: #dee2e6;
 
 .table tbody{
     vertical-align: inherit;
-    height:calc(100vh - 480px);
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
@@ -121,7 +120,8 @@ $bs-border-color: #dee2e6;
         box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
         border-radius: .25rem !important;
         border: 1px solid #dee2e6 !important;
-        height: calc(68vh - #{$header-height-padded + $footer-height-padded});
+        /* ~420px includes header height, footer height, and additional margins*/
+        max-height: calc(100vh - 420px);
     }
 
     .card-footer {
@@ -596,5 +596,8 @@ td:hover {
 
 .flex-column{
     flex-direction: column !important;
-    height:calc(100vh - 236px);
+}
+
+.row-height{
+    height: 28px !important;
 }
