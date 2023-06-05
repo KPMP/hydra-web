@@ -10,8 +10,6 @@ $accordion-button-active-color: black;
 $accordion-button-color: black;
 $bs-border-color: #dee2e6;
 
-
-
 //pass variable overrides
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
@@ -29,6 +27,12 @@ $bs-border-color: #dee2e6;
         background-color: #FAFBFC !important;
     }
 }
+
+.table tbody{
+    vertical-align: inherit;
+    height:calc(100vh - 480px);
+}
+
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #color;
 }
@@ -52,7 +56,7 @@ $bs-border-color: #dee2e6;
     margin-top: 3.5rem !important;
     border-top-left-radius: 0px !important;
     min-height: 70vh;
-    height: calc(83vh - #{$header-height-padded + $footer-height-padded});
+    height: calc(100vh - 220px);
     overflow-y: scroll;
 }
 
@@ -582,8 +586,15 @@ td:hover {
 }
 
 #spatial-filter{
-    padding-top:1rem;
-    padding-left:1rem;
-    padding-right:1rem;
-    padding-bottom:4rem;
+    padding:1rem;
+}
+
+.col-xl-3{
+    height: calc(100vh - #{$header-height-padded + $footer-height-padded}) !important;
+    overflow-y: hidden;
+}
+
+.flex-column{
+    flex-direction: column !important;
+    height:calc(100vh - 236px);
 }
