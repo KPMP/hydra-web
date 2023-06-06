@@ -10,8 +10,6 @@ $accordion-button-active-color: black;
 $accordion-button-color: black;
 $bs-border-color: #dee2e6;
 
-
-
 //pass variable overrides
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
@@ -29,6 +27,11 @@ $bs-border-color: #dee2e6;
         background-color: #FAFBFC !important;
     }
 }
+
+.table tbody{
+    vertical-align: inherit;
+}
+
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #color;
 }
@@ -52,7 +55,7 @@ $bs-border-color: #dee2e6;
     margin-top: 3.5rem !important;
     border-top-left-radius: 0px !important;
     min-height: 70vh;
-    height: calc(83vh - #{$header-height-padded + $footer-height-padded});
+    height: calc(100vh - 220px);
     overflow-y: scroll;
 }
 
@@ -117,7 +120,8 @@ $bs-border-color: #dee2e6;
         box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
         border-radius: .25rem !important;
         border: 1px solid #dee2e6 !important;
-        height: calc(68vh - #{$header-height-padded + $footer-height-padded});
+        /* ~420px includes header height, footer height, and additional margins*/
+        max-height: calc(100vh - 420px);
     }
 
     .card-footer {
@@ -582,8 +586,18 @@ td:hover {
 }
 
 #spatial-filter{
-    padding-top:1rem;
-    padding-left:1rem;
-    padding-right:1rem;
-    padding-bottom:4rem;
+    padding:1rem;
+}
+
+.col-xl-3{
+    height: calc(100vh - #{$header-height-padded + $footer-height-padded}) !important;
+    overflow-y: hidden;
+}
+
+.flex-column{
+    flex-direction: column !important;
+}
+
+.row-height{
+    height: 28px !important;
 }
