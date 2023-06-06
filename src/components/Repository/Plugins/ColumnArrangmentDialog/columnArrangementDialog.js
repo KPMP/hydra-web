@@ -73,7 +73,7 @@ function ColumnArrangementDialog(
               </span>
             </div>
 
-            <div>{cards.map((card, index) => {
+            <div>{cards.filter((card) => {return card.isSortField !== true}).map((card, index) => {
               return (
                 <div key={card.text}>
                   {isFiltered(card.text, filterValue)
