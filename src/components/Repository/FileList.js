@@ -46,7 +46,7 @@ class FileList extends Component {
     constructor(props) {
         super(props);
         const columnCards = this.getColumns().slice(1).map((item, index) => {
-            return {id: index, text: item.title, name: item.name, hideable: item.hideable, sortIndex: item?.sortIndex}
+            return {id: index, text: item.title, name: item.name, hideable: item.hideable, isSortField: item?.isSortField}
             
         });
         const defaultHiddenColumns = this.getDefaultHiddenColumnNames(this.getColumns())
@@ -95,7 +95,7 @@ class FileList extends Component {
     
     setDefaultCards = () => {
         const cards = this.getColumns().map((item, index) => {
-            return {id: index, text: item.title, name: item.name, hideable: item.hideable, sortIndex: item?.sortIndex}
+            return {id: index, text: item.title, name: item.name, hideable: item.hideable, isSortField: item?.isSortField}
         });
         this.setCards(cards)
     };
@@ -296,27 +296,24 @@ class FileList extends Component {
             // Sort columns
             {
                 name: 'participant_id_sort', 
-                title: 'Participant ID Sort',
                 sortable: false,
                 hideable: false,
                 defaultHidden: true,
-                sortIndex: 'redcap_id'
+                isSortField: true
             },
             {
                 name: 'file_name_sort',
-                title: 'File Name Sort',
                 sortable: false,
                 hideable: false,
                 defaultHidden: true,
-                sortIndex: 'file_name'
+                isSortField: true
             },
             {
                 name: 'platform_sort',
-                title: 'Platform Sort',
                 sortable: false,
                 hideable: false,
                 defaultHidden: true,
-                sortIndex: 'platform'
+                isSortField: true
             }
         ];
         return columns;
@@ -346,9 +343,9 @@ class FileList extends Component {
             { columnName: 'data_type', width: 200 },
             { columnName: 'dois', width: 200 },
             { columnName: 'experimental_strategy', width: 210 },
-            { columnName: 'file_name_sort', width: 200 },
-            { columnName: 'participant_id_sort', width: 200 },
-            { columnName: 'platform_sort', width: 200 },
+            { columnName: 'file_name_sort', width: 0 },
+            { columnName: 'participant_id_sort', width: 0 },
+            { columnName: 'platform_sort', width: 0 },
         ]
     };
   
