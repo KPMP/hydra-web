@@ -35,6 +35,14 @@ $bs-border-color: #dee2e6;
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #color;
 }
+
+.table > thead {
+    vertical-align: bottom;
+    position: sticky;
+    top:0px;
+    z-index: 5;
+}
+
 .table thead th {
     font-size: 14px;
 }
@@ -115,7 +123,7 @@ $bs-border-color: #dee2e6;
     }
 
     .table-responsive {
-        padding: 1rem !important;
+        padding: 0rem 1rem 1rem !important;
         background-color: #fff;
         box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
         border-radius: .25rem !important;
