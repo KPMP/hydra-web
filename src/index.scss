@@ -400,6 +400,8 @@ td:hover {
     top: 100%;
     margin-top: 5px;
     white-space: nowrap;
+    overflow-y: scroll;
+    max-height: calc(100vh - 427.25px);
 }
 
 .sort-dialog .sort-dialog-option:hover{
