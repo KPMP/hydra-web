@@ -12,6 +12,11 @@ class FileFacet extends Component {
                     defaultOpen={['1', '2', '3', '4', '5', '6', '7', '8']}
                     stayOpen
                 >
+                    <Row className='mb-2'>
+                        <Col>
+                            <Facet field='release_version' label='' filterType='any' view={MultiCheckboxFacet}/>
+                        </Col>
+                    </Row>
                     <AccordionItem>
                         <AccordionHeader targetId="1">
                             Data Category
