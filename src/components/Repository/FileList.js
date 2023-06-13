@@ -269,7 +269,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: true,
-                getCellValue: row => { return (row['experimental_strategy'].length > 1 ? row['experimental_strategy'].join(", ") : row['experimental_strategy']) }
+                getCellValue: row => { return (row['experimental_strategy'] ? (row['experimental_strategy'].length > 1 ? row['experimental_strategy'].join(", ") : row['experimental_strategy']) : '--') }
             },            
             {
                 name: 'workflow_type',
