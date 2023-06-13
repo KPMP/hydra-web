@@ -79,7 +79,8 @@ const searchConfig = {
         "tissue_type",
         "sample_type",
         "tissue_source",
-        "protocol"
+        "protocol",
+        "release_version"
       ],
       facets: {
         id: { type: "value", size: 100},
@@ -101,7 +102,8 @@ const searchConfig = {
         tissue_type: { type: "value", size:100},
         sample_type: { type: "value", size: 100},
         tissue_source: { type: "value", size: 100},
-        protocol: { type: "value", size: 100}
+        protocol: { type: "value", size: 100},
+        release_version: { type: "value", size: 100}
       }
   },
   initialState: {

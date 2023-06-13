@@ -8,11 +8,11 @@ class FileFacet extends Component {
     render() {
         return (
             <Container id="spatial-filter" className="mt-3 rounded border shadow-sm spatial-filter-panel container-max">
-                <Row className='mb-2'>
-                        <Col>
-                            <Facet field="release_version" label="" filterType="any" view={MultiCheckboxFacet}/>
-                        </Col>
-                </Row>
+                <Row className="mb-2">
+                                <Col id="release">
+                                    <Facet field="release_version" label="" filterType="any" view={MultiCheckboxFacet}/>
+                                </Col>
+                            </Row>
                 <UncontrolledAccordion
                     defaultOpen={['1', '2', '3', '4', '5', '6', '7', '8']}
                     stayOpen
