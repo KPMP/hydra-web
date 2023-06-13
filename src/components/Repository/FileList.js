@@ -269,6 +269,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: true,
+                getCellValue: row => { return (row['experimental_strategy'].length > 1 ? row['experimental_strategy'].join(", ") : row['experimental_strategy']) }
             },            
             {
                 name: 'workflow_type',
@@ -276,7 +277,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: true,
-                getCellValue: row => { return (row['workflow_type'] ? row['workflow_type'] : '--') }
+                getCellValue: row => { return (row['workflow_type'] ? (row['workflow_type'].length > 1 ? row['workflow_type'].join(", ") : row['workflow_type']) : '--') }
 
             },
             {
