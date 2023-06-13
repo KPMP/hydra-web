@@ -14,7 +14,7 @@ class FileFacet extends Component {
                 >
                     <Row className='mb-2'>
                         <Col>
-                            <Facet field='release_version' label='' filterType='any' view={MultiCheckboxFacet}/>
+                            <Facet field="release_version" label="" filterType="any" view={MultiCheckboxFacet}/>
                         </Col>
                     </Row>
                     <AccordionItem>
