@@ -335,7 +335,7 @@ class FileList extends Component {
             { columnName: 'data_format', width: 132 },
             { columnName: 'redcap_id', width: 153 },
             { columnName: 'access', width: 100 },
-            { columnName: 'file_name', width: 983 },
+            { columnName: 'file_name', width: 400 },
             { columnName: 'data_category', width: 151 },
             { columnName: 'workflow_type', width: 200 },
             { columnName: 'platform', width: 200 },
