@@ -1,0 +1,106 @@
+@import "../node_modules/kpmp-common-styles/common-values.scss";
+
+body {
+	font-size: 16px;
+	background-color: #fff;
+}
+
+#footer {
+	background: $footer-color;
+}
+
+#navbar {
+	background-color: white;
+	border-bottom: 1px solid #e7e7e7;
+
+	.navbar-header {
+
+		text-decoration: none !important;
+
+		.navbar-brand img.logo {
+			height: 50px;
+		}
+	}
+
+	a.dropdown-toggle {
+
+	}
+	
+	.navbar-brand {
+		padding-top: 0px !important;
+		padding-bottom: 0px !important;
+	}
+
+	#nav-user-dropdown-menu {
+		a:hover {
+			text-decoration: none !important;
+		}
+	}
+}
+
+.container-fluid {
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+}
+
+#root {
+	position: relative;
+
+	/* xs to sm */
+	top: calc(#{$header-height-padded});
+	height: calc(100vh + 10px
+		- #{$header-height-padded}
+		- #{$footer-height-padded});
+
+	/* md and up */
+	@media (min-width: 768px) {
+		top: calc(#{$header-height-padded});
+		height: calc(100vh + 10px
+			- #{$header-height-padded}
+			- #{$footer-height-padded});
+	}
+}
+
+#oops-content {
+
+	margin-top: 150px;
+
+	.oops-big {
+		font-size: 72px;
+	}
+
+	.oops-small {
+		font-size: 32px;
+	}
+
+	#oops-image {
+		width: 385px;
+		height: 330px;
+	}
+}
+
+
+#title-text {
+	font-size: 20px;
+	@media only screen and (max-width: 767px) {
+		display: none;
+	}
+}
+
+.hidden {
+	display: none !important;
+}
+.btn-primary {
+	background-color: rgb(40, 60, 94);
+	border: 1px solid transparent;
+	color: white;
+	transition: all 0.25s ease 0s;
+}
+.btn-primary:hover {
+	background-color: rgb(67, 100, 157);
+	border: 1px solid transparent;
+	color: white;
+	transition: all 0.25s ease 0s;
+}

@@ -1,0 +1,618 @@
+@import "kpmp-base.scss";
+@import "../node_modules/kpmp-common-styles/index.scss";
+@import "../node_modules/kpmp-common-styles/common-values.scss";
+
+//importing pieces of bootstrap instead of importing all of bootstrap
+@import "../node_modules/bootstrap/scss/functions";
+
+//default variable overrides are done first to be passed to variables below
+$accordion-button-active-color: black;
+$accordion-button-color: black;
+$bs-border-color: #dee2e6;
+
+//pass variable overrides
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// import accordion component with variable overrides applied
+@import "../node_modules/bootstrap/scss/_accordion.scss";
+
+#navbar .navbar-brand img.logo {
+    width: 80px;
+    min-width: 80px;
+}
+
+.vitessce-container {
+    .card-body {
+        background-color: #FAFBFC !important;
+    }
+}
+
+.table tbody{
+    vertical-align: inherit;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #color;
+}
+
+.table > thead {
+    vertical-align: bottom;
+    position: sticky;
+    top:0px;
+    z-index: 5;
+}
+
+.table thead th {
+    font-size: 14px;
+}
+.table th {
+    white-space: nowrap;
+}
+
+.filter-panel-wrapper {
+    contain: content;
+}
+
+.filter-panel-tab-wrapper {
+    position: fixed;
+    width: 100%;   
+}
+
+.spatial-filter-panel {
+    margin-top: 3.5rem !important;
+    border-top-left-radius: 0px !important;
+    min-height: 70vh;
+    height: calc(100vh - 220px);
+    overflow-y: scroll;
+}
+
+.filter-tab {
+    font-size: 14px;
+    margin-top: 1rem !important;
+    text-align: center;
+    background-color: rgba(1,1,1,0);
+    border: 0px !important;
+    width:auto;
+    padding: 10px;
+    display: inline-block;
+    height: 38px;
+    cursor: pointer;
+}
+
+.filter-tab-control-icon {
+    float: right;
+    background-color: rgba(1,1,1,0) !important;
+    padding: 10px 0px 0px 0px;
+}
+
+.filter-tab.active {
+    font-size: 13px;
+    line-height: 1;
+    background-color: white;
+    border: 1px solid #dee2e6 !important;
+    border-bottom: 0px solid black !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.data-table-wrapper {
+    margin-bottom: 30px;
+}
+.data-table {
+    position: relative;
+    padding-top: 0px;
+
+    thead tr {
+        text-transform: uppercase;
+    }
+
+    .card-header {
+        background-color: rgba(0, 0, 0, 0);
+        border-bottom: 0px solid rgba(0,0,0,0);
+        padding: .5rem 0 !important;
+    }
+
+    .card-header .btn.btn-light {
+        background-color: #fff;
+    }
+
+    .card-header .btn.btn-light:hover {
+        background-color: rgb(245, 245, 245);
+        cursor: pointer;
+    }
+
+    .table-responsive {
+        padding: 0rem 1rem 1rem !important;
+        background-color: #fff;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+        border-radius: .25rem !important;
+        border: 1px solid #dee2e6 !important;
+        /* ~420px includes header height, footer height, and additional margins*/
+        max-height: calc(100vh - 420px);
+    }
+
+    .card-footer {
+        padding: 10px 0px 0px 0px;
+        background-color: transparent;
+        margin-top: 20px;
+        border-top: 0px solid rgba(0,0,0,0);
+        z-index: 5;
+    }
+    
+    .card-footer .d-inline-block {
+        display: none !important;
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background-color: #fff;
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    .filter-list {
+        top: 223%;
+        background-color: #fff;
+    }
+}
+
+#vitessce-container {
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    .react-grid-layout {
+        position: relative;
+    }
+}
+
+.btn-link:hover, .btn-link:focus {
+    text-decoration: none;
+}
+
+th[title='Acquisition Date'] {
+    display:none;
+}
+
+th[title='Pixels Type'], th[title='Pixels Type'] + td {
+    display:none;
+}
+
+.title-buttons > div:nth-last-child(3) > button{
+    display: none
+}
+
+.title-buttons > button:last-child {
+    display: none
+}
+
+.layer-controller-container .MuiButtonBase-root-12 .MuiIconButton-root-3 {
+    top: -15.4px;
+}
+
+.icon-info {
+    color: #0275d8;
+    cursor: pointer !important;
+    font-size: 14px;
+}
+.spatial-info-cell.icon-info {
+    float: right;
+}
+.spatial-button.icon-info {
+    color: #212529;
+}
+
+tr:nth-last-of-type(1) .tooltip-parent-sibling,
+tr:nth-last-of-type(2) .tooltip-parent-sibling,
+tr:nth-last-of-type(3) .tooltip-parent-sibling {
+    cursor: pointer !important;
+    font-size: 14px;
+    margin-bottom: -5.75rem !important;
+    margin-left: 2rem !important;
+}
+.tooltip-parent {
+    z-index: 10;
+    cursor: pointer;
+    white-space: normal;
+    position: absolute;
+    background-color: #fff;
+    display: none;
+    width: 23rem;
+}
+
+td:hover {
+    .tooltip-parent {
+        display: block !important;
+    }
+}
+
+.icon-row .col {
+    max-width: 90%;
+}
+
+.participant-id {
+    min-width: 120px;
+    width: 120px;
+    max-width: 120px;
+}
+
+.data-type {
+    min-width: 155px;
+    width: 155px;
+    max-width: 155px;
+}
+
+.tissue-type {
+    min-width: 100px;
+    width: 100px;
+    max-width: 100px;
+}
+
+.image-type {
+    min-width: 350px;
+    width: 350px;
+    max-width: 350px;
+}
+
+.level {
+    min-width: 80px;
+    width: 80px;
+    max-width: 80px;
+}
+.source-file {
+    min-width: 380px;
+    width: 380px;
+    max-width: 380px;
+}
+@media only screen and (max-width: 1200px) {
+   .image-type {
+        width: 300px;
+        max-width: 300px;
+    }
+
+    .participant-id {
+        min-width: 120px;
+        width: 120px;
+        max-width: 120px;
+    }
+
+    .data-type {
+        min-width: 200px;
+        width: 200px;
+        max-width: 200px;
+    }
+
+    .tissue-type {
+        min-width: 100px;
+        width: 100px;
+        max-width: 100px;
+    }
+
+    .level {
+        min-width: 80px;
+        width: 80px;
+        max-width: 80px;
+    }
+    .source-file {
+        min-width: 450px;
+        width: 450px;
+        max-width: 450px;
+    }
+}
+
+
+//This hides the tooltip info icon on the column selector
+.dropdown-item {
+    .tooltip-icon {
+        display: none;
+    }
+}
+
+.activeFilter-column .row {
+    margin-left: -9px;
+    margin-right: -15px;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.activeFilter-column.closed {
+    padding: 0rem .5rem 0rem 1.3rem !important;
+}
+.activeFilter-column {
+    padding: 0rem .5rem 0rem 4rem !important;
+}
+.filter-pill-row {
+    margin-top: 1rem;
+    width: 100%;
+}
+.inactive-filters {
+    background-color: rgb(237, 248, 251);
+    padding: 1rem;
+    width: 100%;
+}
+.activeFilter {
+    background-color: white;
+    padding: 10px;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: fit-content
+}
+
+.activeFilter .close-button {
+    text-align: center;
+}
+
+.container-xxl.multi-container-container {
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.container-max {
+    max-width: 100%;
+}
+
+.filter-collapse {
+    z-index: 100;
+    background-color: #fff;
+    border-color: #c8c8c8 #c8c8c8 #c8c8c8 currentcolor;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 1px medium;
+    border-image: none 100% / 1 / 0 stretch;
+    border-radius: 0px 0.4rem 0.4rem 0px;
+    flex: 0 0 auto;
+    margin: 1.1rem 4rem auto -2.5rem;
+    outline: currentcolor none medium;
+    padding: 10px;
+    max-height: 50px;
+    position: absolute;
+    left: 2.5rem !important;
+    width: 35px;
+    max-width: 35px;
+    min-width: 35px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.sort-dialog {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: absolute;
+    outline: currentcolor none medium;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px 0px, rgba(0, 0, 0, 0.12) 0px 2px 10px 0px;
+    z-index: 200;
+    min-width: 165px;
+    background-color: white;
+    text-align: left;
+    right: 0px;
+    border-radius: 5px;
+    top: 100%;
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow-y: scroll;
+    max-height: calc(100vh - 427.25px);
+}
+
+.sort-dialog .sort-dialog-option:hover{
+    background-color: rgb(245, 245, 245);
+}
+
+.sort-dialog-option-wrapper {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    position: relative;
+    outline: currentcolor none medium;
+    padding: 5px;
+    border-right: 2px solid rgba(0, 0, 0, 0);
+}
+.sort-dialog-option-wrapper:hover {
+    background-color: rgb(245, 245, 245);
+    border-right: 2px solid rgb(23, 132, 172);
+}
+.sort-dialog-option-wrapper input:hover {
+    cursor: pointer;
+}
+
+.sort-dialog-options {
+    box-sizing: border-box;
+    position: relative;
+    outline: currentcolor none medium;
+    flex: 1 1 auto;
+    padding: 0.3rem 0.6rem;
+}
+
+.sort-dialog-options input {
+    margin-right: 5px;
+}
+
+.sort-dialog-radio-wrapper {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    position: relative;
+    outline: currentcolor none medium;
+    padding: 0.3rem 0.6rem;
+}
+
+.sort-dialog-radio-wrapper span {
+    padding-right: 2px;
+}
+.sort-dialog-radio-wrapper svg {
+    padding-right: 2px;
+}
+.card-footer {
+    
+}
+.card-footer .d-inline-block {
+    display: none !important;
+}
+
+.pagination-size-wrapper {
+    z-index: 10;
+    position: relative;
+    top: -70px;
+    width: fit-content;
+    margin: 1rem;
+    font-size: 13px;
+}
+
+.pagination-size-wrapper #mui-component-select-filter-field {
+    font-size: 13px;
+}
+
+.pagination {
+    z-index: 999;
+    font-size: 13px;
+    margin-left: auto !important;
+}
+
+
+.fake-link {
+    color: rgb(0, 91, 124);
+    cursor:pointer;
+}
+.fake-link:hover {
+    text-decoration: underline;
+}
+
+.column-arrage-dialog .column-filter-wrapper {
+    background-color: #dedede;
+}
+.column-arrage-dialog .column-filter-wrapper i {
+    padding: 0px 5px 5px 5px;    
+}
+
+.sui-facet__title {
+    color: black !important;
+    font-weight: bold !important;
+}
+.sui-multi-checkbox-facet__option-input-wrapper {
+    padding-left: 23px;
+    text-indent: -23px; 
+}
+
+.image-type-cell {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden
+}
+
+// Utility Classes
+.u-gutter-fix {
+	margin: 0px !important;
+}
+.u-transition {
+    transition: all 0.5s ease 0s;
+}
+
+.u-controlled-access-asterisk {
+    color: red;
+    font-size: 18px
+}
+.download-btn {
+    -moz-box-align: center;
+    -moz-box-pack: center;
+    // display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    padding: 3px 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid rgb(200, 200, 200);
+    background-color: rgb(40, 60, 94);
+    color: white;
+    outline: none;
+    transition: all 0.25s ease 0s;
+    height: 22px;
+}
+.download-btn:hover {
+    background-color: rgb(67, 100, 157);
+    color: white;
+}
+.modal-backdrop {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.0);
+    z-index: 100;
+}
+
+#empty-space-wrapper{
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 0px 0px 2rem;
+}
+
+#empty-space{
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    position: relative;
+    outline: none;
+}
+
+#tooltip{
+    z-index: 9999;
+}
+
+.accordion{
+    --bs-accordion-border-color: #dee2e6;
+}
+
+.accordion-item:first-of-type(.collapsed) .accordion-button {
+    --bs-accordion-color: $accordion-button-color
+    --bs-accorion-border-color: $accordion-button-color
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-color: #e7f1ff;
+    --bs-accordion-btn-color: $accordion-button-color
+    --bs-accordion-active-color: $accordion-button-active-color
+}
+
+.action-button {
+    background-color: rgb(67, 100, 157);
+    color: white;
+}
+.action-button:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#spatial-filter{
+    padding:1rem;
+}
+
+.col-xl-3{
+    height: calc(100vh - #{$header-height-padded + $footer-height-padded}) !important;
+    overflow-y: hidden;
+}
+
+.flex-column{
+    flex-direction: column !important;
+}
+
+.row-height{
+    height: 28px !important;
+}
+
+#release{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
