@@ -443,7 +443,7 @@ class FileList extends Component {
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
                 <Row>
-                    <Col xl={`${this.props.filterTabActive ? 0 : 3 }`>
+                    <Col xl={`${this.props.filterTabActive ? 0 : 3 }`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                             <div className="filter-panel-tab-wrapper">
                                 
