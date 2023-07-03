@@ -58,19 +58,10 @@ class FileList extends Component {
             resultCount: 0,
             cards: this.props.props.tableSettings.cards || columnCards,
             isLoaded: false,
-            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns,
-            filterTabActive: true
+            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns
         };
 
     }
-
-    toggleFilterTab = () => {
-        if(this.state.filterTabActive) {
-            this.setState({filterTabActive: false});
-        } else {
-            this.setState({filterTabActive: true});
-        }
-    };
 
     getSearchResults = () => {
         let data = resultConverter(this.props.results);
@@ -448,43 +439,41 @@ class FileList extends Component {
 
         const { columnWidths, sorting } = this.props.props.tableSettings;
 
+        console.log(this.props.filterTabActive)
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
                 <Row>
                     <Col xl={3}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
-                        <div className="filter-panel-tab-wrapper">
-                            
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
-                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
-                                    PARTICIPANT
-                            </div>
-
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
-                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
-                                    FILE
-                            </div>
-
-
-                            <div className="filter-tab filter-tab-control-icon clickable"
-                                 alt="Close Filter Tab"
-                                 onClick={() => {this.props.toggleFilterTab()}}>                                
-                                <FontAwesomeIcon
-                                    className="fas fa-angles-left " icon={faAnglesLeft} />
+                            <div className="filter-panel-tab-wrapper">
+                                
+                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
+                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
+                                        PARTICIPANT
+                                </div>
+                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
+                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
+                                        FILE
+                                </div>
+                                <div className="filter-tab filter-tab-control-icon clickable"
+                                    alt="Close Filter Tab"
+                                    onClick={() => {this.props.toggleFilterTab()}}>                                
+                                    <FontAwesomeIcon
+                                        className="fas fa-angles-left " icon={faAnglesLeft} />
+                                </div>
                             </div>
                         </div>
                         {this.accessAlertModal()}
-                            <React.Fragment>
-                           
-                            {this.props.activeFilterTab === tabEnum.FILE &&
-                                <FileFacet/>
-                            }
+                                <React.Fragment>
+                            
+                                {this.props.activeFilterTab === tabEnum.FILE &&
+                                    <FileFacet/>
+                                }
 
-                            {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                               <ParticipantFacet/>
-                            }
-                            </React.Fragment>
-                        </div>
+                                {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
+                                <ParticipantFacet/>
+                                }
+                                </React.Fragment>
 
                     </Col>
                     <Col xl={`${this.props.filterTabActive ? 9 : 12 }`}>
