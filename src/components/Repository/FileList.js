@@ -150,27 +150,32 @@ class FileList extends Component {
             filterMap.push(obj);
         });
         let sortMap = [];
-        this.props.props.tableSettings.sorting.map((sortItem) => {
-            let obj = {};
-            obj[sortItem["columnName"]] = sortItem["direction"];
-            sortMap.push(obj);
-        })
+        if (this.props.props.tableSettings.sorting) {
+            this.props.props.tableSettings.sorting.map((sortItem) => {
+                let obj = {};
+                obj[sortItem["columnName"]] = sortItem["direction"];
+                sortMap.push(obj);
+            })
+        }
         var allRecords = [];
         let totalPages = Math.ceil(this.props.totalResults / 1000);
         for (let i = 1; i <= totalPages; i++) {
+            let config = {
+                "query":"",
+                "page": {
+                    "size": 1000,
+                    "current": i
+                },
+                "filters": {
+                    "all": filterMap
+                }
+            }
+            if (sortMap.length > 0){
+                config["sort"] = sortMap
+            }
             await Api.getInstance().post(
                 "https://qa-atlas.kpmp.org/spatial-viewer/search/api/as/v1/engines/atlas-repository/search", 
-                {
-                    "query":"",
-                    "page": {
-                        "size": 1000,
-                        "current": i
-                    },
-                    "filters": {
-                        "all": filterMap
-                    },
-                    "sort": sortMap
-                }, 
+                config, 
                 { 
                     headers: {
                         "Authorization" : `Bearer ${process.env.REACT_APP_SEARCH_KEY}`
