@@ -173,7 +173,7 @@ class FileList extends Component {
                 }, 
                 { 
                     headers: {
-                        "Authorization" : `Bearer search-vwz67uj2sf8h83h4y8i8j6g3`
+                        "Authorization" : `Bearer ${process.env.REACT_APP_SEARCH_KEY}`
                     }
                 }).then((response) => {
                     response.data.results.forEach((res) => {
