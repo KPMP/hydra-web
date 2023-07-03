@@ -443,8 +443,9 @@ class FileList extends Component {
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
                 <Row>
+                <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                     <Col xl={3}>
-                        <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
+                        
                             <div className="filter-panel-tab-wrapper">
                                 
                                 <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
@@ -462,20 +463,19 @@ class FileList extends Component {
                                         className="fas fa-angles-left " icon={faAnglesLeft} />
                                 </div>
                             </div>
-                        </div>
-                        {this.accessAlertModal()}
-                                <React.Fragment>
-                            
+                            <React.Fragment>
+                        
                                 {this.props.activeFilterTab === tabEnum.FILE &&
                                     <FileFacet/>
                                 }
-
                                 {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                                <ParticipantFacet/>
+                                    <ParticipantFacet/>
                                 }
-                                </React.Fragment>
-
+                            </React.Fragment>
+                      
+                        {this.accessAlertModal()}
                     </Col>
+                </div>
                     <Col xl={`${this.props.filterTabActive ? 9 : 12 }`}>
                         <Row>
                             <Col 
