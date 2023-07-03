@@ -40,6 +40,7 @@ import FileFacet from './FileFacet';
 import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
+import Api from '../../helpers/Api';
 
 class FileList extends Component {
 
@@ -56,7 +57,6 @@ class FileList extends Component {
             tableData: [],
             resultCount: 0,
             cards: this.props.props.tableSettings.cards || columnCards,
-            currentPage: this.props.props.tableSettings.currentPage,
             isLoaded: false,
             hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns
         };
@@ -80,7 +80,7 @@ class FileList extends Component {
                 this.getSearchResults();
             }
             if (this.props.filters !== prevProps.filters) {
-                this.props.props.setTableSettings({currentPage: 0});
+                this.props.setCurrent(1);
             }
         }
     };
@@ -142,41 +142,88 @@ class FileList extends Component {
         a.click();
         document.body.removeChild(a);
     }
-
-    cleanResults = () => {
-        var results = this.state.tableData.slice(0);
-
-        let cols = {};
-        this.getColumns()
-            .filter((column) => {
-                return !this.state.hiddenColumnNames.includes(column.name);
-            })
-            .forEach((column) => {
-                cols[column.name] = column.title;
-            })
-        cols["package_id"] = "Internal Package ID";
-        
-        results.forEach((res, index) => {
-            
-            // CSV output discards null columns, so replace the null cell values with empty strings
-            res = {...res, 
-                dois: res['dois'] ? res['dois'] : "",
-                workflow_type: res['workflow_type'] ? res['workflow_type'] : "",
-                platform: res['platform'] ? res['platform'] : "",
-                experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"] : "",
-                file_size: prettyBytes(parseInt(res["file_size"]))
-            };
-            
-            results[index] = Object.keys(res)
-            .filter((key) => {
-                return cols.hasOwnProperty(key)
-            })
-            .reduce((obj, key) => {
-                obj[cols[key]] = res[key];
-                return obj;
-            }, {});
+    getAllResults = async () => {
+        let filterMap = [];
+        this.props.filters.map((filter) => {
+            let obj = {};
+            obj[filter["field"]] = filter["values"];
+            filterMap.push(obj);
         });
-        return results;
+        let sortMap = [];
+        this.props.props.tableSettings.sorting.map((sortItem) => {
+            let obj = {};
+            obj[sortItem["columnName"]] = sortItem["direction"];
+            sortMap.push(obj);
+        })
+        var allRecords = [];
+        let totalPages = Math.ceil(this.props.totalResults / 1000);
+        for (let i = 1; i <= totalPages; i++) {
+            await Api.getInstance().post(
+                "https://qa-atlas.kpmp.org/spatial-viewer/search/api/as/v1/engines/atlas-repository/search", 
+                {
+                    "query":"",
+                    "page": {
+                        "size": 1000,
+                        "current": i
+                    },
+                    "filters": {
+                        "all": filterMap
+                    },
+                    "sort": sortMap
+                }, 
+                { 
+                    headers: {
+                        "Authorization" : `Bearer search-vwz67uj2sf8h83h4y8i8j6g3`
+                    }
+                }).then((response) => {
+                    response.data.results.forEach((res) => {
+                        res = Object.keys(res)
+                        .reduce((obj, key) => {
+                            obj[key] = res[key]['raw'];
+                            return obj;
+                        }, {})
+                        allRecords.push(res)
+                    })
+                })
+        }
+        return allRecords;
+    }
+
+    cleanResults = async () => {
+        return await this.getAllResults().then((res) => {
+            var results = res;
+            let cols = {};
+            this.getColumns()
+                .filter((column) => {
+                    return !this.state.hiddenColumnNames.includes(column.name);
+                })
+                .forEach((column) => {
+                    cols[column.name] = column.title;
+                })
+            cols["package_id"] = "Internal Package ID";
+            
+            results.forEach((res, index) => {
+                
+                // CSV output discards null columns, so replace the null cell values with empty strings
+                res = {...res, 
+                    dois: res['dois'] ? res['dois'].toString() : "",
+                    workflow_type: res['workflow_type'] ? res['workflow_type'].toString() : "",
+                    platform: res['platform'] ? res['platform'].toString() : "",
+                    experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"].toString() : "",
+                    file_size: prettyBytes(parseInt(res["file_size"]))
+                };
+                
+                results[index] = Object.keys(res)
+                .filter((key) => {
+                    return cols.hasOwnProperty(key)
+                })
+                .reduce((obj, key) => {
+                    obj[cols[key]] = res[key];
+                    return obj;
+                }, {});
+            });
+            return results;
+        });
     };
 
     copyFileName(fileName) {
@@ -373,6 +420,11 @@ class FileList extends Component {
             })
     };
 
+    getTotalPages = () => {
+        let val = Math.ceil(this.props.totalResults / this.props.resultsPerPage);
+        return (val > 100) ? 100 : val;
+    };
+
     render() {
       
         const tabEnum = {
@@ -380,7 +432,7 @@ class FileList extends Component {
             FILE: 'FILE'
         };
 
-        const { pagingSize, columnWidths, sorting, currentPage} = this.props.props.tableSettings;
+        const { columnWidths, sorting } = this.props.props.tableSettings;
 
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
@@ -485,7 +537,8 @@ class FileList extends Component {
                                                     }
                                                 })
                                                 this.props.setSort(sortOptions);
-                                                this.props.props.setTableSettings({sorting: sorting, currentPage: 0});
+                                                this.props.props.setTableSettings({sorting: sorting});
+                                                this.props.setCurrent(1);
                                             }
                                             }
                                             sorting={sorting}/>
@@ -494,12 +547,32 @@ class FileList extends Component {
                                             formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
                                         />
                                         <PagingState
-                                            currentPage={currentPage}
-                                            defaultPageSize={pagingSize}
-                                            onCurrentPageChange={(page) => this.props.props.setTableSettings({currentPage: page})}
+                                            currentPage={this.props.currentPage-1}
+                                            pageSize={this.props.resultsPerPage}
                                         />
                                         <IntegratedPaging />
-                                        <PagingPanel />
+                                        <PagingPanel
+                                            pageSizes={this.getPageSizes()}
+                                            containerComponent={() => {
+                                                return (
+                                                <PagingPanel.Container
+                                                    totalPages={this.getTotalPages()}
+                                                    currentPage={this.props.currentPage-1}
+                                                    onCurrentPageChange={(page) => {
+                                                        // dx-react-grid paging starts at 0, while ElasticSearch starts at 1
+                                                        // (hence the "+1" and "-1")
+                                                        this.props.setCurrent(page+1);
+                                                    }}
+                                                    pageSize={this.props.resultsPerPage}
+                                                    totalCount={this.props.totalResults}
+                                                    onPageSizeChange={(pageSize) => {
+                                                        this.props.setResultsPerPage(pageSize);
+                                                    }}
+                                                    pageSizes={this.getPageSizes()}
+                                                    getMessage={(messageKey) => {return messageKey}}
+                                                />
+                                                )}}
+                                        />
                                         <Toolbar
                                             cards={this.state.cards}
                                             setCards={this.state.setCards}
@@ -533,9 +606,8 @@ class FileList extends Component {
                                             cleanResults={this.cleanResults}
                                             />
                                         <PaginationState
-                                            currentPage={currentPage}
-                                            setTableSettings={this.props.props.setTableSettings}
-                                            pagingSize={pagingSize}/>
+                                            setResultsPerPage={this.props.setResultsPerPage}
+                                            pagingSize={this.props.resultsPerPage}/>
                                         <Pagination pageSizes={this.getPageSizes()} />
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
