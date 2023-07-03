@@ -107,8 +107,10 @@ const searchConfig = {
       }
   },
   initialState: {
-    resultsPerPage: 1000
+    resultsPerPage: 20,
+    current: 1
   },
+  trackUrlState: true,
   alwaysSearchOnInitialLoad: true
 }
 
@@ -121,17 +123,17 @@ class App extends Component {
     return (
       <Provider store={store}>
         <SearchProvider config={searchConfig}>
-        <BrowserRouter history={history} basename={packagejson.baseURL}>
-          <ErrorBoundaryContainer>
-            <NavBar app='atlas' />
-            <Switch>
-              <Route exact path="/" component={FileListContainer} store={store} />
-              <Route exact path="/oops" component={Oops} />
-              <Route path='*' component={NotFoundPage} />
-            </Switch>
-            <NavFooter app='atlas' />
-          </ErrorBoundaryContainer>
-        </BrowserRouter>
+          <BrowserRouter history={history} basename={packagejson.baseURL}>
+            <ErrorBoundaryContainer>
+              <NavBar app='atlas' />
+              <Switch>
+                <Route exact path="/" component={FileListContainer} store={store} />
+                <Route exact path="/oops" component={Oops} />
+                <Route path='*' component={NotFoundPage} />
+              </Switch>
+              <NavFooter app='atlas' />
+            </ErrorBoundaryContainer>
+          </BrowserRouter>
         </SearchProvider>
       </Provider>
     );
