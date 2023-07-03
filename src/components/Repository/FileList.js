@@ -58,10 +58,19 @@ class FileList extends Component {
             resultCount: 0,
             cards: this.props.props.tableSettings.cards || columnCards,
             isLoaded: false,
-            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns
+            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns,
+            filterTabActive: true
         };
 
     }
+
+    toggleFilterTab = () => {
+        if(this.state.filterTabActive) {
+            this.setState({filterTabActive: false});
+        } else {
+            this.setState({filterTabActive: true});
+        }
+    };
 
     getSearchResults = () => {
         let data = resultConverter(this.props.results);
