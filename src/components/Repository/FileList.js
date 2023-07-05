@@ -438,42 +438,38 @@ class FileList extends Component {
         };
 
         const { columnWidths, sorting } = this.props.props.tableSettings;
-
+        
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
                 <Row>
-                    <Col xl={3}>
+                    <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
-                        <div className="filter-panel-tab-wrapper">
-                            
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
-                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
-                                    PARTICIPANT
+                            <div className="filter-panel-tab-wrapper">
+                                
+                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
+                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
+                                        PARTICIPANT
+                                </div>
+                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
+                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
+                                        FILE
+                                </div>
+                                <div className="filter-tab filter-tab-control-icon clickable"
+                                    alt="Close Filter Tab"
+                                    onClick={() => {this.props.toggleFilterTab()}}>                                
+                                    <FontAwesomeIcon
+                                        className="fas fa-angles-left " icon={faAnglesLeft} />
+                                </div>
                             </div>
-
-                            <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
-                                 className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
-                                    FILE
-                            </div>
-
-
-                            <div className="filter-tab filter-tab-control-icon clickable"
-                                 alt="Close Filter Tab"
-                                 onClick={() => {this.props.toggleFilterTab()}}>                                
-                                <FontAwesomeIcon
-                                    className="fas fa-angles-left " icon={faAnglesLeft} />
-                            </div>
-                        </div>
-                        {this.accessAlertModal()}
+                            {this.accessAlertModal()}
                             <React.Fragment>
-                           
-                            {this.props.activeFilterTab === tabEnum.FILE &&
-                                <FileFacet/>
-                            }
-
-                            {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                               <ParticipantFacet/>
-                            }
+                        
+                                {this.props.activeFilterTab === tabEnum.FILE &&
+                                    <FileFacet/>
+                                }
+                                {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
+                                    <ParticipantFacet/>
+                                }
                             </React.Fragment>
                         </div>
 
