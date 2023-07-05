@@ -438,8 +438,7 @@ class FileList extends Component {
         };
 
         const { columnWidths, sorting } = this.props.props.tableSettings;
-
-        console.log(this.props.filterTabActive)
+        
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
                 <Row>
