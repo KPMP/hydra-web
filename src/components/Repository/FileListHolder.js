@@ -20,7 +20,6 @@ class FileListHolder extends Component {
     };
     
     toggleFilterTab = () => {
-        console.log("toggle")
         this.setState({filterTabActive: !this.state.filterTabActive})
     };
 
