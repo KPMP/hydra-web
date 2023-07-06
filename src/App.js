@@ -15,6 +15,7 @@ import FileListContainer from "./components/Repository/FileListContainer";
 import packagejson from '../package.json';
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
+import ReportCard from './components/ReportCard/ReportCard';
 
 const cacheStore = window.sessionStorage.getItem('hyrda-redux-store');
 const initialState = cacheStore ? JSON.parse(cacheStore) : loadedState;
@@ -128,6 +129,7 @@ class App extends Component {
               <NavBar app='atlas' />
               <Switch>
                 <Route exact path="/" component={FileListContainer} store={store} />
+                <Route exact path="/report" component={ReportCard} />
                 <Route exact path="/oops" component={Oops} />
                 <Route path='*' component={NotFoundPage} />
               </Switch>

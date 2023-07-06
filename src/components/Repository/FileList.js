@@ -270,6 +270,11 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false, 
+                getCellValue: row => { 
+                    return row['redcap_id'] !== "Multiple Participants" 
+                    ? <a href='/report'>{row["redcap_id"]}</a>
+                    : row["redcap_id"]
+                } 
             }, 
             {
                 name: 'file_id',
