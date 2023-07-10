@@ -129,7 +129,7 @@ class App extends Component {
               <NavBar app='atlas' />
               <Switch>
                 <Route exact path="/" component={FileListContainer} store={store} />
-                <Route exact path="/report" component={ReportCard} />
+                <Route exact path="/report" component={ReportCard} store={store}/>
                 <Route exact path="/oops" component={Oops} />
                 <Route path='*' component={NotFoundPage} />
               </Switch>
