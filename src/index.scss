@@ -623,6 +623,8 @@ td:hover {
 
 .report-header {
     margin: 5px 0px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .report-card {
@@ -633,4 +635,15 @@ td:hover {
     .report-card {
         padding-bottom: 150.5px;
     }
+}
+
+.tab-pane {
+    cursor: pointer;
+    color: #495057;
+    font-size: 14px;
+}
+
+.tab-pane:hover, .tab-pane.active {
+    text-decoration: none;
+    color: black !important;
 }

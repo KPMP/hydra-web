@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,8 +51,14 @@ class ReportCard extends Component {
             clinicalDemographicColumns: [
                 { name: "field", title: "Field" },
                 { name: "value", title: "Value" },
-            ]
+            ],
+            activeTab: '1'
         }
+        this.setActiveTab = this.setActiveTab.bind(this);
+    }
+
+    setActiveTab = (activeTab) => {
+        this.setState({activeTab: activeTab});
     }
 
     render() {
@@ -60,19 +66,14 @@ class ReportCard extends Component {
             <div className='report-card ms-5 me-5'>
                 <Row className='pt-2'>
                     <Col className='report-col col-sm-12 col-md-8 col-lg-10'>
-                        <Container className='container-max landing mb-4 rounded border p-3 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 168}}>
                             <div className='report-header'>
                                 Participant Summary
                             </div>
-                            <Grid 
-                                rows={this.state.participantSummaryRows}
-                                columns={this.state.participantSummaryColumns}>
-                                <Table />
-                            </Grid>
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
-                        <Container className='container-max landing mb-4 rounded border p-3 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm'>
                             <Row>
                                 <Col className=''>
                                     Files
@@ -90,43 +91,62 @@ class ReportCard extends Component {
                 </Row>
                 <Row className=''>
                     <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
-                        <Container className='container-max landing mb-4 rounded border p-3 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 311}}>
                             <div className='report-header'>
                                 File Counts by Data Category
                             </div>
-                            <Grid 
-                                rows={this.state.fileCountsByDataCategoryRows}
-                                columns={this.state.fileCountsByDataCategoryColumns}>
-                                <Table />
-                                <TableHeaderRow />
-                            </Grid>
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
-                        <Container className='container-max landing mb-4 rounded border p-3 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 311}}>
                             <div className='report-header'>
                                 File Counts by Experimental Strategy
                             </div>
-                            <Grid 
-                                rows={this.state.fileCountsByStrategyRows}
-                                columns={this.state.fileCountsByStrategyColumns}>
-                                <Table />
-                                <TableHeaderRow />
-                            </Grid>
                         </Container>
                     </Col>
                 </Row>
                 <Row className=''>
                     <Col className='report-col col-12'>
-                        <Container className='container-max landing mb-4 rounded border p-3 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 243}}>
                             <div className='report-header'>
                                 Clinical
                             </div>
-                            <Grid 
-                                rows={this.state.clinicalDemographicRows}
-                                columns={this.state.clinicalDemographicColumns}>
-                                <Table />
-                            </Grid>
+                            <div>
+                                <Nav tabs>
+                                    <NavItem>
+                                        <NavLink className={`tab-pane ${this.state.activeTab == '1' ? 'active' : ''}`} onClick={() => this.setActiveTab('1')}>
+                                            Demographics
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={`tab-pane ${this.state.activeTab == '2' ? 'active' : ''}`} onClick={() => this.setActiveTab('2')}>
+                                            Diagnoses / Treatments
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={`tab-pane ${this.state.activeTab == '3' ? 'active' : ''}`} onClick={() => this.setActiveTab('3')}>
+                                            Family Histories
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={`tab-pane ${this.state.activeTab == '4' ? 'active' : ''}`} onClick={() => this.setActiveTab('4')}>
+                                            Exposures
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink className={`tab-pane ${this.state.activeTab == '5' ? 'active' : ''}`} onClick={() => this.setActiveTab('5')}>
+                                            Adjudication
+                                        </NavLink>
+                                    </NavItem>
+                                </Nav>
+                                <TabContent activeTab={this.state.activeTab}>
+                                    <TabPane tabId="1"></TabPane>
+                                    <TabPane tabId="2"></TabPane>
+                                    <TabPane tabId="3"></TabPane>
+                                    <TabPane tabId="4"></TabPane>
+                                    <TabPane tabId="5"></TabPane>
+                                </TabContent>
+                            </div>
                         </Container>
                     </Col>
                 </Row>
