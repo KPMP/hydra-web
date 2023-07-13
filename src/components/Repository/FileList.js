@@ -272,7 +272,7 @@ class FileList extends Component {
                 defaultHidden: false, 
                 getCellValue: row => { 
                     return row['redcap_id'] !== "Multiple Participants" 
-                    ? <button onClick={(e) => this.props.props.history.push(`/report/?participant=${row['redcap_id']}`)} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
+                    ? <button onClick={(e) => this.props.props.history.push('/report/')} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
                     : row["redcap_id"]
                 } 
             }, 
