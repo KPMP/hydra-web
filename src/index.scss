@@ -620,3 +620,17 @@ td:hover {
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
+.report-header {
+    margin: 5px 0px;
+}
+
+.report-card {
+    padding-bottom: $footer-height-padded;
+}
+
+@media only screen and (max-width: 991px) {
+    .report-card {
+        padding-bottom: 150.5px;
+    }
+}
