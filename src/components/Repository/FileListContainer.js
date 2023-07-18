@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch, props) =>
          setTableSettings(componentState) {
             dispatch(setTableSettings(componentState))
          },
-         setExperimentaldataCounts(participant_id){
+         setExperimentalDataCounts(participant_id){
             dispatch(fetchAndSetExperimentalDataCounts(participant_id));
          }
     });
