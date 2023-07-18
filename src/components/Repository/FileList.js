@@ -235,6 +235,11 @@ class FileList extends Component {
         copy(fileName);
     }
 
+    clickReportCard = (row) => {
+        this.props.setExperimentalDataCounts(row['redcapid']);
+        this.props.props.history.push('/report');
+    }
+
     // This is used for column ordering too.
     getColumns = () => {
         let columns = [
@@ -272,7 +277,7 @@ class FileList extends Component {
                 defaultHidden: false, 
                 getCellValue: row => { 
                     return row['redcap_id'] !== "Multiple Participants" 
-                    ? <button onClick={(e) => this.props.props.history.push('/report')} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
+                    ? <button onClick={(e) => this.clickReportCard(row) } type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
                     : row["redcap_id"]
                 } 
             }, 
