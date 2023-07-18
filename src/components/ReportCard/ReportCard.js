@@ -5,6 +5,7 @@ import { Grid, Table, TableColumnResizing, TableHeaderRow} from '@devexpress/dx-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, experimentalDataConverter } from '../../helpers/dataHelper';
+import PropTypes from 'prop-types';
 
 class ReportCard extends Component {
     constructor(props) {
@@ -60,7 +61,7 @@ class ReportCard extends Component {
 
     formatLinkableCellValue = (row) => {
         let link = '/'
-        if (row.tool === 'spatial-viewer') {
+        if (row.tool === 'repository') {
             link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.props.redcapid + '&filters[1][type]=any'
         } else if (row.tool === 'explorer') {
             let dataType = '';
@@ -201,6 +202,10 @@ class ReportCard extends Component {
             </div>
         )
     }
+}
+
+ReportCard.propTypes = {
+    experimentalDataCounts: PropTypes.object.isRequired
 }
 
 export default ReportCard;

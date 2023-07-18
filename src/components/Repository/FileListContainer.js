@@ -2,11 +2,15 @@ import {connect} from "react-redux";
 import { withRouter } from 'react-router';
 import {setSelectedImageDataset, setTableSettings} from "../../actions/Images/imageDatasetActions";
 import FileListHolder from "./FileListHolder";
+import {
+    fetchAndSetExperimentalDataCounts,
+} from "../../actions/Experimental/experimentalDatasetAction";
 
 const mapStateToProps = (state, props) =>
     ({
         selectedImageDataset: state.selectedImageDataset,
-        tableSettings: state.tableSettings
+        tableSettings: state.tableSettings,
+        experimentalDataCounts: state.experimentalDataCounts
     });
 
 const mapDispatchToProps = (dispatch, props) =>
@@ -17,6 +21,9 @@ const mapDispatchToProps = (dispatch, props) =>
          },
          setTableSettings(componentState) {
             dispatch(setTableSettings(componentState))
+         },
+         setExperimentaldataCounts(participant_id){
+            dispatch(fetchAndSetExperimentalDataCounts(participant_id));
          }
     });
 
