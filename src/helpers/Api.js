@@ -59,6 +59,7 @@ export const fetchParticipantExperimentCounts = async (redcapId) => {
   });
 
   if (response && response.data && response.data.getDataTypeInformationByParticipant) {
+    console.log(response.data.getDataTypeInformationByParticipant);
     return response.data.getDataTypeInformationByParticipant;
   } else {
     store.dispatch(sendMessageToBackend("Could not retrieve getDataTypeInformationByParticipant: " + response.error));
