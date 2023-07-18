@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FileList from "./FileList";
 
 import { WithSearch } from "@elastic/react-search-ui";
-import { PagingInfo } from "@elastic/react-search-ui";
 
 
 class FileListHolder extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter, Collapse } from "reactstrap";
+import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
 import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

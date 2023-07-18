@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Col, Container, Row, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+import { Grid, Table, TableColumnResizing, TableHeaderRow} from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
+import { dataToTableConverter, experimentalDataConverter } from '../../helpers/dataHelper';
 
 class ReportCard extends Component {
     constructor(props) {
@@ -15,6 +17,91 @@ class ReportCard extends Component {
 
     setActiveTab = (activeTab) => {
         this.setState({activeTab: activeTab});
+    }
+
+    getDefaultColumnWidths = () => {
+        return [
+            { columnName: 'key', width: 215 },
+            { columnName: 'value', width: 180 },
+        ]
+    };
+    getDefaultLinkColumnWidths = () => {
+        return [
+            { columnName: 'key', width: 380 },
+            { columnName: 'value', width: 30 },
+        ]
+    };
+    getColumns = () => {
+        return [
+            {
+                name: 'key',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+            },
+            {
+                name: 'value',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+            },
+        ];
+    };
+
+    formatLinkableCellKey = (row) => {
+        let key = row['key'];
+       if(row.isAggregated) {
+            key = (<div>{`${row['key']}`} <span className="u-controlled-access-asterisk">*</span></div>);
+        } else {
+            key = (<div>{`${row['key']}`}</div>);
+        }
+        return( key )
+    }
+
+    formatLinkableCellValue = (row) => {
+        let link = '/'
+        if (row.tool === 'spatial-viewer') {
+            link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.props.redcapid + '&filters[1][type]=any'
+        } else if (row.tool === 'explorer') {
+            let dataType = '';
+            if (row.key.includes('Single-cell')) {
+                dataType = 'sc'
+            } else if (row.key.includes('Single-nuc')) {
+                dataType = 'sn'
+            } else if (row.key.includes('Regional')) {
+                dataType = 'regionalViz'
+            }
+            link = '/' + row.tool + '/dataViz?dataType=' + dataType
+        }
+
+        return( row['value'] > 0 ? <a className="p-0" href={link}>{row['value']}</a>: <span>{row['value']}</span>)
+    }
+    
+    getLinkableColumns = () => {
+        return [
+            {
+                name: 'key',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+                getCellValue: row => this.formatLinkableCellKey(row)
+            },
+            {
+                name: 'value',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+                getCellValue: row => this.formatLinkableCellValue(row)
+            }
+        ];
+    };
+
+    getRowSets = (dataset) => {
+        return  experimentalDataConverter(dataset)
+    }
+
+    getRows = (dataset) => {
+        return dataToTableConverter(dataset)
     }
 
     render() {
@@ -58,6 +145,11 @@ class ReportCard extends Component {
                             <div className='report-header'>
                                 File Counts by Experimental Strategy
                             </div>
+                            <Grid rows={this.getRowSets(this.props.experimentalDataCounts)} columns={this.getLinkableColumns()}>
+                                    <Table columnExtensions={[{ columnName: 'value', align: 'right' }]} />
+                                    <TableColumnResizing defaultColumnWidths={this.getDefaultLinkColumnWidths()} />
+                                    <TableHeaderRow />
+                                </Grid> 
                         </Container>
                     </Col>
                 </Row>
@@ -70,27 +162,27 @@ class ReportCard extends Component {
                             <div>
                                 <Nav tabs>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '1' ? 'active' : ''}`} onClick={() => this.setActiveTab('1')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '1' ? 'active' : ''}`} onClick={() => this.setActiveTab('1')}>
                                             Demographics
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '2' ? 'active' : ''}`} onClick={() => this.setActiveTab('2')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '2' ? 'active' : ''}`} onClick={() => this.setActiveTab('2')}>
                                             Diagnoses / Treatments
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '3' ? 'active' : ''}`} onClick={() => this.setActiveTab('3')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '3' ? 'active' : ''}`} onClick={() => this.setActiveTab('3')}>
                                             Family Histories
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '4' ? 'active' : ''}`} onClick={() => this.setActiveTab('4')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '4' ? 'active' : ''}`} onClick={() => this.setActiveTab('4')}>
                                             Exposures
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '5' ? 'active' : ''}`} onClick={() => this.setActiveTab('5')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '5' ? 'active' : ''}`} onClick={() => this.setActiveTab('5')}>
                                             Adjudication
                                         </NavLink>
                                     </NavItem>
