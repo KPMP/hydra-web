@@ -27,4 +27,4 @@ const mapDispatchToProps = (dispatch, props) =>
          }
     });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FileListHolder))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FileListHolder, FileList))
