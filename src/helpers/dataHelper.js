@@ -13,7 +13,7 @@ export const experimentalDataConverter = (data={}) => {
     let repoData = data.repositoryDataTypes;
     let spatialData = data.spatialViewerDataTypes;
     let explorerData = data.explorerDataTypes;
-    let result = formatData(repoData, [], 'repository');
+    let result = formatData(repoData, [], 'atlas-repository');
     result = formatData(explorerData, result, 'explorer');
     return result;
 }
