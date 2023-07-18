@@ -60,6 +60,7 @@ class FileList extends Component {
             isLoaded: false,
             hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns
         };
+        this.props.setExperimentalDataCounts(this.props.participant_id['redcapid']);
 
     }
 
@@ -71,6 +72,7 @@ class FileList extends Component {
     async componentDidMount() {
         await this.getSearchResults();
         this.setState({isLoaded: true})
+        
         
     };
 
@@ -277,7 +279,7 @@ class FileList extends Component {
                 defaultHidden: false, 
                 getCellValue: row => { 
                     return row['redcap_id'] !== "Multiple Participants" 
-                    ? <button onClick={(e) => this.clickReportCard(row) } type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
+                    ? <button onClick={(e) => this.clickReportCard(row)} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
                     : row["redcap_id"]
                 } 
             }, 
