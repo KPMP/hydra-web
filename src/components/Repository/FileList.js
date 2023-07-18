@@ -60,7 +60,7 @@ class FileList extends Component {
             isLoaded: false,
             hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns
         };
-        // this.props.setExperimentalDataCounts(this.props.experimentalDataCounts['redcap_id']);
+        this.props.setExperimentalDataCounts(this.props.experimentalDataCounts['redcap_id']);
 
     }
 
