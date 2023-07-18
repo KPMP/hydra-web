@@ -237,7 +237,7 @@ class FileList extends Component {
     }
 
     clickReportCard = (row) => {
-        this.props.setExperimentalDataCounts(row['redcapid']);
+        // this.props.setExperimentalDataCounts(row['redcapid']);
         this.props.props.history.push('/report');
     }
 
