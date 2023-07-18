@@ -237,8 +237,9 @@ class FileList extends Component {
     }
 
     clickReportCard = (row) => {
-        // this.props.setExperimentalDataCounts(row['redcapid']);
+       
         this.props.props.history.push('/report');
+        this.props.props.setExperimentalDataCounts(row['redcapid'])
     }
 
     // This is used for column ordering too.
