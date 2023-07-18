@@ -10,9 +10,10 @@ export const resultConverter = (results) => {
 };
 
 export const experimentalDataConverter = (data={}) => {
+    let repoData = data.repositoryDataTypes;
     let spatialData = data.spatialViewerDataTypes;
     let explorerData = data.explorerDataTypes;
-    let result = formatData(spatialData, [], 'spatial-viewer');
+    let result = formatData(repoData, [], 'repository');
     result = formatData(explorerData, result, 'explorer');
     return result;
 }
