@@ -41,6 +41,7 @@ import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
 import Api from '../../helpers/Api';
+import { store } from '../../App';
 
 class FileList extends Component {
 
@@ -237,6 +238,7 @@ class FileList extends Component {
 
     // This is used for column ordering too.
     getColumns = () => {
+        const { setSummaryDatasets } = this.props.props;
         let columns = [
             {
                 name: 'download',
@@ -272,7 +274,12 @@ class FileList extends Component {
                 defaultHidden: false, 
                 getCellValue: row => { 
                     return row['redcap_id'] !== "Multiple Participants" 
-                    ? <button onClick={(e) => this.props.props.history.push('/report')} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
+                    ? <button onClick={async (e) => {
+                            await setSummaryDatasets(row['redcap_id'][0]).then(() => {
+                                console.log(store.getState());
+                                this.props.props.history.push('/report');
+                            }); 
+                        }} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
                     : row["redcap_id"]
                 } 
             }, 

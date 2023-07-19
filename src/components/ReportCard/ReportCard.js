@@ -1,20 +1,116 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Col, Container, Row, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
+import { connect } from 'react-redux';
+import { store } from '../../App';
+import { dataToTableConverter, experimentalDataConverter } from '../../helpers/dataHelper';
+import { Grid, Table, TableColumnResizing, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
 
 class ReportCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: '1'
+            activeTab: '1',
+            summaryDataset: store.getState().summaryDatasets
         }
         this.setActiveTab = this.setActiveTab.bind(this);
     }
 
+    componentDidMount() {
+        if(Object.keys(store.getState().summaryDatasets).length === 0 || 
+           store.getState().summaryDatasets === {}) {
+            window.location.replace('/');
+        }
+    }
+
     setActiveTab = (activeTab) => {
         this.setState({activeTab: activeTab});
+    }
+    getDefaultColumnWidths = () => {
+        return [
+            { columnName: 'key', width: 215 },
+            { columnName: 'value', width: 180 },
+        ]
+    };
+    getDefaultLinkColumnWidths = () => {
+        return [
+            { columnName: 'key', width: 380 },
+            { columnName: 'value', width: 30 },
+        ]
+    };
+    getColumns = () => {
+        return [
+            {
+                name: 'key',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+            },
+            {
+                name: 'value',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+            },
+        ];
+    };
+
+    formatLinkableCellKey = (row) => {
+        let key = row['key'];
+       if(row.isAggregated) {
+            key = (<div>{`${row['key']}`} <span className="u-controlled-access-asterisk">*</span></div>);
+        } else {
+            key = (<div>{`${row['key']}`}</div>);
+        }
+        return( key )
+    }
+
+    formatLinkableCellValue = (row) => {
+        let link = '/'
+        if (row.tool === 'spatial-viewer') {
+            link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.props.redcapid + '&filters[1][type]=any'
+        } else if (row.tool === 'explorer') {
+            let dataType = '';
+            if (row.key.includes('Single-cell')) {
+                dataType = 'sc'
+            } else if (row.key.includes('Single-nuc')) {
+                dataType = 'sn'
+            } else if (row.key.includes('Regional')) {
+                dataType = 'regionalViz'
+            }
+            link = '/' + row.tool + '/dataViz?dataType=' + dataType
+        }
+
+        return( row['value'] > 0 ? <a className="p-0" href={link}>{row['value']}</a>: <span>{row['value']}</span>)
+    }
+    
+    getLinkableColumns = () => {
+        return [
+            {
+                name: 'key',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+                getCellValue: row => this.formatLinkableCellKey(row)
+            },
+            {
+                name: 'value',
+                sortable: false,
+                hideable: false,
+                defaultHidden: false,
+                getCellValue: row => this.formatLinkableCellValue(row)
+            }
+        ];
+    };
+
+    getRowSets = (dataset) => {
+        return  experimentalDataConverter(dataset)
+    }
+
+    getRows = (dataset) => {
+        return dataToTableConverter(dataset)
     }
 
     render() {
@@ -22,10 +118,15 @@ class ReportCard extends Component {
             <div className='report-card ms-5 me-5'>
                 <Row className='pt-2'>
                     <Col className='report-col col-sm-12 col-md-8 col-lg-10'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 168}}>
-                            <div className='report-header'>
+                        <Container className='container-max landing mb-4 rounded border ps-3 pe-3 pt-2 pb-1 shadow-sm'>
+                            <div className='report-header mb-3'>
                                 Participant Summary
                             </div>
+                            <Grid rows={this.getRows(this.state.summaryDataset)} columns={this.getColumns()}>
+                                <Table/>
+                                <TableColumnResizing defaultColumnWidths={this.getDefaultColumnWidths()} />
+                            </Grid>
+                            <p>{this.state.participant_id}</p>
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
@@ -70,27 +171,27 @@ class ReportCard extends Component {
                             <div>
                                 <Nav tabs>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '1' ? 'active' : ''}`} onClick={() => this.setActiveTab('1')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '1' ? 'active' : ''}`} onClick={() => this.setActiveTab('1')}>
                                             Demographics
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '2' ? 'active' : ''}`} onClick={() => this.setActiveTab('2')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '2' ? 'active' : ''}`} onClick={() => this.setActiveTab('2')}>
                                             Diagnoses / Treatments
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '3' ? 'active' : ''}`} onClick={() => this.setActiveTab('3')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '3' ? 'active' : ''}`} onClick={() => this.setActiveTab('3')}>
                                             Family Histories
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '4' ? 'active' : ''}`} onClick={() => this.setActiveTab('4')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '4' ? 'active' : ''}`} onClick={() => this.setActiveTab('4')}>
                                             Exposures
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink className={`tab-pane ${this.state.activeTab == '5' ? 'active' : ''}`} onClick={() => this.setActiveTab('5')}>
+                                        <NavLink className={`tab-pane ${this.state.activeTab === '5' ? 'active' : ''}`} onClick={() => this.setActiveTab('5')}>
                                             Adjudication
                                         </NavLink>
                                     </NavItem>
@@ -111,4 +212,8 @@ class ReportCard extends Component {
     }
 }
 
-export default ReportCard;
+const mapStateToProps = state => ({
+    reportData: state
+})
+
+export default connect(mapStateToProps)(ReportCard);

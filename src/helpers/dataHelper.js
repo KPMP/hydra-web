@@ -46,6 +46,9 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
         return result;
     }
 
+    if (data['redcapId']) {
+        result['Participant ID'] = data['redcapId'] ? data['redcapId'] : "";
+    }
     if (data['tissueType']) {
         result['Disease Type'] = data['tissueType'] ? data['tissueType'] : "";
     }
