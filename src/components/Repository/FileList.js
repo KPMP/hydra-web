@@ -276,7 +276,6 @@ class FileList extends Component {
                     return row['redcap_id'] !== "Multiple Participants" 
                     ? <button onClick={async (e) => {
                             await setSummaryDatasets(row['redcap_id'][0]).then(() => {
-                                console.log(store.getState());
                                 this.props.props.history.push('/report');
                             }); 
                         }} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
