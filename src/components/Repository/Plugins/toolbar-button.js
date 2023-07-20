@@ -8,7 +8,6 @@ import SortDialog from './SortDialog/sortDialog';
 import ColumnArrangementDialog from './ColumnArrangmentDialog/columnArrangementDialog';
 import { faBars, faSortAmountDownAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { handleGoogleAnalyticsEvent } from "../../../helpers/googleAnalyticsHelper";
 import { CSVLink } from "react-csv";
 
 const pluginDependencies = [
