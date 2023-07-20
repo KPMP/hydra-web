@@ -1,25 +1,37 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Col, Container, Row, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import { Grid, Table, TableColumnResizing, TableHeaderRow} from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, experimentalDataConverter } from '../../helpers/dataHelper';
-import PropTypes from 'prop-types';
 
 class ReportCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: '1'
+            activeTab: '1',
+            summaryDataset: {},
+            experimentalDataCounts: {}
         }
         this.setActiveTab = this.setActiveTab.bind(this);
+    }
+
+    componentDidMount() {
+        let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'));
+        if(sessionStorage === null || Object.keys(sessionStorage["summaryDatasets"]).length === 0){
+            window.location.replace('/');
+        }
+        this.setState({
+            summaryDataset: sessionStorage["summaryDatasets"],
+            experimentalDataCounts: sessionStorage['experimentalDataCounts'],
+            isLoaded: true
+        })
     }
 
     setActiveTab = (activeTab) => {
         this.setState({activeTab: activeTab});
     }
-
     getDefaultColumnWidths = () => {
         return [
             { columnName: 'key', width: 215 },
@@ -28,8 +40,8 @@ class ReportCard extends Component {
     };
     getDefaultLinkColumnWidths = () => {
         return [
-            { columnName: 'key', width: 380 },
-            { columnName: 'value', width: 30 },
+            { columnName: 'Experimental Strategy', width: 380 },
+            { columnName: 'Files', width: 30 },
         ]
     };
     getColumns = () => {
@@ -61,8 +73,8 @@ class ReportCard extends Component {
 
     formatLinkableCellValue = (row) => {
         let link = '/'
-        if (row.tool === 'repository') {
-            link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.props.redcapid + '&filters[1][type]=any'
+        if (row.tool === 'spatial-viewer') {
+            link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any'
         } else if (row.tool === 'explorer') {
             let dataType = '';
             if (row.key.includes('Single-cell')) {
@@ -78,21 +90,21 @@ class ReportCard extends Component {
         return( row['value'] > 0 ? <a className="p-0" href={link}>{row['value']}</a>: <span>{row['value']}</span>)
     }
     
-    getLinkableColumns = () => {
+    getExperimentalLinkableColumns = () => {
         return [
             {
-                name: 'key',
+                name: 'Experimental Strategies',
                 sortable: false,
                 hideable: false,
                 defaultHidden: false,
                 getCellValue: row => this.formatLinkableCellKey(row)
             },
             {
-                name: 'value',
+                name: 'Files',
                 sortable: false,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => this.formatLinkableCellValue(row)
+                getCellValue: row => <div style={{textAlign: 'right'}}>{this.formatLinkableCellValue(row)}</div>
             }
         ];
     };
@@ -110,10 +122,14 @@ class ReportCard extends Component {
             <div className='report-card ms-5 me-5'>
                 <Row className='pt-2'>
                     <Col className='report-col col-sm-12 col-md-8 col-lg-10'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 168}}>
-                            <div className='report-header'>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm'>
+                            <div className='report-header mb-3'>
                                 Participant Summary
                             </div>
+                            <Grid rows={this.getRows(this.state.summaryDataset)} columns={this.getColumns()}>
+                                <Table/>
+                                <TableColumnResizing defaultColumnWidths={this.getDefaultColumnWidths()} />
+                            </Grid>
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
@@ -142,13 +158,12 @@ class ReportCard extends Component {
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 311}}>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 'fit-content'}}>
                             <div className='report-header'>
                                 File Counts by Experimental Strategy
                             </div>
-                            <Grid rows={this.getRowSets(this.props.experimentalDataCounts)} columns={this.getLinkableColumns()}>
-                                    <Table columnExtensions={[{ columnName: 'value', align: 'right' }]} />
-                                    <TableColumnResizing defaultColumnWidths={this.getDefaultLinkColumnWidths()} />
+                            <Grid rows={this.getRowSets(this.state.experimentalDataCounts)} columns={this.getExperimentalLinkableColumns()}>
+                                    <Table columnExtensions={[{ columnName: 'Files', align: 'right' }]} />
                                     <TableHeaderRow />
                                 </Grid> 
                         </Container>
@@ -204,8 +219,5 @@ class ReportCard extends Component {
     }
 }
 
-ReportCard.propTypes = {
-    experimentalDataCounts: PropTypes.object.isRequired
-}
 
 export default ReportCard;

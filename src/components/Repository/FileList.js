@@ -58,7 +58,8 @@ class FileList extends Component {
             resultCount: 0,
             cards: this.props.props.tableSettings.cards || columnCards,
             isLoaded: false,
-            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns
+            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns,
+            reportIsLoading: false
         };
 
     }
@@ -244,6 +245,7 @@ class FileList extends Component {
 
     // This is used for column ordering too.
     getColumns = () => {
+        const { setParticipantReport } = this.props.props;
         let columns = [
             {
                 name: 'download',
@@ -279,7 +281,13 @@ class FileList extends Component {
                 defaultHidden: false, 
                 getCellValue: row => { 
                     return row['redcap_id'] !== "Multiple Participants" 
-                    ? <button onClick={(e) => this.clickReportCard(row)} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
+                    ? <button onClick={async (e) => {
+                            this.setState({reportIsLoading: true});
+                            await setParticipantReport(row['redcap_id'][0]).then(() => {
+                                this.setState({reportIsLoading: false});
+                                this.props.props.history.push('/report'); 
+                            })
+                        }} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
                     : row["redcap_id"]
                 } 
             }, 
@@ -453,6 +461,14 @@ class FileList extends Component {
         
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl">
+                
+                { this.state.reportIsLoading === true &&
+                    <div className='spinner-container'>
+                        <Spinner className='report-spinner'>
+                                Loading
+                        </Spinner>
+                    </div>
+                }
                 <Row>
                     <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
