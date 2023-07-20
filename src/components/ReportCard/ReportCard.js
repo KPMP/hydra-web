@@ -3,8 +3,6 @@ import { Col, Container, Row, TabContent, TabPane, Nav, NavItem, NavLink } from 
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
-import { connect } from 'react-redux';
-import { store } from '../../App';
 import { dataToTableConverter, experimentalDataConverter } from '../../helpers/dataHelper';
 import { Grid, Table, TableColumnResizing, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
 

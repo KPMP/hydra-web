@@ -41,7 +41,6 @@ import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
 import Api from '../../helpers/Api';
-import { store } from '../../App';
 
 class FileList extends Component {
 
