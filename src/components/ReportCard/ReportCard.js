@@ -17,7 +17,10 @@ class ReportCard extends Component {
     }
 
     componentDidMount() {
-        let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'))
+        let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'));
+        if(sessionStorage === null || Object.keys(sessionStorage["summaryDatasets"]).length === 0){
+            window.location.replace('/');
+        }
         this.setState({
             summaryDataset: sessionStorage["summaryDatasets"],
             isLoaded: true
