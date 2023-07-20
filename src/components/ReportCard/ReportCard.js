@@ -13,16 +13,17 @@ class ReportCard extends Component {
         super(props);
         this.state = {
             activeTab: '1',
-            summaryDataset: store.getState().summaryDatasets
+            summaryDataset: {}
         }
         this.setActiveTab = this.setActiveTab.bind(this);
     }
 
     componentDidMount() {
-        if(Object.keys(store.getState().summaryDatasets).length === 0 || 
-           store.getState().summaryDatasets === {}) {
-            window.location.replace('/');
-        }
+        let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'))
+        this.setState({
+            summaryDataset: sessionStorage["summaryDatasets"],
+            isLoaded: true
+        })
     }
 
     setActiveTab = (activeTab) => {
@@ -212,8 +213,4 @@ class ReportCard extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    reportData: state
-})
-
-export default connect(mapStateToProps)(ReportCard);
+export default ReportCard;

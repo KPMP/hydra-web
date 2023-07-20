@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch, props) =>
              dispatch(setSelectedImageDataset(selectedImageDataset));
              dispatch((dispatch) => props.history.push("/view"));
          },
-         async setSummaryDatasets(participant_id) {
+         async setParticipantReport(participant_id) {
             await dispatch(fetchAndSetSummaryDatasets(participant_id));
          },
          setTableSettings(componentState) {
