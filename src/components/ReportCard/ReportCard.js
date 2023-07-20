@@ -117,7 +117,7 @@ class ReportCard extends Component {
             <div className='report-card ms-5 me-5'>
                 <Row className='pt-2'>
                     <Col className='report-col col-sm-12 col-md-8 col-lg-10'>
-                        <Container className='container-max landing mb-4 rounded border ps-3 pe-3 pt-2 pb-1 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm'>
                             <div className='report-header mb-3'>
                                 Participant Summary
                             </div>
@@ -125,7 +125,6 @@ class ReportCard extends Component {
                                 <Table/>
                                 <TableColumnResizing defaultColumnWidths={this.getDefaultColumnWidths()} />
                             </Grid>
-                            <p>{this.state.participant_id}</p>
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
