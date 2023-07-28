@@ -63,11 +63,6 @@ class ReportCard extends Component {
 
     formatLinkableCellKey = (row) => {
         let key = row['key'];
-       if(row.isAggregated) {
-            key = (<div>{`${row['key']}`} <span className="u-controlled-access-asterisk">*</span></div>);
-        } else {
-            key = (<div>{`${row['key']}`}</div>);
-        }
         return( key )
     }
 
