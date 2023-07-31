@@ -384,14 +384,6 @@ class FileList extends Component {
 
         return (
             <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
-                
-                { this.state.reportIsLoading === true &&
-                    <div className='spinner-container'>
-                        <Spinner className='report-spinner'>
-                                Loading
-                        </Spinner>
-                    </div>
-                }
                 <Row>
                     <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
