@@ -48,16 +48,12 @@ body {
 #root {
 	position: relative;
 
-	/* xs to sm */
 	top: calc(#{$header-height-padded});
-	height: calc(100vh + 10px
-		- #{$header-height-padded}
-		- #{$footer-height-padded});
 
-	/* md and up */
-	@media (min-width: 768px) {
+	/* x-lg and up */
+	@media (min-width: 1200px) {
 		top: calc(#{$header-height-padded});
-		height: calc(100vh + 10px
+		height: calc(100vh + 16px
 			- #{$header-height-padded}
 			- #{$footer-height-padded});
 	}
