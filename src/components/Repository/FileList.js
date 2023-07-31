@@ -176,7 +176,7 @@ class FileList extends Component {
                 config["sort"] = sortMap
             }
             await Api.getInstance().post(
-                "https://qa-atlas.kpmp.org/spatial-viewer/search/api/as/v1/engines/atlas-repository/search", 
+                process.env.REACT_APP_SEARCH_ENDPOINT, 
                 config, 
                 { 
                     headers: {
