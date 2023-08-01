@@ -1,6 +1,6 @@
 import actionNames from '../actionNames';
 import { mapSummaryKeysToPresentationStyle } from '../../helpers/dataHelper';
-import { fetchParticipantSummaryDataset } from '../../helpers/Api';
+import { fetchParticipantDataTypeCounts, fetchParticipantSummaryDataset } from '../../helpers/Api';
 
 
 export const fetchAndSetSummaryDatasets = (participant_id) => {
@@ -25,4 +25,17 @@ export const setClinicalDatasets = (clinicalDatasets) => {
   }
 }
 
+export const fetchAndSetDataTypeFileCounts = (participant_id) => {
+  return async (dispatch) => {
+      let dataTypeFileCounts = await fetchParticipantDataTypeCounts(participant_id);
+      dispatch(setDataTypeFileCounts(dataTypeFileCounts));
+  }
+}
+
+export const setDataTypeFileCounts = (dataTypeFileCounts) => {
+  return {
+    type: actionNames.SET_DATA_TYPE_COUNTS,
+    payload: dataTypeFileCounts
+  }
+}
 

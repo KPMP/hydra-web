@@ -460,7 +460,7 @@ class FileList extends Component {
         const { columnWidths, sorting } = this.props.props.tableSettings;
         
         return (
-            <Container id='outer-wrapper' className="multi-container-container container-xxl">
+            <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
                 
                 { this.state.reportIsLoading === true &&
                     <div className='spinner-container'>
