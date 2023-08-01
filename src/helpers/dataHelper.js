@@ -35,7 +35,6 @@ export const dataToTableConverter = (data=[]) => {
 
 export const fileCountsToTableConverter = (data=[], redcap_id) => {
     let result = []
-    console.log(data)
     data.forEach((datum) => {
         let link = '/repository/?filters[0][field]=redcap_id' 
                 + '&filters[0][values][0]=' + redcap_id + '&filters[0][type]=any' 
