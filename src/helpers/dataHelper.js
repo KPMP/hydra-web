@@ -33,6 +33,19 @@ export const dataToTableConverter = (data=[]) => {
     })
 }
 
+export const fileCountsToTableConverter = (data=[], redcap_id) => {
+    let result = []
+    console.log(data)
+    data.forEach((datum) => {
+        let link = '/repository/?filters[0][field]=redcap_id' 
+                + '&filters[0][values][0]=' + redcap_id + '&filters[0][type]=any' 
+                + '&filters[1][field]=' + datum.linkInformation.linkType 
+                + '&filters[1][values][0]=' + datum.dataType + '&filters[1][type]=any'
+        let linkResult = (datum.count > 0 ? <a className="p-0" href={link}>{datum.count}</a>: <span>{datum.count}</span>);
+                result.push({key: datum.dataType, value: linkResult});
+    })
+    return result;
+}
 
 export const removeUUID = (text) => {
     return text.substring(37);

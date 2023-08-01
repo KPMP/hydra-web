@@ -17,3 +17,12 @@ export const clinicalDatasets = ( state = {}, action ) => {
             return state;
     }
 };
+
+export const dataTypeFileCounts = ( state = {}, action ) => {
+    switch(action.type) {
+        case actionNames.SET_DATA_TYPE_COUNTS:
+            return action.payload;
+        default:
+            return state;
+    }
+}

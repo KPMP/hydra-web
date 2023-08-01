@@ -4,7 +4,7 @@ import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import { Grid, Table, TableColumnResizing, TableHeaderRow} from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
-import { dataToTableConverter, experimentalDataConverter } from '../../helpers/dataHelper';
+import { dataToTableConverter, experimentalDataConverter, fileCountsToTableConverter } from '../../helpers/dataHelper';
 
 class ReportCard extends Component {
     constructor(props) {
@@ -12,7 +12,8 @@ class ReportCard extends Component {
         this.state = {
             activeTab: '1',
             summaryDataset: {},
-            experimentalDataCounts: {}
+            experimentalDataCounts: {},
+            dataTypeFileCounts: []
         }
         this.setActiveTab = this.setActiveTab.bind(this);
     }
@@ -25,6 +26,7 @@ class ReportCard extends Component {
         this.setState({
             summaryDataset: sessionStorage["summaryDatasets"],
             experimentalDataCounts: sessionStorage['experimentalDataCounts'],
+            dataTypeFileCounts: sessionStorage['dataTypeFileCounts']['repositoryDataTypes'],
             isLoaded: true
         })
     }
@@ -151,10 +153,13 @@ class ReportCard extends Component {
                 </Row>
                 <Row className=''>
                     <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 311}}>
+                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{height: 'fit-content'}}>
                             <div className='report-header'>
-                                File Counts by Data Category
+                                File Counts by Data Type
                             </div>
+                            <Grid rows={fileCountsToTableConverter(this.state.dataTypeFileCounts, this.state.summaryDataset['Participant ID'])} columns={this.getColumns()}>
+                                <Table />
+                            </Grid>
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-12 col-lg-6'>

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { resetStateReducer } from './resetStateReducer';
 import { selectedImageDataset, tableSettings } from "./components/Repository/fileListReducer";
-import { summaryDatasets, clinicalDatasets } from "./components/Repository/clinicalDatasetReducer";
+import { summaryDatasets, clinicalDatasets, dataTypeFileCounts } from "./components/Repository/clinicalDatasetReducer";
 import { experimentalDataCounts } from "./components/Repository/experimentalDataCountReducer";
 
 
@@ -12,6 +12,7 @@ const appReducer = combineReducers({
   summaryDatasets,
   clinicalDatasets,
   experimentalDataCounts,
+  dataTypeFileCounts
 });
 
 export default appReducer;

@@ -6,5 +6,6 @@
   },
   "summaryDatasets": {},
   "clinicalDatasets": {},
-  "experimentalDataCounts": {}
+  "experimentalDataCounts": {},
+  "repoDataTypeCounts": {}
 }

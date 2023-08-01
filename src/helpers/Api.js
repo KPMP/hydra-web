@@ -65,6 +65,30 @@ export const fetchParticipantExperimentCounts = async (redcapId) => {
   }
 };
 
+export const fetchParticipantDataTypeCounts = async (redcapId) => {
+  const response = await apolloClient.query({
+    query: gql`
+      query {
+        getRepoDataTypeInformationByParticipant(redcapId: "${redcapId}") {
+          repositoryDataTypes {
+            count
+            dataType
+            linkInformation {
+              linkType
+              linkValue
+            }
+          }
+        }
+      }`
+  });
+
+  if (response && response.data && response.data.getRepoDataTypeInformationByParticipant) {
+    return response.data.getRepoDataTypeInformationByParticipant;
+  } else {
+    store.dispatch(sendMessageToBackend("Could not retrieve getRepoDataTypeInformationByParticipant: " + response.error));
+  }
+};
+
 export const fetchParticipantClinicalDataset = async (redcapId) => {
   const query = gql`
   query participantClinicalDataset($redcapId: String) {
