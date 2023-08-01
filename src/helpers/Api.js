@@ -20,8 +20,8 @@ export const getFileLink = async (queryString) => {
 
 export const fetchParticipantSummaryDataset = async (redcapId) => {
   const query = gql`
-  query participantSummaryDataset($redcapId: String) {
-    participantSummaryDataset(redcapId: $redcapId){
+  query {
+    participantSummaryDataset(redcapId: "${redcapId}"){
       tissueType
       redcapId
     }
@@ -91,8 +91,8 @@ export const fetchParticipantDataTypeCounts = async (redcapId) => {
 
 export const fetchParticipantClinicalDataset = async (redcapId) => {
   const query = gql`
-  query participantClinicalDataset($redcapId: String) {
-    participantClinicalDataset(redcapId: $redcapId){
+  query {
+    participantClinicalDataset(redcapId: "${redcapId}"){
       clinicalData
     }
   }`;
