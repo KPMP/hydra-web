@@ -10,13 +10,11 @@ class ReportCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: '1',
             summaryDataset: {},
             experimentalDataCounts: {},
             dataTypeFileCounts: [],
             clinicalDataset: {}
         }
-        this.setActiveTab = this.setActiveTab.bind(this);
     }
 
     componentDidMount() {
@@ -33,9 +31,6 @@ class ReportCard extends Component {
         })
     }
 
-    setActiveTab = (activeTab) => {
-        this.setState({ activeTab: activeTab });
-    }
     getDefaultColumnWidths = () => {
         return [
             { columnName: 'key', width: 215 },
