@@ -640,7 +640,7 @@ class FileList extends Component {
                                         <Pagination pageSizes={this.getPageSizes()} />
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
-                                            <span className="visually-hidden">Loading...</span>
+                                            Loading...
                                         </Spinner> }
                                         </React.Fragment>
                                 </div>

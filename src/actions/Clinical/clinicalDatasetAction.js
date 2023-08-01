@@ -1,34 +1,41 @@
 import actionNames from '../actionNames';
 import { mapSummaryKeysToPresentationStyle } from '../../helpers/dataHelper';
-import { fetchParticipantDataTypeCounts, fetchParticipantSummaryDataset } from '../../helpers/Api';
+import { fetchParticipantClinicalDataset, fetchParticipantDataTypeCounts, fetchParticipantSummaryDataset } from '../../helpers/Api';
 
 
 export const fetchAndSetSummaryDatasets = (participant_id) => {
   return async (dispatch) => {
-      let summaryDatasets = await fetchParticipantSummaryDataset(participant_id);
-      summaryDatasets = mapSummaryKeysToPresentationStyle(summaryDatasets);
-      dispatch(setSummaryDatasets(summaryDatasets));
+    let summaryDatasets = await fetchParticipantSummaryDataset(participant_id);
+    summaryDatasets = mapSummaryKeysToPresentationStyle(summaryDatasets);
+    dispatch(setSummaryDatasets(summaryDatasets));
   }
 }
 
 export const setSummaryDatasets = (summaryDatasets) => {
   return {
-      type: actionNames.SET_SUMMARY_DATASETS,
-      payload: summaryDatasets
+    type: actionNames.SET_SUMMARY_DATASETS,
+    payload: summaryDatasets
+  }
+}
+
+export const fetchAndSetClinicalDatasets = (participant_id) => {
+  return async (dispatch) => {
+    let clinicalDatasets = await fetchParticipantClinicalDataset(participant_id);
+    dispatch(setClinicalDatasets(clinicalDatasets));
   }
 }
 
 export const setClinicalDatasets = (clinicalDatasets) => {
   return {
-      type: actionNames.SET_CLINICAL_DATASETS,
-      payload: clinicalDatasets
+    type: actionNames.SET_CLINICAL_DATASETS,
+    payload: clinicalDatasets
   }
 }
 
 export const fetchAndSetDataTypeFileCounts = (participant_id) => {
   return async (dispatch) => {
-      let dataTypeFileCounts = await fetchParticipantDataTypeCounts(participant_id);
-      dispatch(setDataTypeFileCounts(dataTypeFileCounts));
+    let dataTypeFileCounts = await fetchParticipantDataTypeCounts(participant_id);
+    dispatch(setDataTypeFileCounts(dataTypeFileCounts));
   }
 }
 

@@ -25,6 +25,7 @@ const mapDispatchToProps = (dispatch, props) =>
             await dispatch(fetchAndSetSummaryDatasets(participant_id));
             await dispatch(fetchAndSetExperimentalDataCounts(participant_id));
             await dispatch(fetchAndSetDataTypeFileCounts(participant_id));
+            await dispatch(fetchAndSetClinicalDatasets(participant_id));
          },
          setTableSettings(componentState) {
             dispatch(setTableSettings(componentState))
