@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import { withRouter } from 'react-router';
 import {setSelectedImageDataset, setTableSettings} from "../../actions/Images/imageDatasetActions";
-import { fetchAndSetClinicalDatasets, fetchAndSetDataTypeFileCounts, fetchAndSetSummaryDatasets } from '../../actions/Clinical/clinicalDatasetAction';
+import { fetchAndSetClinicalDatasets, fetchAndSetDataTypeFileCounts, fetchAndSetSummaryDatasets, fetchAndSetTotalFileCount } from '../../actions/Clinical/clinicalDatasetAction';
 import FileListHolder from "./FileListHolder";
 import {
     fetchAndSetExperimentalDataCounts,
@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch, props) =>
             await dispatch(fetchAndSetExperimentalDataCounts(participant_id));
             await dispatch(fetchAndSetDataTypeFileCounts(participant_id));
             await dispatch(fetchAndSetClinicalDatasets(participant_id));
+            await dispatch(fetchAndSetTotalFileCount(participant_id));
          },
          setTableSettings(componentState) {
             dispatch(setTableSettings(componentState))

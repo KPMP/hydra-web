@@ -26,3 +26,12 @@ export const dataTypeFileCounts = ( state = {}, action ) => {
             return state;
     }
 }
+
+export const totalFileCount = ( state = {}, action ) => {
+    switch(action.type) {
+        case actionNames.SET_TOTAL_FILE_COUNT:
+            return action.payload;
+        default: 
+            return state;
+    }
+}

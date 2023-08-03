@@ -11,6 +11,7 @@ class ReportCard extends Component {
         super(props);
         this.state = {
             summaryDataset: {},
+            totalFileCount: "",
             experimentalDataCounts: {},
             dataTypeFileCounts: [],
             clinicalDataset: {}
@@ -27,8 +28,17 @@ class ReportCard extends Component {
             experimentalDataCounts: sessionStorage['experimentalDataCounts'],
             dataTypeFileCounts: sessionStorage['dataTypeFileCounts']['repositoryDataTypes'],
             clinicalDataset: (sessionStorage['clinicalDatasets']['clinicalData']) ? JSON.parse(sessionStorage['clinicalDatasets']['clinicalData']) : {},
+            totalFileCount: sessionStorage['totalFileCount'],
             isLoaded: true
         })
+    }
+
+    getTotalFileCountLink = () => {
+        return this.state.totalFileCount !== "" ? '/repository?filters[0][field]=' 
+                + this.state.totalFileCount['linkInformation']['linkType'] 
+                + '&filters[0][values][0]=' 
+                + this.state.totalFileCount['linkInformation']['linkValue'] 
+                + '&filters[0][type]=any' : "";
     }
 
     getDefaultColumnWidths = () => {
@@ -132,7 +142,7 @@ class ReportCard extends Component {
                                 <Col className=''>
                                     Files
                                     <div className='h3'>
-                                        99
+                                        <a href={this.getTotalFileCountLink()}>{this.state.totalFileCount['count']}</a>
                                     </div>
                                 </Col>
                                 <Col className='text-end align-bottom h1'>

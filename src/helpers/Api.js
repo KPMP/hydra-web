@@ -108,3 +108,27 @@ export const fetchParticipantClinicalDataset = async (redcapId) => {
       store.dispatch(sendMessageToBackend("Could not retrieve participantClinicalDataset: " + response.error));
   }
 };
+
+export const fetchParticipantTotalFileCount = async (redcapId) => {
+  const query = gql`
+  query {
+    getTotalParticipantFilesCount(redcapId: "${redcapId}"){
+      count
+      linkInformation {
+        linkType
+        linkValue
+      }
+    }
+  }`;
+  const response = await apolloClient.query({
+    query: query,
+    variables: {
+      redcapId: redcapId
+    }
+  });
+  if (response && response.data && response.data.getTotalParticipantFilesCount) {
+    return response.data.getTotalParticipantFilesCount;
+  } else {
+    store.dispatch(sendMessageToBackend("Could not retrieve getTotalParticipantFilesCount: " + response.error));
+  }
+}
