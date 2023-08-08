@@ -486,8 +486,7 @@ class FileList extends Component {
                                                         }
                                                     })
                                                     this.props.setSort(sortOptions);
-                                                    this.props.props.setTableSettings({sorting: sorting});
-                                                    this.props.setCurrent(1);
+                                                    this.props.props.setTableSettings({sorting: sorting, currentPage: 0});
                                                 }
                                                 }
                                                 sorting={sorting}/>
@@ -496,32 +495,12 @@ class FileList extends Component {
                                                 formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
                                             />
                                             <PagingState
-                                                currentPage={this.props.currentPage-1}
-                                                pageSize={this.props.resultsPerPage}
+                                                currentPage={currentPage}
+                                                defaultPageSize={pagingSize}
+                                                onCurrentPageChange={(page) => this.props.props.setTableSettings({currentPage: page})}
                                             />
                                             <IntegratedPaging />
-                                            <PagingPanel
-                                                pageSizes={this.getPageSizes()}
-                                                containerComponent={() => {
-                                                    return (
-                                                    <PagingPanel.Container
-                                                        totalPages={this.getTotalPages()}
-                                                        currentPage={this.props.currentPage-1}
-                                                        onCurrentPageChange={(page) => {
-                                                            // dx-react-grid paging starts at 0, while ElasticSearch starts at 1
-                                                            // (hence the "+1" and "-1")
-                                                            this.props.setCurrent(page+1);
-                                                        }}
-                                                        pageSize={this.props.resultsPerPage}
-                                                        totalCount={this.props.totalResults}
-                                                        onPageSizeChange={(pageSize) => {
-                                                            this.props.setResultsPerPage(pageSize);
-                                                        }}
-                                                        pageSizes={this.getPageSizes()}
-                                                        getMessage={(messageKey) => {return messageKey}}
-                                                    />
-                                                    )}}
-                                            />
+                                            <PagingPanel />
                                             <Toolbar
                                                 cards={this.state.cards}
                                                 setCards={this.state.setCards}
