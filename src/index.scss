@@ -613,3 +613,63 @@ td:hover {
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
+.report-header {
+    margin: 5px 0px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.report-card {
+    padding-bottom: $footer-height-padded;
+    min-height: 100vh;
+}
+
+@media only screen and (max-width: 991px) {
+    .report-card {
+        padding-bottom: 150.5px;
+    }
+}
+
+.tab-pane {
+    cursor: pointer;
+    color: #495057;
+    font-size: 14px;
+}
+
+.tab-pane:hover, .tab-pane.active {
+    text-decoration: none;
+    color: black !important;
+}
+
+.report-spinner {
+    height: 5rem;
+    width: 5rem;
+    font-size: 20px;
+    color: #283c5e;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 80vh;
+    width: 100vw;
+    z-index: 6;
+    background-color: #8080801a;
+}
+
+@media only screen and (min-width: 1200px) {
+    #footer {
+        margin-top: auto;
+        position: fixed;
+        bottom: 0px;
+    }
+}
+
+.height-wrapper {
+    min-height: calc(100vh + 16px
+        - #{$header-height-padded}
+        - #{$footer-height-padded});
+}
