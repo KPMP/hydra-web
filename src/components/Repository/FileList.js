@@ -384,46 +384,42 @@ class FileList extends Component {
 
         return (
             <div className='height-wrapper'>
-                <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
-                    
-                    { this.state.reportIsLoading === true &&
-                        <div className='spinner-container'>
-                            <Spinner className='report-spinner'>
-                                    Loading
-                            </Spinner>
-                        </div>
-                    }
-                    <Row>
-                        <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
-                            <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
-                                <div className="filter-panel-tab-wrapper">
-                                    
-                                    <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
-                                        className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
-                                            PARTICIPANT
-                                    </div>
-                                    <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
-                                        className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
-                                            FILE
-                                    </div>
-                                    <div className="filter-tab filter-tab-control-icon clickable"
-                                        alt="Close Filter Tab"
-                                        onClick={() => {this.props.toggleFilterTab()}}>                                
-                                        <FontAwesomeIcon
-                                            className="fas fa-angles-left " icon={faAnglesLeft} />
-                                    </div>
+            <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
+                <Row>
+                    <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
+                        <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
+                            <div className="filter-panel-tab-wrapper">
+                                
+                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
+                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
+                                        PARTICIPANT
                                 </div>
-                                {this.accessAlertModal()}
-                                <React.Fragment>
-                            
-                                    {this.props.activeFilterTab === tabEnum.FILE &&
-                                        <FileFacet/>
-                                    }
-                                    {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                                        <ParticipantFacet/>
-                                    }
-                                </React.Fragment>
+
+                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
+                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
+                                        FILE
+                                </div>
+
+
+                                <div className="filter-tab filter-tab-control-icon clickable"
+                                    alt="Close Filter Tab"
+                                    onClick={() => {this.props.toggleFilterTab()}}>                                
+                                    <FontAwesomeIcon
+                                        className="fas fa-angles-left " icon={faAnglesLeft} />
+                                </div>
                             </div>
+                            {this.accessAlertModal()}
+                            <React.Fragment>
+                           
+                                {this.props.activeFilterTab === tabEnum.FILE &&
+                                    <FileFacet/>
+                                }
+
+                                {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
+                                <ParticipantFacet/>
+                                }
+                            </React.Fragment>
+                        </div>
 
                         </Col>
                         <Col xl={`${this.props.filterTabActive ? 9 : 12 }`}>
@@ -538,41 +534,42 @@ class FileList extends Component {
                                                 columnWidths={columnWidths}
                                             />
 
-                                            <TableColumnReordering
-                                                order={(this.state.cards).map(item => item.name)}
-                                                defaultOrder={this.getColumns().map(item => item.name)}
+                                        <TableColumnReordering
+                                            order={(this.state.cards).map(item => item.name)}
+                                            defaultOrder={this.getColumns().map(item => item.name)}
+                                        />
+                                        <TableHeaderRow showSortingControls />
+                                        <TableColumnVisibility
+                                            defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
+                                            hiddenColumnNames={this.state.hiddenColumnNames}
+                                            onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
+                                        />
+                                        <ColumnChooser />
+                                        
+                                        <ToolbarButton
+                                            resultCount={this.state.resultCount}
+                                            cards={this.state.cards}
+                                            setCards={this.setCards}
+                                            setDefaultCards={this.setDefaultCards}
+                                            defaultOrder={this.getColumns().map(item => item.name)}
+                                            cleanResults={this.cleanResults}
                                             />
-                                            <TableHeaderRow showSortingControls />
-                                            <TableColumnVisibility
-                                                defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
-                                                hiddenColumnNames={this.state.hiddenColumnNames}
-                                                onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
-                                            />
-                                            <ColumnChooser />
-                                            
-                                            <ToolbarButton
-                                                resultCount={this.state.resultCount}
-                                                cards={this.state.cards}
-                                                setCards={this.setCards}
-                                                setDefaultCards={this.setDefaultCards}
-                                                defaultOrder={this.getColumns().map(item => item.name)}
-                                                cleanResults={this.cleanResults}
-                                                />
-                                            <PaginationState
-                                                setResultsPerPage={this.props.setResultsPerPage}
-                                                pagingSize={this.props.resultsPerPage}/>
-                                            <Pagination pageSizes={this.getPageSizes()} />
-                                        </Grid>
-                                        : <Spinner animation="border" variant="primary">
-                                                Loading...
-                                            </Spinner> }
-                                            </React.Fragment>
-                                    </div>
+                                        <PaginationState
+                                            currentPage={currentPage}
+                                            setTableSettings={this.props.props.setTableSettings}
+                                            pagingSize={pagingSize}/>
+                                        <Pagination pageSizes={this.getPageSizes()} />
+                                    </Grid>
+                                    : <Spinner animation="border" variant="primary">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner> }
+                                        </React.Fragment>
                                 </div>
-                            </DndProvider>
-                        </Col>
-                    </Row>
-                </Container>
+                            </div>
+                        </DndProvider>
+                    </Col>
+                </Row>
+            </Container>
             </div>
         )
     }
