@@ -613,3 +613,17 @@ td:hover {
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
+@media only screen and (min-width: 1200px) {
+    #footer {
+        margin-top: auto;
+        position: fixed;
+        bottom: 0px;
+    }
+}
+
+.height-wrapper {
+    min-height: calc(100vh + 16px
+        - #{$header-height-padded}
+        - #{$footer-height-padded});
+}
