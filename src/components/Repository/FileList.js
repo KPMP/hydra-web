@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter, Collapse } from "reactstrap";
+import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
 import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,6 +40,7 @@ import FileFacet from './FileFacet';
 import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
+import Api from '../../helpers/Api';
 
 class FileList extends Component {
 
@@ -56,9 +57,9 @@ class FileList extends Component {
             tableData: [],
             resultCount: 0,
             cards: this.props.props.tableSettings.cards || columnCards,
-            currentPage: this.props.props.tableSettings.currentPage,
             isLoaded: false,
-            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns
+            hiddenColumnNames: this.props.props.tableSettings.hiddenColumns || defaultHiddenColumns,
+            reportIsLoading: false
         };
 
     }
@@ -72,6 +73,7 @@ class FileList extends Component {
         await this.getSearchResults();
         this.setState({isLoaded: true})
         
+        
     };
 
     componentDidUpdate(prevProps) {
@@ -80,7 +82,7 @@ class FileList extends Component {
                 this.getSearchResults();
             }
             if (this.props.filters !== prevProps.filters) {
-                this.props.props.setTableSettings({currentPage: 0});
+                this.props.setCurrent(1);
             }
         }
     };
@@ -142,49 +144,108 @@ class FileList extends Component {
         a.click();
         document.body.removeChild(a);
     }
-
-    cleanResults = () => {
-        var results = this.state.tableData.slice(0);
-
-        let cols = {};
-        this.getColumns()
-            .filter((column) => {
-                return !this.state.hiddenColumnNames.includes(column.name);
-            })
-            .forEach((column) => {
-                cols[column.name] = column.title;
-            })
-        cols["package_id"] = "Internal Package ID";
-        
-        results.forEach((res, index) => {
-            
-            // CSV output discards null columns, so replace the null cell values with empty strings
-            res = {...res, 
-                dois: res['dois'] ? res['dois'] : "",
-                workflow_type: res['workflow_type'] ? res['workflow_type'] : "",
-                platform: res['platform'] ? res['platform'] : "",
-                experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"] : "",
-                file_size: prettyBytes(parseInt(res["file_size"]))
-            };
-            
-            results[index] = Object.keys(res)
-            .filter((key) => {
-                return cols.hasOwnProperty(key)
-            })
-            .reduce((obj, key) => {
-                obj[cols[key]] = res[key];
-                return obj;
-            }, {});
+    getAllResults = async () => {
+        let filterMap = [];
+        this.props.filters.map((filter) => {
+            let obj = {};
+            obj[filter["field"]] = filter["values"];
+            filterMap.push(obj);
         });
-        return results;
+        let sortMap = [];
+        if (this.props.props.tableSettings.sorting) {
+            this.props.props.tableSettings.sorting.map((sortItem) => {
+                let obj = {};
+                obj[sortItem["columnName"]] = sortItem["direction"];
+                sortMap.push(obj);
+            })
+        }
+        var allRecords = [];
+        let totalPages = Math.ceil(this.props.totalResults / 1000);
+        for (let i = 1; i <= totalPages; i++) {
+            let config = {
+                "query":"",
+                "page": {
+                    "size": 1000,
+                    "current": i
+                },
+                "filters": {
+                    "all": filterMap
+                }
+            }
+            if (sortMap.length > 0){
+                config["sort"] = sortMap
+            }
+            await Api.getInstance().post(
+                process.env.REACT_APP_SEARCH_ENDPOINT, 
+                config, 
+                { 
+                    headers: {
+                        "Authorization" : `Bearer ${process.env.REACT_APP_SEARCH_KEY}`
+                    }
+                }).then((response) => {
+                    response.data.results.forEach((res) => {
+                        res = Object.keys(res)
+                        .reduce((obj, key) => {
+                            obj[key] = res[key]['raw'];
+                            return obj;
+                        }, {})
+                        allRecords.push(res)
+                    })
+                })
+        }
+        return allRecords;
+    }
+
+    cleanResults = async () => {
+        return await this.getAllResults().then((res) => {
+            var results = res;
+            let cols = {};
+            this.getColumns()
+                .filter((column) => {
+                    return !this.state.hiddenColumnNames.includes(column.name);
+                })
+                .forEach((column) => {
+                    cols[column.name] = column.title;
+                })
+            cols["package_id"] = "Internal Package ID";
+            
+            results.forEach((res, index) => {
+                
+                // CSV output discards null columns, so replace the null cell values with empty strings
+                res = {...res, 
+                    dois: res['dois'] ? res['dois'].toString() : "",
+                    workflow_type: res['workflow_type'] ? res['workflow_type'].toString() : "",
+                    platform: res['platform'] ? res['platform'].toString() : "",
+                    experimental_strategy: res["experimental_strategy"] ? res["experimental_strategy"].toString() : "",
+                    file_size: prettyBytes(parseInt(res["file_size"]))
+                };
+                
+                results[index] = Object.keys(res)
+                .filter((key) => {
+                    return cols.hasOwnProperty(key)
+                })
+                .reduce((obj, key) => {
+                    obj[cols[key]] = res[key];
+                    return obj;
+                }, {});
+            });
+            return results;
+        });
     };
 
     copyFileName(fileName) {
         copy(fileName);
     }
 
+    clickReportCard = (row) => {
+       
+        this.props.props.history.push('/report');
+        this.props.props.setExperimentalDataCounts(row['redcapid'])
+    }
+
     // This is used for column ordering too.
     getColumns = () => {
+        const { setParticipantReport } = this.props.props;
         let columns = [
             {
                 name: 'download',
@@ -218,6 +279,17 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false, 
+                getCellValue: row => { 
+                    return row['redcap_id'] !== "Multiple Participants" 
+                    ? <button onClick={async (e) => {
+                            this.setState({reportIsLoading: true});
+                            await setParticipantReport(row['redcap_id'][0]).then(() => {
+                                this.setState({reportIsLoading: false});
+                                this.props.props.history.push('/report'); 
+                            })
+                        }} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
+                    : row["redcap_id"]
+                } 
             }, 
             {
                 name: 'file_id',
@@ -373,6 +445,11 @@ class FileList extends Component {
             })
     };
 
+    getTotalPages = () => {
+        let val = Math.ceil(this.props.totalResults / this.props.resultsPerPage);
+        return (val > 100) ? 100 : val;
+    };
+
     render() {
       
         const tabEnum = {
@@ -380,11 +457,12 @@ class FileList extends Component {
             FILE: 'FILE'
         };
 
-        const { pagingSize, columnWidths, sorting, currentPage} = this.props.props.tableSettings;
-
+        const { columnWidths, sorting } = this.props.props.tableSettings;
+        
         return (
             <div className='height-wrapper'>
             <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
+
                 <Row>
                     <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
@@ -399,7 +477,6 @@ class FileList extends Component {
                                     className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
                                         FILE
                                 </div>
-
 
                                 <div className="filter-tab filter-tab-control-icon clickable"
                                     alt="Close Filter Tab"
@@ -448,6 +525,7 @@ class FileList extends Component {
                                                     <FontAwesomeIcon alt="Clear All Filters" className="fa-light fa-trash-can" icon={faTrashCan} /> Clear Filters 
                                             </span>
                                         </div>
+
                                         {this.getFilterPills(this.props.filters)}
                                     </Row>}
                                     
@@ -534,13 +612,12 @@ class FileList extends Component {
                                             cleanResults={this.cleanResults}
                                             />
                                         <PaginationState
-                                            currentPage={currentPage}
-                                            setTableSettings={this.props.props.setTableSettings}
-                                            pagingSize={pagingSize}/>
+                                            setResultsPerPage={this.props.setResultsPerPage}
+                                            pagingSize={this.props.resultsPerPage}/>
                                         <Pagination pageSizes={this.getPageSizes()} />
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
-                                            <span className="visually-hidden">Loading...</span>
+                                            Loading...
                                         </Spinner> }
                                         </React.Fragment>
                                 </div>

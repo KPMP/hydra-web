@@ -20,17 +20,15 @@ export class PaginationState extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.state !== prevState) {
-      this.props.setTableSettings(this.state);
+      this.props.setResultsPerPage(this.state.pagingSize);
     }
   }
 
   render() {
     const { pagingSize } = this.state;
-    const { currentPage } = this.props;
     return (
       <Plugin name="PaginationState">       
         <Getter name="pagingSizeValue" value={pagingSize} />
-        <Getter name="currentPage" value={currentPage} />
         
         <Action name="changePagingSizeValue" action={this.changePagingSize} />
       </Plugin>

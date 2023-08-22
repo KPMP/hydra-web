@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FileList from "./FileList";
 
 import { WithSearch } from "@elastic/react-search-ui";
-import { PagingInfo } from "@elastic/react-search-ui";
 
 
 class FileListHolder extends Component {
@@ -25,18 +24,20 @@ class FileListHolder extends Component {
 
     render() {
         return (
-            <WithSearch mapContextToProps={({ filters, results, searchContext, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort }) =>
-             ({ filters, results, searchContext, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort })}>
+            <WithSearch mapContextToProps={({ filters, current, setCurrent, results, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort }) =>
+             ({ filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort })}>
                 {(context) => {
-                const { filters, results, searchContext, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort } = context;
+                const { filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort } = context;
                 return (
                     <FileList
                         props={this.props}
+                        currentPage={current}
+                        setCurrent={setCurrent}
                         setSort={setSort}
                         totalResults={totalResults}
                         filters={filters}
                         results={results}
-                        searchContext={searchContext}
+                        resultsPerPage={resultsPerPage}
                         setResultsPerPage={setResultsPerPage}
                         removeFilter={removeFilter}
                         clearFilters={clearFilters}

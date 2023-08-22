@@ -2,9 +2,11 @@
   "selectedImageDataset": {},
   "tableSettings": {
     "pagingSize": 20,
-    "currentPage": 0
+    "currentPage": 1
   },
   "summaryDatasets": {},
+  "totalFileCount": 0,
   "clinicalDatasets": {},
-  "experimentalDataCounts": {}
+  "experimentalDataCounts": {},
+  "dataTypeFileCounts": {}
 }

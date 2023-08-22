@@ -20,8 +20,8 @@ export const getFileLink = async (queryString) => {
 
 export const fetchParticipantSummaryDataset = async (redcapId) => {
   const query = gql`
-  query participantSummaryDataset($redcapId: String) {
-    participantSummaryDataset(redcapId: $redcapId){
+  query {
+    participantSummaryDataset(redcapId: "${redcapId}"){
       tissueType
       redcapId
     }
@@ -65,10 +65,34 @@ export const fetchParticipantExperimentCounts = async (redcapId) => {
   }
 };
 
+export const fetchParticipantDataTypeCounts = async (redcapId) => {
+  const response = await apolloClient.query({
+    query: gql`
+      query {
+        getRepoDataTypeInformationByParticipant(redcapId: "${redcapId}") {
+          repositoryDataTypes {
+            count
+            dataType
+            linkInformation {
+              linkType
+              linkValue
+            }
+          }
+        }
+      }`
+  });
+
+  if (response && response.data && response.data.getRepoDataTypeInformationByParticipant) {
+    return response.data.getRepoDataTypeInformationByParticipant;
+  } else {
+    store.dispatch(sendMessageToBackend("Could not retrieve getRepoDataTypeInformationByParticipant: " + response.error));
+  }
+};
+
 export const fetchParticipantClinicalDataset = async (redcapId) => {
   const query = gql`
-  query participantClinicalDataset($redcapId: String) {
-    participantClinicalDataset(redcapId: $redcapId){
+  query {
+    participantClinicalDataset(redcapId: "${redcapId}"){
       clinicalData
     }
   }`;
@@ -84,3 +108,27 @@ export const fetchParticipantClinicalDataset = async (redcapId) => {
       store.dispatch(sendMessageToBackend("Could not retrieve participantClinicalDataset: " + response.error));
   }
 };
+
+export const fetchParticipantTotalFileCount = async (redcapId) => {
+  const query = gql`
+  query {
+    getTotalParticipantFilesCount(redcapId: "${redcapId}"){
+      count
+      linkInformation {
+        linkType
+        linkValue
+      }
+    }
+  }`;
+  const response = await apolloClient.query({
+    query: query,
+    variables: {
+      redcapId: redcapId
+    }
+  });
+  if (response && response.data && response.data.getTotalParticipantFilesCount) {
+    return response.data.getTotalParticipantFilesCount;
+  } else {
+    store.dispatch(sendMessageToBackend("Could not retrieve getTotalParticipantFilesCount: " + response.error));
+  }
+}

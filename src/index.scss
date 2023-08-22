@@ -172,6 +172,10 @@ $bs-border-color: #dee2e6;
     text-decoration: none;
 }
 
+.btn-link {
+    text-decoration: none;
+}
+
 th[title='Acquisition Date'] {
     display:none;
 }
@@ -614,6 +618,7 @@ td:hover {
     padding-right: 2rem;
 }
 
+
 @media only screen and (min-width: 1200px) {
     #footer {
         margin-top: auto;
@@ -627,3 +632,49 @@ td:hover {
         - #{$header-height-padded}
         - #{$footer-height-padded});
 }
+
+.report-header {
+    margin: 5px 0px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.report-card {
+    padding-bottom: $footer-height-padded;
+}
+
+@media only screen and (max-width: 991px) {
+    .report-card {
+        padding-bottom: 150.5px;
+    }
+}
+
+.tab-pane {
+    cursor: pointer;
+    color: #495057;
+    font-size: 14px;
+}
+
+.tab-pane:hover, .tab-pane.active {
+    text-decoration: none;
+    color: black !important;
+}
+
+.report-spinner {
+    height: 5rem;
+    width: 5rem;
+    font-size: 20px;
+    color: #283c5e;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 80vh;
+    width: 100vw;
+    z-index: 6;
+    background-color: #8080801a;
+}
+

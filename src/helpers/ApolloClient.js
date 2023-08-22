@@ -44,7 +44,7 @@ const typePolicies = {
 };
 
 export const apolloClient = new ApolloClient({
-    cache: new InMemoryCache({ typePolicies: typePolicies }),
+    cache: new InMemoryCache({ typePolicies: typePolicies, addTypename: false }),
     link: from([errorLink, httpLink]),
     fetchOptions: {
         fetchOptions: { fetch },

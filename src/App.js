@@ -15,6 +15,7 @@ import FileListContainer from "./components/Repository/FileListContainer";
 import packagejson from '../package.json';
 import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 import { SearchProvider } from "@elastic/react-search-ui";
+import ReportCard from './components/ReportCard/ReportCard';
 
 const cacheStore = window.sessionStorage.getItem('hyrda-redux-store');
 const initialState = cacheStore ? JSON.parse(cacheStore) : loadedState;
@@ -107,8 +108,10 @@ const searchConfig = {
       }
   },
   initialState: {
-    resultsPerPage: 1000
+    resultsPerPage: 20,
+    current: 1
   },
+  trackUrlState: true,
   alwaysSearchOnInitialLoad: true
 }
 
@@ -121,17 +124,18 @@ class App extends Component {
     return (
       <Provider store={store}>
         <SearchProvider config={searchConfig}>
-        <BrowserRouter history={history} basename={packagejson.baseURL}>
-          <ErrorBoundaryContainer>
-            <NavBar app='atlas' />
-            <Switch>
-              <Route exact path="/" component={FileListContainer} store={store} />
-              <Route exact path="/oops" component={Oops} />
-              <Route path='*' component={NotFoundPage} />
-            </Switch>
-            <NavFooter app='atlas' />
-          </ErrorBoundaryContainer>
-        </BrowserRouter>
+          <BrowserRouter history={history} basename={packagejson.baseURL}>
+            <ErrorBoundaryContainer>
+              <NavBar app='atlas' />
+              <Switch>
+                <Route exact path="/" component={FileListContainer} store={store} />
+                <Route exact path="/report" component={ReportCard} store={store}/>
+                <Route exact path="/oops" component={Oops} />
+                <Route path='*' component={NotFoundPage} />
+              </Switch>
+              <NavFooter app='atlas' />
+            </ErrorBoundaryContainer>
+          </BrowserRouter>
         </SearchProvider>
       </Provider>
     );
