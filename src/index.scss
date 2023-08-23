@@ -96,9 +96,6 @@ $bs-border-color: #dee2e6;
     border-bottom-right-radius: 0px !important;
 }
 
-.data-table-wrapper {
-    margin-bottom: 30px;
-}
 .data-table {
     position: relative;
     padding-top: 0px;
@@ -621,6 +618,21 @@ td:hover {
     padding-right: 2rem;
 }
 
+
+@media only screen and (min-width: 1200px) {
+    #footer {
+        margin-top: auto;
+        position: fixed;
+        bottom: 0px;
+    }
+}
+
+.height-wrapper {
+    min-height: calc(100vh + 16px
+        - #{$header-height-padded}
+        - #{$footer-height-padded});
+}
+
 .report-header {
     margin: 5px 0px;
     font-weight: bold;
@@ -665,3 +677,4 @@ td:hover {
     z-index: 6;
     background-color: #8080801a;
 }
+

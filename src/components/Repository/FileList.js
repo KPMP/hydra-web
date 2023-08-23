@@ -460,15 +460,9 @@ class FileList extends Component {
         const { columnWidths, sorting } = this.props.props.tableSettings;
         
         return (
+            <div className='height-wrapper'>
             <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
-                
-                { this.state.reportIsLoading === true &&
-                    <div className='spinner-container'>
-                        <Spinner className='report-spinner'>
-                                Loading
-                        </Spinner>
-                    </div>
-                }
+
                 <Row>
                     <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
@@ -478,10 +472,12 @@ class FileList extends Component {
                                     className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
                                         PARTICIPANT
                                 </div>
+
                                 <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
                                     className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
                                         FILE
                                 </div>
+
                                 <div className="filter-tab filter-tab-control-icon clickable"
                                     alt="Close Filter Tab"
                                     onClick={() => {this.props.toggleFilterTab()}}>                                
@@ -491,128 +487,109 @@ class FileList extends Component {
                             </div>
                             {this.accessAlertModal()}
                             <React.Fragment>
-                        
+                           
                                 {this.props.activeFilterTab === tabEnum.FILE &&
                                     <FileFacet/>
                                 }
+
                                 {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                                    <ParticipantFacet/>
+                                <ParticipantFacet/>
                                 }
                             </React.Fragment>
                         </div>
 
-                    </Col>
-                    <Col xl={`${this.props.filterTabActive ? 9 : 12 }`}>
-                        <Row>
-                            <Col 
-                                className={`filter-collapse clickable ${this.props.filterTabActive ? 'hidden': ''}`}
-                                xl={1}
-                                alt="Open Filter Tab"
-                                onClick={() => {this.props.toggleFilterTab()}}>
-                            <FontAwesomeIcon
-                                    className="fas fa-angles-left" icon={faAnglesRight} />
-                            </Col>
-                            <Col xl={12} className={`my-0 activeFilter-column ${this.props.filterTabActive ? 'closed': ''}`}>
-                                {this.props.filters.length === 0 ?
+                        </Col>
+                        <Col xl={`${this.props.filterTabActive ? 9 : 12 }`}>
+                            <Row>
+                                <Col 
+                                    className={`filter-collapse clickable ${this.props.filterTabActive ? 'hidden': ''}`}
+                                    xl={1}
+                                    alt="Open Filter Tab"
+                                    onClick={() => {this.props.toggleFilterTab()}}>
+                                <FontAwesomeIcon
+                                        className="fas fa-angles-left" icon={faAnglesRight} />
+                                </Col>
+                                <Col xl={12} className={`my-0 activeFilter-column ${this.props.filterTabActive ? 'closed': ''}`}>
+                                    {this.props.filters.length === 0 ?
 
-                                <Row className="filter-pill-row inactive-filters">
-                                    <span><FontAwesomeIcon icon={faLongArrowLeft}/> Start searching by selecting a facet</span>
-                                </Row>
-                                :
-                                <Row className="filter-pill-row">
-                                    <div className="border rounded activeFilter action-button">
-                                        <span 
-                                            onClick={()=>{
-                                                this.props.clearFilters()
-                                            }}>
-                                                <FontAwesomeIcon alt="Clear All Filters" className="fa-light fa-trash-can" icon={faTrashCan} /> Clear Filters 
-                                        </span>
-                                    </div>
-                                    {this.getFilterPills(this.props.filters)}
-                                </Row>}
-                                
-                            </Col>
-                        </Row>
-                        <DndProvider backend={HTML5Backend}>
-                            <div className='container-max data-table-wrapper'>
-                                <div className="data-table">
-                                    <p>
-                                        <div id="empty-space-wrapper">
-                                            <div id="empty-space">
-                                            </div>
+                                    <Row className="filter-pill-row inactive-filters">
+                                        <span><FontAwesomeIcon icon={faLongArrowLeft}/> Start searching by selecting a facet</span>
+                                    </Row>
+                                    :
+                                    <Row className="filter-pill-row">
+                                        <div className="border rounded activeFilter action-button">
+                                            <span 
+                                                onClick={()=>{
+                                                    this.props.clearFilters()
+                                                }}>
+                                                    <FontAwesomeIcon alt="Clear All Filters" className="fa-light fa-trash-can" icon={faTrashCan} /> Clear Filters 
+                                            </span>
                                         </div>
-                                        <strong>IMPORTANT: Please follow this <a href="https://www.kpmp.org/help-docs/study-overview?tabname=citingkpmpdata" target="_blank" rel="noreferrer">citation guideline</a> when presenting or publishing KPMP data.</strong>
-                                    </p>
-                                    <React.Fragment>
-                                    { this.state.isLoaded ?
-                                    <Grid
-                                        rows={this.state.tableData}
-                                        columns={this.getColumns()}>
-                                        <SortingState
-                                            defaultSorting={[]}
-                                            onSortingChange={(sorting) => {
-                                                let sortOptions = sorting.map(val => {
-                                                    if (val.columnName === "redcap_id") {
-                                                        return { field: "participant_id_sort", direction: val.direction }
-                                                    }
-                                                    else if (val.columnName === "file_name") {
-                                                        return { field: "file_name_sort", direction: val.direction }
-                                                    }
-                                                    else if (val.columnName === "platform") {
-                                                        return { field: "platform_sort", direction: val.direction }
-                                                    }
-                                                    else {
-                                                        return { field: val.columnName, direction: val.direction }
-                                                    }
-                                                })
-                                                this.props.setSort(sortOptions);
-                                                this.props.props.setTableSettings({sorting: sorting});
-                                                this.props.setCurrent(1);
-                                            }
-                                            }
-                                            sorting={sorting}/>
-                                        <DataTypeProvider
-                                            for = {["file_size"]}
-                                            formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
-                                        />
-                                        <PagingState
-                                            currentPage={this.props.currentPage-1}
-                                            pageSize={this.props.resultsPerPage}
-                                        />
-                                        <IntegratedPaging />
-                                        <PagingPanel
-                                            pageSizes={this.getPageSizes()}
-                                            containerComponent={() => {
-                                                return (
-                                                <PagingPanel.Container
-                                                    totalPages={this.getTotalPages()}
-                                                    currentPage={this.props.currentPage-1}
-                                                    onCurrentPageChange={(page) => {
-                                                        // dx-react-grid paging starts at 0, while ElasticSearch starts at 1
-                                                        // (hence the "+1" and "-1")
-                                                        this.props.setCurrent(page+1);
-                                                    }}
-                                                    pageSize={this.props.resultsPerPage}
-                                                    totalCount={this.props.totalResults}
-                                                    onPageSizeChange={(pageSize) => {
-                                                        this.props.setResultsPerPage(pageSize);
-                                                    }}
-                                                    pageSizes={this.getPageSizes()}
-                                                    getMessage={(messageKey) => {return messageKey}}
-                                                />
-                                                )}}
-                                        />
-                                        <Toolbar
-                                            cards={this.state.cards}
-                                            setCards={this.state.setCards}
-                                        />
-                                        <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} order={this.state.cards} hidden={this.state.hiddenColumnNames} />
-                                        <Table />
-                                        <TableColumnResizing
-                                            defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={30}
-                                            onColumnWidthsChange={(columnWidths) =>  this.props.props.setTableSettings({columnWidths: columnWidths})}
-                                            columnWidths={columnWidths}
-                                        />
+
+                                        {this.getFilterPills(this.props.filters)}
+                                    </Row>}
+                                    
+                                </Col>
+                            </Row>
+                            <DndProvider backend={HTML5Backend}>
+                                <div className='container-max data-table-wrapper'>
+                                    <div className="data-table">
+                                        <p>
+                                            <div id="empty-space-wrapper">
+                                                <div id="empty-space">
+                                                </div>
+                                            </div>
+                                            <strong>IMPORTANT: Please follow this <a href="https://www.kpmp.org/help-docs/study-overview?tabname=citingkpmpdata" target="_blank" rel="noreferrer">citation guideline</a> when presenting or publishing KPMP data.</strong>
+                                        </p>
+                                        <React.Fragment>
+                                        { this.state.isLoaded ?
+                                        <Grid
+                                            rows={this.state.tableData}
+                                            columns={this.getColumns()}>
+                                            <SortingState
+                                                defaultSorting={[]}
+                                                onSortingChange={(sorting) => {
+                                                    let sortOptions = sorting.map(val => {
+                                                        if (val.columnName === "redcap_id") {
+                                                            return { field: "participant_id_sort", direction: val.direction }
+                                                        }
+                                                        else if (val.columnName === "file_name") {
+                                                            return { field: "file_name_sort", direction: val.direction }
+                                                        }
+                                                        else if (val.columnName === "platform") {
+                                                            return { field: "platform_sort", direction: val.direction }
+                                                        }
+                                                        else {
+                                                            return { field: val.columnName, direction: val.direction }
+                                                        }
+                                                    })
+                                                    this.props.setSort(sortOptions);
+                                                    this.props.props.setTableSettings({sorting: sorting, currentPage: 0});
+                                                }
+                                                }
+                                                sorting={sorting}/>
+                                            <DataTypeProvider
+                                                for = {["file_size"]}
+                                                formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
+                                            />
+                                            <PagingState
+                                                currentPage={currentPage}
+                                                defaultPageSize={pagingSize}
+                                                onCurrentPageChange={(page) => this.props.props.setTableSettings({currentPage: page})}
+                                            />
+                                            <IntegratedPaging />
+                                            <PagingPanel />
+                                            <Toolbar
+                                                cards={this.state.cards}
+                                                setCards={this.state.setCards}
+                                            />
+                                            <ToolbarButtonState setTableSettings={this.props.props.setTableSettings} order={this.state.cards} hidden={this.state.hiddenColumnNames} />
+                                            <Table />
+                                            <TableColumnResizing
+                                                defaultColumnWidths={this.getDefaultColumnWidths()} minColumnWidth={30}
+                                                onColumnWidthsChange={(columnWidths) =>  this.props.props.setTableSettings({columnWidths: columnWidths})}
+                                                columnWidths={columnWidths}
+                                            />
 
                                         <TableColumnReordering
                                             order={(this.state.cards).map(item => item.name)}
@@ -649,6 +626,7 @@ class FileList extends Component {
                     </Col>
                 </Row>
             </Container>
+            </div>
         )
     }
 }

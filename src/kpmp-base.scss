@@ -49,14 +49,6 @@ body {
 	position: relative;
 
 	top: calc(#{$header-height-padded});
-
-	/* x-lg and up */
-	@media (min-width: 1200px) {
-		top: calc(#{$header-height-padded});
-		height: calc(100vh + 16px
-			- #{$header-height-padded}
-			- #{$footer-height-padded});
-	}
 }
 
 #oops-content {
