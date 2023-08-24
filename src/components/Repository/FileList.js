@@ -596,7 +596,6 @@ class FileList extends Component {
                                                 />
                                                 )}}
                                             />
-                                            <PagingPanel />
                                             <Toolbar
                                                 cards={this.state.cards}
                                                 setCards={this.state.setCards}
@@ -609,30 +608,30 @@ class FileList extends Component {
                                                 columnWidths={columnWidths}
                                             />
 
-                                        <TableColumnReordering
-                                            order={(this.state.cards).map(item => item.name)}
-                                            defaultOrder={this.getColumns().map(item => item.name)}
-                                        />
-                                        <TableHeaderRow showSortingControls />
-                                        <TableColumnVisibility
-                                            defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
-                                            hiddenColumnNames={this.state.hiddenColumnNames}
-                                            onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
-                                        />
-                                        <ColumnChooser />
-                                        
-                                        <ToolbarButton
-                                            resultCount={this.state.resultCount}
-                                            cards={this.state.cards}
-                                            setCards={this.setCards}
-                                            setDefaultCards={this.setDefaultCards}
-                                            defaultOrder={this.getColumns().map(item => item.name)}
-                                            cleanResults={this.cleanResults}
+                                            <TableColumnReordering
+                                                order={(this.state.cards).map(item => item.name)}
+                                                defaultOrder={this.getColumns().map(item => item.name)}
                                             />
-                                        <PaginationState
-                                            setResultsPerPage={this.props.setResultsPerPage}
-                                            pagingSize={this.props.resultsPerPage}/>
-                                        <Pagination pageSizes={this.getPageSizes()} />
+                                            <TableHeaderRow showSortingControls />
+                                            <TableColumnVisibility
+                                                defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
+                                                hiddenColumnNames={this.state.hiddenColumnNames}
+                                                onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
+                                            />
+                                            <ColumnChooser />
+                                                    
+                                            <ToolbarButton
+                                                resultCount={this.state.resultCount}
+                                                cards={this.state.cards}
+                                                setCards={this.setCards}
+                                                setDefaultCards={this.setDefaultCards}
+                                                defaultOrder={this.getColumns().map(item => item.name)}
+                                                cleanResults={this.cleanResults}
+                                                />
+                                            <PaginationState
+                                                setResultsPerPage={this.props.setResultsPerPage}
+                                                pagingSize={this.props.resultsPerPage}/>
+                                            <Pagination pageSizes={this.getPageSizes()} />
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
                                             Loading...
