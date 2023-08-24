@@ -86,7 +86,7 @@ class ReportCard extends Component {
             } else if (row.key.includes('Single-nuc')) {
                 dataType = 'sn'
             } else if (row.key.includes('Regional')) {
-                dataType = 'regionalViz'
+                dataType = 'rt'
             }
             link = '/' + row.tool + '/dataViz?dataType=' + dataType
         }
