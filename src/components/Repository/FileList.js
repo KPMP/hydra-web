@@ -73,7 +73,6 @@ class FileList extends Component {
         await this.getSearchResults();
         this.setState({isLoaded: true})
         
-        
     };
 
     componentDidUpdate(prevProps) {
@@ -456,7 +455,6 @@ class FileList extends Component {
             PARTICIPANT: 'PARTICIPANT',
             FILE: 'FILE'
         };
-
         const { columnWidths, sorting } = this.props.props.tableSettings;
         
         return (
@@ -572,12 +570,32 @@ class FileList extends Component {
                                                 for = {["file_size"]}
                                                 formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
                                             />
-                                            <PagingState
-                                                currentPage={currentPage}
-                                                defaultPageSize={pagingSize}
-                                                onCurrentPageChange={(page) => this.props.props.setTableSettings({currentPage: page})}
+                                           <PagingState
+                                            currentPage={this.props.currentPage-1}
+                                            pageSize={this.props.resultsPerPage}
                                             />
-                                            <IntegratedPaging />
+                                            <PagingPanel
+                                            pageSizes={this.getPageSizes()}
+                                            containerComponent={() => {
+                                                return (
+                                                <PagingPanel.Container
+                                                    totalPages={this.getTotalPages()}
+                                                    currentPage={this.props.currentPage-1}
+                                                    onCurrentPageChange={(page) => {
+                                                        // dx-react-grid paging starts at 0, while ElasticSearch starts at 1
+                                                        // (hence the "+1" and "-1")
+                                                        this.props.setCurrent(page+1);
+                                                    }}
+                                                    pageSize={this.props.resultsPerPage}
+                                                    totalCount={this.state.resultCount}
+                                                    onPageSizeChange={(pageSize) => {
+                                                        this.props.setResultsPerPage(pageSize);
+                                                    }}
+                                                    pageSizes={this.getPageSizes()}
+                                                    getMessage={(messageKey) => {return messageKey}}
+                                                />
+                                                )}}
+                                            />
                                             <PagingPanel />
                                             <Toolbar
                                                 cards={this.state.cards}
