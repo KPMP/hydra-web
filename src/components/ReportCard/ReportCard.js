@@ -137,15 +137,15 @@ class ReportCard extends Component {
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border px-3 pt-2 shadow-sm'>
                             <Row>
                                 <Col className=''>
                                     Files
-                                    <div className='h3'>
+                                    <div id='file-count'>
                                         <a href={this.getTotalFileCountLink()}>{this.state.totalFileCount['count']}</a>
                                     </div>
                                 </Col>
-                                <Col className='text-end align-bottom h1'>
+                                <Col className='text-end align-bottom' id='file-icon'>
                                     <FontAwesomeIcon
                                         className="fas fa-file fa-light" icon={faFile} />
                                 </Col>
