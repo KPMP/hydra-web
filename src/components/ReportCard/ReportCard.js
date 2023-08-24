@@ -80,15 +80,14 @@ class ReportCard extends Component {
         if (row.tool === 'spatial-viewer') {
             link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any'
         } else if (row.tool === 'explorer') {
-            let dataType = '';
+            link += row.tool;
             if (row.key.includes('Single-cell')) {
-                dataType = 'sc'
+                link += '/dataViz?dataType=sc';
             } else if (row.key.includes('Single-nuc')) {
-                dataType = 'sn'
+                link += '/dataViz?dataType=sn';
             } else if (row.key.includes('Regional')) {
-                dataType = 'rt'
+                link +='/regionalviz?dataType=rt';
             }
-            link = '/' + row.tool + '/dataViz?dataType=' + dataType
         }
 
         return (row['value'] > 0 ? <a className="p-0" href={link}>{row['value']}</a> : <span>{row['value']}</span>)
