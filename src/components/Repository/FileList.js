@@ -458,11 +458,17 @@ class FileList extends Component {
         };
 
         const { columnWidths, sorting } = this.props.props.tableSettings;
-        
+
         return (
             <div className='height-wrapper'>
             <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
-
+                { this.state.reportIsLoading === true &&
+                    <div className='spinner-container'>
+                        <Spinner className='report-spinner'>
+                                Loading
+                        </Spinner>
+                    </div>
+                }
                 <Row>
                     <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
@@ -573,12 +579,33 @@ class FileList extends Component {
                                                 formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
                                             />
                                             <PagingState
-                                                currentPage={currentPage}
-                                                defaultPageSize={pagingSize}
+                                                currentPage={this.props.currentPage-1}
+                                                defaultPageSize={this.props.resultsPerPage}
                                                 onCurrentPageChange={(page) => this.props.props.setTableSettings({currentPage: page})}
                                             />
                                             <IntegratedPaging />
-                                            <PagingPanel />
+                                            <PagingPanel
+                                            pageSizes={this.getPageSizes()}
+                                            containerComponent={() => {
+                                                return (
+                                                <PagingPanel.Container
+                                                    totalPages={this.getTotalPages()}
+                                                    currentPage={this.props.currentPage-1}
+                                                    onCurrentPageChange={(page) => {
+                                                        // dx-react-grid paging starts at 0, while ElasticSearch starts at 1
+                                                        // (hence the "+1" and "-1")
+                                                        this.props.setCurrent(page+1);
+                                                    }}
+                                                    pageSize={this.props.resultsPerPage}
+                                                    totalCount={this.props.totalResults}
+                                                    onPageSizeChange={(pageSize) => {
+                                                        this.props.setResultsPerPage(pageSize);
+                                                    }}
+                                                    pageSizes={this.getPageSizes()}
+                                                    getMessage={(messageKey) => {return messageKey}}
+                                                />
+                                                )}}
+                                             />
                                             <Toolbar
                                                 cards={this.state.cards}
                                                 setCards={this.state.setCards}
