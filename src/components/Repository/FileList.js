@@ -73,7 +73,6 @@ class FileList extends Component {
         await this.getSearchResults();
         this.setState({isLoaded: true})
         
-        
     };
 
     componentDidUpdate(prevProps) {
@@ -456,7 +455,6 @@ class FileList extends Component {
             PARTICIPANT: 'PARTICIPANT',
             FILE: 'FILE'
         };
-
         const { columnWidths, sorting } = this.props.props.tableSettings;
 
         return (
@@ -578,12 +576,10 @@ class FileList extends Component {
                                                 for = {["file_size"]}
                                                 formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
                                             />
-                                            <PagingState
-                                                currentPage={this.props.currentPage-1}
-                                                defaultPageSize={this.props.resultsPerPage}
-                                                onCurrentPageChange={(page) => this.props.props.setTableSettings({currentPage: page})}
+                                           <PagingState
+                                            currentPage={this.props.currentPage-1}
+                                            pageSize={this.props.resultsPerPage}
                                             />
-                                            <IntegratedPaging />
                                             <PagingPanel
                                             pageSizes={this.getPageSizes()}
                                             containerComponent={() => {
@@ -597,7 +593,7 @@ class FileList extends Component {
                                                         this.props.setCurrent(page+1);
                                                     }}
                                                     pageSize={this.props.resultsPerPage}
-                                                    totalCount={this.props.totalResults}
+                                                    totalCount={this.state.resultCount}
                                                     onPageSizeChange={(pageSize) => {
                                                         this.props.setResultsPerPage(pageSize);
                                                     }}
@@ -605,7 +601,7 @@ class FileList extends Component {
                                                     getMessage={(messageKey) => {return messageKey}}
                                                 />
                                                 )}}
-                                             />
+                                            />
                                             <Toolbar
                                                 cards={this.state.cards}
                                                 setCards={this.state.setCards}
@@ -618,30 +614,30 @@ class FileList extends Component {
                                                 columnWidths={columnWidths}
                                             />
 
-                                        <TableColumnReordering
-                                            order={(this.state.cards).map(item => item.name)}
-                                            defaultOrder={this.getColumns().map(item => item.name)}
-                                        />
-                                        <TableHeaderRow showSortingControls />
-                                        <TableColumnVisibility
-                                            defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
-                                            hiddenColumnNames={this.state.hiddenColumnNames}
-                                            onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
-                                        />
-                                        <ColumnChooser />
-                                        
-                                        <ToolbarButton
-                                            resultCount={this.state.resultCount}
-                                            cards={this.state.cards}
-                                            setCards={this.setCards}
-                                            setDefaultCards={this.setDefaultCards}
-                                            defaultOrder={this.getColumns().map(item => item.name)}
-                                            cleanResults={this.cleanResults}
+                                            <TableColumnReordering
+                                                order={(this.state.cards).map(item => item.name)}
+                                                defaultOrder={this.getColumns().map(item => item.name)}
                                             />
-                                        <PaginationState
-                                            setResultsPerPage={this.props.setResultsPerPage}
-                                            pagingSize={this.props.resultsPerPage}/>
-                                        <Pagination pageSizes={this.getPageSizes()} />
+                                            <TableHeaderRow showSortingControls />
+                                            <TableColumnVisibility
+                                                defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
+                                                hiddenColumnNames={this.state.hiddenColumnNames}
+                                                onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
+                                            />
+                                            <ColumnChooser />
+                                                    
+                                            <ToolbarButton
+                                                resultCount={this.state.resultCount}
+                                                cards={this.state.cards}
+                                                setCards={this.setCards}
+                                                setDefaultCards={this.setDefaultCards}
+                                                defaultOrder={this.getColumns().map(item => item.name)}
+                                                cleanResults={this.cleanResults}
+                                                />
+                                            <PaginationState
+                                                setResultsPerPage={this.props.setResultsPerPage}
+                                                pagingSize={this.props.resultsPerPage}/>
+                                            <Pagination pageSizes={this.getPageSizes()} />
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
                                             Loading...
