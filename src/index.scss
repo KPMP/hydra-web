@@ -678,3 +678,17 @@ td:hover {
     background-color: #8080801a;
 }
 
+#file-count {
+    font-size: 2rem;
+}
+
+#file-count a:hover {
+    text-decoration: none;
+}
+
+#file-icon {
+    font-size: 3rem;
+    @media only screen and (min-width: 992px) and (max-width: 1017px) {
+        display: none;
+    }
+}
