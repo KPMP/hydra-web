@@ -258,7 +258,7 @@ class FileList extends Component {
                         this.downloadFile(`https://atlas.kpmp.org/api/v1/file/download/${row['package_id']}/${row['file_name']}`, row['file_name'])
                 }} className="clickable download-btn">
                     <FontAwesomeIcon
-                        className="fas fa-angles-left " icon={faDownload} />
+                        className="fas" icon={faDownload} />
                     </span>
                     }
             },
@@ -270,7 +270,7 @@ class FileList extends Component {
                 defaultHidden: false,
                 getCellValue: row => { return <span>
                     <FontAwesomeIcon
-                    className="fas fa-angles-left " icon={row['access'] === 'controlled' ? faUnlock: faUnlockKeyhole } /> {row['access']}</span> }
+                    className="fas" icon={row['access'] === 'controlled' ? faUnlock: faUnlockKeyhole } /> {row['access']}</span> }
             },  
             {
                 name: 'redcap_id',
@@ -437,7 +437,7 @@ class FileList extends Component {
                                     onClick={()=>{
                                         this.props.removeFilter(filter.field, value)
                                     }}
-                                    className="close-button fas fa-xmark ml-2"
+                                    className="close-button fas fa-xmark ms-2"
                                     icon={faXmark} /> </span>
                         </div>)
                 })
@@ -511,7 +511,7 @@ class FileList extends Component {
                                     alt="Open Filter Tab"
                                     onClick={() => {this.props.toggleFilterTab()}}>
                                 <FontAwesomeIcon
-                                        className="fas fa-angles-left" icon={faAnglesRight} />
+                                        className="fas fa-angles-right" icon={faAnglesRight} />
                                 </Col>
                                 <Col xl={12} className={`my-0 activeFilter-column ${this.props.filterTabActive ? 'closed': ''}`}>
                                     {this.props.filters.length === 0 ?
