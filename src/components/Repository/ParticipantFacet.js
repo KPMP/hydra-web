@@ -18,6 +18,22 @@ class ParticipantFacet extends Component {
                     defaultOpen={['1', '2', '3', '4', '5', '6', '7']}
                     stayOpen
                 >
+                  <AccordionItem>
+                <AccordionHeader targetId="5">
+                    Participant ID
+                </AccordionHeader>
+                <AccordionBody accordionId="5">
+                    <Row className='mb-2'>
+                        <Col>
+                            <Facet inputProps={{placeholder: "placeholder"}}
+                                   isFilterable={true} field="redcap_id"
+                                   label=""
+                                   filterType="any"
+                                   view={(props) => <MultiCheckboxFacet {...props}
+                                                                        searchPlaceholder={"Search..."}/>}/>
+                        </Col>
+                    </Row>
+                </AccordionBody></AccordionItem>
                     <AccordionItem>
                         <AccordionHeader targetId="1">
                             Sex
@@ -61,22 +77,6 @@ class ParticipantFacet extends Component {
                             <Row className='mb-2'>
                                 <Col>
                                     <Facet field='sample_type' label='' filterType='any' view={MultiCheckboxFacet}/>
-                                </Col>
-                            </Row>
-                        </AccordionBody></AccordionItem>
-                    <AccordionItem>
-                        <AccordionHeader targetId="5">
-                            Participant ID
-                        </AccordionHeader>
-                        <AccordionBody accordionId="5">
-                            <Row className='mb-2'>
-                                <Col>
-                                    <Facet inputProps={{placeholder: "placeholder"}}
-                                           isFilterable={true} field="redcap_id"
-                                           label=""
-                                           filterType="any"
-                                           view={(props) => <MultiCheckboxFacet {...props}
-                                                                                searchPlaceholder={"Search..."}/>}/>
                                 </Col>
                             </Row>
                         </AccordionBody></AccordionItem>
