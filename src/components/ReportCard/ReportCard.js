@@ -5,6 +5,7 @@ import { Grid, Table, TableColumnResizing, TableHeaderRow } from '@devexpress/dx
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, experimentalDataConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
+import { handleGoogleAnalyticsEvent } from '../../helpers/googleAnalyticsHelper';
 
 class ReportCard extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class ReportCard extends Component {
             totalFileCount: sessionStorage['totalFileCount'],
             isLoaded: true
         })
+        handleGoogleAnalyticsEvent("Repository", "Navigation", "Participant Information");
     }
 
     getTotalFileCountLink = () => {
