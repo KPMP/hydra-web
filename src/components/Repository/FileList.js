@@ -568,7 +568,8 @@ class FileList extends Component {
                                                         }
                                                     })
                                                     this.props.setSort(sortOptions);
-                                                    this.props.props.setTableSettings({sorting: sorting, currentPage: 0});
+                                                    this.props.props.setTableSettings({sorting: sorting});
+                                                    this.props.setCurrent(1);
                                                 }
                                                 }
                                                 sorting={sorting}/>
