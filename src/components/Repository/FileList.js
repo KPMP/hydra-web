@@ -198,7 +198,6 @@ class FileList extends Component {
     cleanResults = async () => {
         return await this.getAllResults().then((res) => {
             var results = res;
-            // var results = this.state.tableData;
             let cols = {};
             this.getColumns()
                 .filter((column) => {
