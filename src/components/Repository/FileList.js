@@ -175,7 +175,7 @@ class FileList extends Component {
                 config["sort"] = sortMap
             }
             await Api.getInstance().post(
-                process.env.REACT_APP_SEARCH_ENDPOINT, 
+                process.env.REACT_APP_SEARCH_ENDPOINT + "/api/as/v1/engines/atlas-repository/search.json", 
                 config, 
                 { 
                     headers: {
