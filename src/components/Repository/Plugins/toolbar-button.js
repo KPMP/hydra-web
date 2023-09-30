@@ -64,7 +64,7 @@ export class ToolbarButton extends React.PureComponent {
               }
             ) => (
                 <React.Fragment>
-                <div className="mr-auto">Files ({this.props.resultCount})</div>
+                <div className="me-auto">Files ({this.props.resultCount})</div>
               <div className="ms-auto">
                   <button 
                     type="button" 

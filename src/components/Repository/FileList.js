@@ -73,7 +73,6 @@ class FileList extends Component {
         await this.getSearchResults();
         this.setState({isLoaded: true})
         
-        
     };
 
     componentDidUpdate(prevProps) {
@@ -176,7 +175,7 @@ class FileList extends Component {
                 config["sort"] = sortMap
             }
             await Api.getInstance().post(
-                process.env.REACT_APP_SEARCH_ENDPOINT, 
+                process.env.REACT_APP_SEARCH_ENDPOINT + "/api/as/v1/engines/atlas-repository/search.json", 
                 config, 
                 { 
                     headers: {
@@ -259,7 +258,7 @@ class FileList extends Component {
                         this.downloadFile(`https://atlas.kpmp.org/api/v1/file/download/${row['package_id']}/${row['file_name']}`, row['file_name'])
                 }} className="clickable download-btn">
                     <FontAwesomeIcon
-                        className="fas fa-angles-left " icon={faDownload} />
+                        className="fas" icon={faDownload} />
                     </span>
                     }
             },
@@ -271,7 +270,7 @@ class FileList extends Component {
                 defaultHidden: false,
                 getCellValue: row => { return <span>
                     <FontAwesomeIcon
-                    className="fas fa-angles-left " icon={row['access'] === 'controlled' ? faUnlock: faUnlockKeyhole } /> {row['access']}</span> }
+                    className="fas" icon={row['access'] === 'controlled' ? faUnlock: faUnlockKeyhole } /> {row['access']}</span> }
             },  
             {
                 name: 'redcap_id',
@@ -438,7 +437,7 @@ class FileList extends Component {
                                     onClick={()=>{
                                         this.props.removeFilter(filter.field, value)
                                     }}
-                                    className="close-button fas fa-xmark ml-2"
+                                    className="close-button fas fa-xmark ms-2"
                                     icon={faXmark} /> </span>
                         </div>)
                 })
@@ -456,13 +455,18 @@ class FileList extends Component {
             PARTICIPANT: 'PARTICIPANT',
             FILE: 'FILE'
         };
-
         const { columnWidths, sorting } = this.props.props.tableSettings;
-        
+
         return (
             <div className='height-wrapper'>
             <Container id='outer-wrapper' className="multi-container-container container-xxl mh-100">
-
+                { this.state.reportIsLoading === true &&
+                    <div className='spinner-container'>
+                        <Spinner className='report-spinner'>
+                                Loading
+                        </Spinner>
+                    </div>
+                }
                 <Row>
                     <Col xl={3} className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
@@ -507,7 +511,7 @@ class FileList extends Component {
                                     alt="Open Filter Tab"
                                     onClick={() => {this.props.toggleFilterTab()}}>
                                 <FontAwesomeIcon
-                                        className="fas fa-angles-left" icon={faAnglesRight} />
+                                        className="fas fa-angles-right" icon={faAnglesRight} />
                                 </Col>
                                 <Col xl={12} className={`my-0 activeFilter-column ${this.props.filterTabActive ? 'closed': ''}`}>
                                     {this.props.filters.length === 0 ?
@@ -564,7 +568,8 @@ class FileList extends Component {
                                                         }
                                                     })
                                                     this.props.setSort(sortOptions);
-                                                    this.props.props.setTableSettings({sorting: sorting, currentPage: 0});
+                                                    this.props.props.setTableSettings({sorting: sorting});
+                                                    this.props.setCurrent(1);
                                                 }
                                                 }
                                                 sorting={sorting}/>
@@ -572,13 +577,32 @@ class FileList extends Component {
                                                 for = {["file_size"]}
                                                 formatterComponent = {({value}) => <span>{prettyBytes(parseInt(value))}</span>}
                                             />
-                                            <PagingState
-                                                currentPage={currentPage}
-                                                defaultPageSize={pagingSize}
-                                                onCurrentPageChange={(page) => this.props.props.setTableSettings({currentPage: page})}
+                                           <PagingState
+                                            currentPage={this.props.currentPage-1}
+                                            pageSize={this.props.resultsPerPage}
                                             />
-                                            <IntegratedPaging />
-                                            <PagingPanel />
+                                            <PagingPanel
+                                            pageSizes={this.getPageSizes()}
+                                            containerComponent={() => {
+                                                return (
+                                                <PagingPanel.Container
+                                                    totalPages={this.getTotalPages()}
+                                                    currentPage={this.props.currentPage-1}
+                                                    onCurrentPageChange={(page) => {
+                                                        // dx-react-grid paging starts at 0, while ElasticSearch starts at 1
+                                                        // (hence the "+1" and "-1")
+                                                        this.props.setCurrent(page+1);
+                                                    }}
+                                                    pageSize={this.props.resultsPerPage}
+                                                    totalCount={this.state.resultCount}
+                                                    onPageSizeChange={(pageSize) => {
+                                                        this.props.setResultsPerPage(pageSize);
+                                                    }}
+                                                    pageSizes={this.getPageSizes()}
+                                                    getMessage={(messageKey) => {return messageKey}}
+                                                />
+                                                )}}
+                                            />
                                             <Toolbar
                                                 cards={this.state.cards}
                                                 setCards={this.state.setCards}
@@ -591,30 +615,30 @@ class FileList extends Component {
                                                 columnWidths={columnWidths}
                                             />
 
-                                        <TableColumnReordering
-                                            order={(this.state.cards).map(item => item.name)}
-                                            defaultOrder={this.getColumns().map(item => item.name)}
-                                        />
-                                        <TableHeaderRow showSortingControls />
-                                        <TableColumnVisibility
-                                            defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
-                                            hiddenColumnNames={this.state.hiddenColumnNames}
-                                            onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
-                                        />
-                                        <ColumnChooser />
-                                        
-                                        <ToolbarButton
-                                            resultCount={this.state.resultCount}
-                                            cards={this.state.cards}
-                                            setCards={this.setCards}
-                                            setDefaultCards={this.setDefaultCards}
-                                            defaultOrder={this.getColumns().map(item => item.name)}
-                                            cleanResults={this.cleanResults}
+                                            <TableColumnReordering
+                                                order={(this.state.cards).map(item => item.name)}
+                                                defaultOrder={this.getColumns().map(item => item.name)}
                                             />
-                                        <PaginationState
-                                            setResultsPerPage={this.props.setResultsPerPage}
-                                            pagingSize={this.props.resultsPerPage}/>
-                                        <Pagination pageSizes={this.getPageSizes()} />
+                                            <TableHeaderRow showSortingControls />
+                                            <TableColumnVisibility
+                                                defaultHiddenColumnNames={this.getDefaultHiddenColumnNames(this.getColumns())}
+                                                hiddenColumnNames={this.state.hiddenColumnNames}
+                                                onHiddenColumnNamesChange={(hiddenColumnNames) => {this.setShowHide(hiddenColumnNames)}}
+                                            />
+                                            <ColumnChooser />
+                                                    
+                                            <ToolbarButton
+                                                resultCount={this.state.resultCount}
+                                                cards={this.state.cards}
+                                                setCards={this.setCards}
+                                                setDefaultCards={this.setDefaultCards}
+                                                defaultOrder={this.getColumns().map(item => item.name)}
+                                                cleanResults={this.cleanResults}
+                                                />
+                                            <PaginationState
+                                                setResultsPerPage={this.props.setResultsPerPage}
+                                                pagingSize={this.props.resultsPerPage}/>
+                                            <Pagination pageSizes={this.getPageSizes()} />
                                     </Grid>
                                     : <Spinner animation="border" variant="primary">
                                             Loading...

@@ -5,6 +5,7 @@ import { Grid, Table, TableColumnResizing, TableHeaderRow } from '@devexpress/dx
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, experimentalDataConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
+import { handleGoogleAnalyticsEvent } from '../../helpers/googleAnalyticsHelper';
 
 class ReportCard extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class ReportCard extends Component {
             totalFileCount: sessionStorage['totalFileCount'],
             isLoaded: true
         })
+        handleGoogleAnalyticsEvent("Repository", "Navigation", "Participant Information");
     }
 
     getTotalFileCountLink = () => {
@@ -80,15 +82,14 @@ class ReportCard extends Component {
         if (row.tool === 'spatial-viewer') {
             link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any'
         } else if (row.tool === 'explorer') {
-            let dataType = '';
+            link += row.tool;
             if (row.key.includes('Single-cell')) {
-                dataType = 'sc'
+                link += '/dataViz?dataType=sc';
             } else if (row.key.includes('Single-nuc')) {
-                dataType = 'sn'
+                link += '/dataViz?dataType=sn';
             } else if (row.key.includes('Regional')) {
-                dataType = 'regionalViz'
+                link +='/regionalviz?dataType=rt';
             }
-            link = '/' + row.tool + '/dataViz?dataType=' + dataType
         }
 
         return (row['value'] > 0 ? <a className="p-0" href={link}>{row['value']}</a> : <span>{row['value']}</span>)
@@ -137,15 +138,15 @@ class ReportCard extends Component {
                         </Container>
                     </Col>
                     <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm'>
+                        <Container className='container-max landing mb-4 rounded border px-3 pt-2 shadow-sm'>
                             <Row>
                                 <Col className=''>
                                     Files
-                                    <div className='h3'>
+                                    <div id='file-count'>
                                         <a href={this.getTotalFileCountLink()}>{this.state.totalFileCount['count']}</a>
                                     </div>
                                 </Col>
-                                <Col className='text-end align-bottom h1'>
+                                <Col className='text-end align-bottom' id='file-icon'>
                                     <FontAwesomeIcon
                                         className="fas fa-file fa-light" icon={faFile} />
                                 </Col>

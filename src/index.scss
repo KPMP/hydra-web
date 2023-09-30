@@ -62,7 +62,6 @@ $bs-border-color: #dee2e6;
 .spatial-filter-panel {
     margin-top: 3.5rem !important;
     border-top-left-radius: 0px !important;
-    min-height: 70vh;
     height: calc(100vh - 220px);
     overflow-y: scroll;
 }
@@ -415,7 +414,6 @@ td:hover {
     box-sizing: border-box;
     position: relative;
     outline: currentcolor none medium;
-    padding: 5px;
     border-right: 2px solid rgba(0, 0, 0, 0);
 }
 .sort-dialog-option-wrapper:hover {
@@ -678,3 +676,17 @@ td:hover {
     background-color: #8080801a;
 }
 
+#file-count {
+    font-size: 2rem;
+}
+
+#file-count a:hover {
+    text-decoration: none;
+}
+
+#file-icon {
+    font-size: 3rem;
+    @media only screen and (min-width: 992px) and (max-width: 1017px) {
+        display: none;
+    }
+}
