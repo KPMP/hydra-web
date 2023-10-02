@@ -13,7 +13,6 @@ import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import {
     SortingState,
-    IntegratedPaging,
     PagingState,
     DataTypeProvider
 } from '@devexpress/dx-react-grid';
