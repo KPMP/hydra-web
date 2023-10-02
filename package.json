@@ -25,7 +25,7 @@
     "history": "5.1.0",
     "immutability-helper": "3.1.1",
     "isomorphic-unfetch": "3.1.0",
-    "kpmp-common-components": "1.2.4",
+    "kpmp-common-components": "1.2.6",
     "kpmp-common-styles": "1.0.13",
     "npm-run-all": "4.1.5",
     "pretty-bytes": "6.0.0",
@@ -39,7 +39,7 @@
     "react-redux": "7.2.4",
     "react-router-dom": "5.2.1",
     "react-tooltip": "5.11.2",
-    "reactstrap": "9.1.9",
+    "reactstrap": "9.2.0",
     "redux": "4.1.1",
     "redux-thunk": "2.3.0",
     "sass": "1.56.1"
