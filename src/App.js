@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import ReactGA from 'react-ga4';
 import { createBrowserHistory } from 'history';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import ErrorBoundaryContainer from './components/Error/ErrorBoundaryContainer';
 import Oops from './components/Error/Oops';
 import NotFoundPage from './components/Error/NotFoundPage';
@@ -127,12 +127,12 @@ class App extends Component {
           <BrowserRouter history={history} basename={packagejson.baseURL}>
             <ErrorBoundaryContainer>
               <NavBar app='atlas' />
-              <Routes>
+              <Switch>
                 <Route exact path="/" component={FileListContainer} store={store} />
                 <Route exact path="/report" component={ReportCard} store={store}/>
                 <Route exact path="/oops" component={Oops} />
                 <Route path='*' component={NotFoundPage} />
-              </Routes>
+              </Switch>
               <NavFooter app='atlas' />
             </ErrorBoundaryContainer>
           </BrowserRouter>
