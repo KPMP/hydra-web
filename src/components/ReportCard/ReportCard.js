@@ -78,36 +78,26 @@ class ReportCard extends Component {
     }
 
     formatLinkableCellValue = (row) => {
-        let link = '/';
-        if (row.key.includes('3D Tissue Imaging and Cytometry')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=3D Tissue Imaging and Cytometry&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Light Microscopic Whole Slide Images')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Light Microscopic Whole Slide Images&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Spatial Transcriptomics')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Spatial Transcriptomics&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('CODEX')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=CODEX&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Spatial Metabolomics')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Spatial Metabolomics&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Spatial N-glycomics')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Spatial N-Glycomics&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Spatial Lipidomics')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Spatial Lipidomics&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Single-cell RNA-seq (scRNA-seq)')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Single-cell RNA-Seq&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Single-nucleus RNA-seq (snRNA-seq)')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Single-nucleus RNA-Seq&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Regional transcriptomics')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Regional Transcriptomics&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
-        } else if (row.key.includes('Regional proteomics')) {
-            link = '/repository/?size=n_20_n&filters[0][field]=experimental_strategy&filters[0][values][0]=Regional Proteomics&filters[0][type]=any&filters[1][field]=redcap_id&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any';
+        let link = '/'
+        if (row.tool === 'spatial-viewer') {
+            link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any'
+        } else if (row.tool === 'explorer') {
+            link += row.tool;
+            if (row.key.includes('Single-cell')) {
+                link += '/dataViz?dataType=sc';
+            } else if (row.key.includes('Single-nuc')) {
+                link += '/dataViz?dataType=sn';
+            } else if (row.key.includes('Regional transcriptomics')) {
+                link +='/regionalviz?dataType=rt';
+            } else if (row.key.includes('Regional proteomics')) {
+                link +='/regionalpro?dataType=rp';
+            }
         }
 
         return (row['value'] > 0 ? <a className="p-0" href={link}>{row['value']}</a> : <span>{row['value']}</span>)
     }
 
-
-        getExperimentalLinkableColumns = () => {
+    getExperimentalLinkableColumns = () => {
         return [
             {
                 name: 'Experimental Strategies',
