@@ -84,10 +84,10 @@ const searchConfig = {
         "release_version"
       ],
       facets: {
-        id: { type: "value", size: 250},
+        id: { type: "value", size: 500},
         data_format: { type: "value", size: 250},
         access: { type: "value", size: 250},
-        redcap_id: { type: "value", size: 250},
+        redcap_id: { type: "value", size: 500},
         file_name: { type: "value", size: 250},
         data_category: { type: "value", size: 250},
         workflow_type: { type: "value", size: 250},

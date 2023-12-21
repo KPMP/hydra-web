@@ -144,6 +144,7 @@ class FileList extends Component {
     }
     getAllResults = async () => {
         let filterMap = [];
+        // eslint-disable-next-line array-callback-return
         this.props.filters.map((filter) => {
             let obj = {};
             obj[filter["field"]] = filter["values"];
@@ -151,6 +152,7 @@ class FileList extends Component {
         });
         let sortMap = [];
         if (this.props.props.tableSettings.sorting) {
+            // eslint-disable-next-line array-callback-return
             this.props.props.tableSettings.sorting.map((sortItem) => {
                 let obj = {};
                 obj[sortItem["columnName"]] = sortItem["direction"];
