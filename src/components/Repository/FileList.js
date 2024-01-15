@@ -97,7 +97,7 @@ class FileList extends Component {
         const cards = this.getColumns().map((item, index) => {
             return {id: index, text: item.title, name: item.name, hideable: item.hideable, isSortField: item?.isSortField}
         });
-        this.setCards(cards)
+        this.setCards(cards.slice(1))
     };
 
     getWorkflowTypeValue = (row) => {
