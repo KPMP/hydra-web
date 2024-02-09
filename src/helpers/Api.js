@@ -92,7 +92,7 @@ export const fetchParticipantDataTypeCounts = async (redcapId) => {
 export const fetchParticipantClinicalDataset = async (redcapId) => {
   const query = gql`
   query {
-    participantClinicalDataset(redcapId: "${redcapId}"){
+    participantSummaryDataset(redcapId: "${redcapId}"){
       clinicalData
     }
   }`;
@@ -102,10 +102,10 @@ export const fetchParticipantClinicalDataset = async (redcapId) => {
         redcapId: redcapId
       }
     });
-  if (response && response.data && response.data.participantClinicalDataset) {
-      return response.data.participantClinicalDataset;
+  if (response && response.data && response.data.participantSummaryDataset) {
+      return response.data.participantSummaryDataset;
   } else {
-      store.dispatch(sendMessageToBackend("Could not retrieve participantClinicalDataset: " + response.error));
+      store.dispatch(sendMessageToBackend("Could not retrieve participantSummaryDataset (clinical data): " + response.error));
   }
 };
 
