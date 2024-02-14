@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, experimentalDataConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
 import { handleGoogleAnalyticsEvent } from '../../helpers/googleAnalyticsHelper';
+import FilesByExperimentType from './FilesByExperimentType';
 
 class ReportCard extends Component {
     constructor(props) {
@@ -106,7 +107,6 @@ class ReportCard extends Component {
     }
 
     render() {
-        this.getRowSets(this.state.experimentalDataCounts);
         return (
             <div className='report-card ms-5 me-5'>
                 <Row className='pt-2'>
@@ -154,10 +154,7 @@ class ReportCard extends Component {
                             <div className='report-header'>
                                 File Counts by Experimental Strategy
                             </div>
-                            {/* <Grid rows={this.getRows(this.state.experimentalDataCounts)} columns={this.getColumns()}>
-                                <Table columnExtensions={[{ columnName: 'Files', align: 'right' }]} />
-                                <TableHeaderRow />
-                            </Grid> */}
+                            <FilesByExperimentType experimentalDataCounts={this.state.experimentalDataCounts} />
                         </Container>
                     </Col>
                 </Row>
