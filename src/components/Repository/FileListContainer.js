@@ -23,10 +23,15 @@ const mapDispatchToProps = (dispatch, props) =>
          },
          async setParticipantReport(participant_id) {
             await dispatch(fetchAndSetSummaryDatasets(participant_id));
+            console.log("get summary datasets")
             await dispatch(fetchAndSetExperimentalDataCounts(participant_id));
+            console.log("got experimental data")
             await dispatch(fetchAndSetDataTypeFileCounts(participant_id));
+            console.log("got data type file counts")
             await dispatch(fetchAndSetClinicalDatasets(participant_id));
+            console.log("got clinical data")
             await dispatch(fetchAndSetTotalFileCount(participant_id));
+            console.log("got total file counts")
          },
          setTableSettings(componentState) {
             dispatch(setTableSettings(componentState))
