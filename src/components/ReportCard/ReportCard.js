@@ -100,18 +100,18 @@ class ReportCard extends Component {
     getExperimentalLinkableColumns = () => {
         return [
             {
-                name: 'Experimental Strategies',
+                name: 'dataType',
                 sortable: false,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => row.dataType
+
             },
             {
-                name: 'Files',
+                name: 'count',
                 sortable: false,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: row => row.count
+
             }
         ];
     };
