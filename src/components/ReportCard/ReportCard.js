@@ -172,7 +172,7 @@ class ReportCard extends Component {
                             <div className='report-header'>
                                 File Counts by Experimental Strategy
                             </div>
-                            <Grid rows={this.getRowSets(this.state.experimentalDataCounts)} columns={this.getExperimentalLinkableColumns()}>
+                            <Grid rows={this.state.experimentalDataCounts} columns={this.getExperimentalLinkableColumns()}>
                                 <Table columnExtensions={[{ columnName: 'Files', align: 'right' }]} />
                                 <TableHeaderRow />
                             </Grid>
