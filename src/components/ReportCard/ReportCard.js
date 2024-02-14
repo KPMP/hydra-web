@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Col, Container, Row } from "reactstrap";
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
-import { Grid, Table, TableColumnResizing, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
+import { Grid, Table, TableColumnResizing } from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
@@ -73,12 +73,6 @@ class ReportCard extends Component {
             },
         ];
     };
-
-    formatLinkableCellKey = (row) => {
-        let key = row['key'];
-        return( key )
-    }
-
 
     getRows = (dataset) => {
         return dataToTableConverter(dataset)

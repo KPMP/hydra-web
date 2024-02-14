@@ -9,14 +9,6 @@ export const resultConverter = (results) => {
     })
 };
 
-
-const formatData = (data=[], result=[], toolName='') => {
-    data.forEach((datum) => {
-        result.push({key: datum.dataType, value: datum.count, tool: toolName, isAggregated: datum.isAggregatedData})
-    });
-    return result;
-}
-
 export const dataToTableConverter = (data=[]) => {
     return Object.keys(data).map((key, index) => {
         return {
