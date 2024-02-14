@@ -107,75 +107,82 @@ class ReportCard extends Component {
     }
 
     render() {
-        return (
-            <div className='report-card ms-5 me-5'>
-                <Row className='pt-2'>
-                    <Col className='report-col col-sm-12 col-md-8 col-lg-10'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm'>
-                            <div className='report-header mb-3'>
-                                Participant Summary
-                            </div>
-                            <Grid rows={this.getRows(this.state.summaryDataset)} columns={this.getColumns()}>
-                                <Table />
-                                <TableColumnResizing defaultColumnWidths={this.getDefaultColumnWidths()} />
-                            </Grid>
-                        </Container>
-                    </Col>
-                    <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
-                        <Container className='container-max landing mb-4 rounded border px-3 pt-2 shadow-sm'>
-                            <Row>
-                                <Col className=''>
-                                    Files
-                                    <div id='file-count'>
-                                        <a href={this.getTotalFileCountLink()}>{this.state.totalFileCount['count']}</a>
-                                    </div>
-                                </Col>
-                                <Col className='text-end align-bottom' id='file-icon'>
-                                    <FontAwesomeIcon
-                                        className="fas fa-file fa-light" icon={faFile} />
-                                </Col>
-                            </Row>
-                        </Container>
-                    </Col>
-                </Row>
-                <Row className=''>
-                    <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{ height: 'fit-content' }}>
-                            <div className='report-header'>
-                                File Counts by Data Type
-                            </div>
-                            <Grid rows={fileCountsToTableConverter(this.state.dataTypeFileCounts, this.state.summaryDataset['Participant ID'])} columns={this.getColumns()}>
-                                <Table />
-                            </Grid>
-                        </Container>
-                    </Col>
-                    <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{ height: 'fit-content' }}>
-                            <div className='report-header'>
-                                File Counts by Experimental Strategy
-                            </div>
-                            <FilesByExperimentType experimentalDataCounts={this.state.experimentalDataCounts} />
-                        </Container>
-                    </Col>
-                </Row>
-                <Row className=''>
-                    <Col className='report-col col-12'>
-                        <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{ height: 'fit-content' }}>
-                            <div className='report-header'>
-                                Clinical
-                            </div>
-                            <Grid rows={this.getRows(mapClinicalKeysToPresentationStyle(this.state.clinicalDataset))} columns={this.getColumns()}>
-                                <Table />
-                                <TableColumnResizing defaultColumnWidths={[
-                                    { columnName: 'key', width: 350 },
-                                    { columnName: 'value', width: 500 },
-                                ]} />
-                            </Grid>
-                        </Container>
-                    </Col>
-                </Row>
-            </div>
-        )
+        if (this.state.isLoaded) {
+            return (
+            
+                <div className='report-card ms-5 me-5'>
+                    <Row className='pt-2'>
+                        <Col className='report-col col-sm-12 col-md-8 col-lg-10'>
+                            <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm'>
+                                <div className='report-header mb-3'>
+                                    Participant Summary
+                                </div>
+                                <Grid rows={this.getRows(this.state.summaryDataset)} columns={this.getColumns()}>
+                                    <Table />
+                                    <TableColumnResizing defaultColumnWidths={this.getDefaultColumnWidths()} />
+                                </Grid>
+                            </Container>
+                        </Col>
+                        <Col className='report-col col-sm-12 col-md-4 col-lg-2'>
+                            <Container className='container-max landing mb-4 rounded border px-3 pt-2 shadow-sm'>
+                                <Row>
+                                    <Col className=''>
+                                        Files
+                                        <div id='file-count'>
+                                            <a href={this.getTotalFileCountLink()}>{this.state.totalFileCount['count']}</a>
+                                        </div>
+                                    </Col>
+                                    <Col className='text-end align-bottom' id='file-icon'>
+                                        <FontAwesomeIcon
+                                            className="fas fa-file fa-light" icon={faFile} />
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </Col>
+                    </Row>
+                    <Row className=''>
+                        <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
+                            <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{ height: 'fit-content' }}>
+                                <div className='report-header'>
+                                    File Counts by Data Type
+                                </div>
+                                <Grid rows={fileCountsToTableConverter(this.state.dataTypeFileCounts, this.state.summaryDataset['Participant ID'])} columns={this.getColumns()}>
+                                    <Table />
+                                </Grid>
+                            </Container>
+                        </Col>
+                        <Col className='report-col col-sm-12 col-md-12 col-lg-6'>
+                            <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{ height: 'fit-content' }}>
+                                <div className='report-header'>
+                                    File Counts by Experimental Strategy
+                                </div>
+                                <FilesByExperimentType experimentalDataCounts={this.state.experimentalDataCounts} />
+                            </Container>
+                        </Col>
+                    </Row>
+                    <Row className=''>
+                        <Col className='report-col col-12'>
+                            <Container className='container-max landing mb-4 rounded border p-3 pt-2 shadow-sm' style={{ height: 'fit-content' }}>
+                                <div className='report-header'>
+                                    Clinical
+                                </div>
+                                <Grid rows={this.getRows(mapClinicalKeysToPresentationStyle(this.state.clinicalDataset))} columns={this.getColumns()}>
+                                    <Table />
+                                    <TableColumnResizing defaultColumnWidths={[
+                                        { columnName: 'key', width: 350 },
+                                        { columnName: 'value', width: 500 },
+                                    ]} />
+                                </Grid>
+                            </Container>
+                        </Col>
+                    </Row>
+                </div>
+            )
+        
+        }
+        else {
+            return "Loading";
+        }
     }
 }
 

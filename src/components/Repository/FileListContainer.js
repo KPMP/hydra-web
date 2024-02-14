@@ -21,6 +21,7 @@ const mapDispatchToProps = (dispatch, props) =>
              dispatch(setSelectedImageDataset(selectedImageDataset));
              dispatch((dispatch) => props.history.push("/view"));
          },
+
          async setParticipantReport(participant_id) {
             await dispatch(fetchAndSetSummaryDatasets(participant_id));
             await dispatch(fetchAndSetExperimentalDataCounts(participant_id));
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch, props) =>
             await dispatch(fetchAndSetClinicalDatasets(participant_id));
             await dispatch(fetchAndSetTotalFileCount(participant_id));
          },
+         
          setTableSettings(componentState) {
             dispatch(setTableSettings(componentState))
          },
