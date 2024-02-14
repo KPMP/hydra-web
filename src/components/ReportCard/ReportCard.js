@@ -4,7 +4,7 @@ import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import { Grid, Table, TableColumnResizing, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
-import { dataToTableConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
+import { dataToTableConverter, experimentalDataConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
 import { handleGoogleAnalyticsEvent } from '../../helpers/googleAnalyticsHelper';
 
 class ReportCard extends Component {
