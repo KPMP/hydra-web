@@ -1,9 +1,9 @@
 import actionNames from '../actionNames'
-import {fetchParticipantExperimentCounts} from "../../helpers/Api";
+import {fetchParticipantExperimentStrategyFileCounts} from "../../helpers/Api";
 
 export const fetchAndSetExperimentalDataCounts = (participant_id) => {
     return async (dispatch) => {
-        let experimentalDataCounts = await fetchParticipantExperimentCounts(participant_id);
+        let experimentalDataCounts = await fetchParticipantExperimentStrategyFileCounts(participant_id);
         dispatch(setExperimentalDataCounts(experimentalDataCounts));
     }
 }
