@@ -50,7 +50,7 @@ class FilesByExperimentType extends Component {
             {
                 title: <span className="table-header omics data-type-table-header">Experimental Strategies</span>,
                 name: 'dataType',
-                getCellValue: row => <div className='data-type-table-content' style={{'flex': '250 0 auto'}} role='gridcell'>{row.omicsType}</div>
+                getCellValue: row => <div className='data-type-table-content' style={{'flex': '250 0 auto'}} role='gridcell'>{row.dataType}</div>
                 
             },
             {
