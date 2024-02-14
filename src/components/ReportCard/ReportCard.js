@@ -77,25 +77,6 @@ class ReportCard extends Component {
         return( key )
     }
 
-    formatLinkableCellValue = (row) => {
-        let link = '/'
-        if (row.tool === 'spatial-viewer') {
-            link = '/' + row.tool + '?filters[0][field]=datatype&filters[0][values][0]=' + row.key + '&filters[0][type]=any&filters[1][field]=redcapid&filters[1][values][0]=' + this.state.summaryDataset['Participant ID'] + '&filters[1][type]=any'
-        } else if (row.tool === 'explorer') {
-            link += row.tool;
-            if (row.key.includes('Single-cell')) {
-                link += '/dataViz?dataType=sc';
-            } else if (row.key.includes('Single-nuc')) {
-                link += '/dataViz?dataType=sn';
-            } else if (row.key.includes('Regional transcriptomics')) {
-                link +='/regionalviz?dataType=rt';
-            } else if (row.key.includes('Regional proteomics')) {
-                link +='/regionalpro?dataType=rp';
-            }
-        }
-
-        return (row['value'] > 0 ? <a className="p-0" href={link}>{row['value']}</a> : <span>{row['value']}</span>)
-    }
 
     getExperimentalLinkableColumns = () => {
         return [
@@ -172,7 +153,7 @@ class ReportCard extends Component {
                             <div className='report-header'>
                                 File Counts by Experimental Strategy
                             </div>
-                            <Grid rows={this.state.experimentalDataCounts} columns={this.getExperimentalLinkableColumns()}>
+                            <Grid rows={this.getRows(this.state.experimentalDataCounts)} columns={this.getColumns()}>
                                 <Table columnExtensions={[{ columnName: 'Files', align: 'right' }]} />
                                 <TableHeaderRow />
                             </Grid>
