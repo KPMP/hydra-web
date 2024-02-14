@@ -104,14 +104,14 @@ class ReportCard extends Component {
                 sortable: false,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: dataType
+                getCellValue: row => row.dataType
             },
             {
                 name: 'Files',
                 sortable: false,
                 hideable: false,
                 defaultHidden: false,
-                getCellValue: count
+                getCellValue: row => row.count
             }
         ];
     };
