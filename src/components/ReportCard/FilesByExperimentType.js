@@ -7,17 +7,7 @@ class FilesByExperimentType extends Component {
     constructor(props) {
         super(props);
         this.getColumns = this.getColumns.bind(this);
-
-        this.state = {
-            filesByExperimentType: []
-        };
-        
-    }
-
-    async componentDidMount(){
-
-        this.setState({filesByExperimentType: this.props.experimentalDataCounts});
-
+        console.log(props)
     }
 
     handleEmptyCounts(count, row){
@@ -78,7 +68,7 @@ class FilesByExperimentType extends Component {
             <article id='summary-plot'>
                 <Row className='mt-4'>
                     <Col xs='12'>
-                        <Grid rows={this.state.experimentalDataCounts} columns={this.getColumns()}>
+                        <Grid rows={this.props.experimentalDataCounts} columns={this.getColumns()}>
                             <Table columnExtensions={this.getColumnExtensions()}/>
                             <TableHeaderRow/>
                             <TableFixedColumns/>
