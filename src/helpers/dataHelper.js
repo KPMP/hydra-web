@@ -10,11 +10,11 @@ export const resultConverter = (results) => {
 };
 
 export const experimentalDataConverter = (data={}) => {
-    let spatialData = data.spatialViewerDataTypes;
-    let explorerData = data.explorerDataTypes;
-    let result = formatData(spatialData, [], 'spatial-viewer');
-    result = formatData(explorerData, result, 'explorer');
-    return result;
+    console.log(data)
+    return {
+        key: "stuff",
+        value: "stuff"
+    }
 }
 
 const formatData = (data=[], result=[], toolName='') => {
