@@ -7,11 +7,10 @@ class FilesByExperimentType extends Component {
     constructor(props) {
         super(props);
         this.getColumns = this.getColumns.bind(this);
-        console.log(props)
     }
 
     handleEmptyCounts(count, row){
-        return count === 0 ? "" : this.formatDataTypeValueCell(count, row)
+        return count === 0 ? "0" : this.formatDataTypeValueCell(count, row)
     }
 
     handleDataTypeValueClick(row) {
