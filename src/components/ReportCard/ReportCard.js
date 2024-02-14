@@ -98,7 +98,7 @@ class ReportCard extends Component {
     };
 
     getRowSets = (dataset) => {
-        // return experimentalDataConverter(dataset)
+        return experimentalDataConverter(dataset)
     }
 
     getRows = (dataset) => {
@@ -106,6 +106,7 @@ class ReportCard extends Component {
     }
 
     render() {
+        this.getRowSets(this.state.experimentalDataCounts);
         return (
             <div className='report-card ms-5 me-5'>
                 <Row className='pt-2'>
@@ -153,10 +154,10 @@ class ReportCard extends Component {
                             <div className='report-header'>
                                 File Counts by Experimental Strategy
                             </div>
-                            <Grid rows={this.getRows(this.state.experimentalDataCounts)} columns={this.getColumns()}>
+                            {/* <Grid rows={this.getRows(this.state.experimentalDataCounts)} columns={this.getColumns()}>
                                 <Table columnExtensions={[{ columnName: 'Files', align: 'right' }]} />
                                 <TableHeaderRow />
-                            </Grid>
+                            </Grid> */}
                         </Container>
                     </Col>
                 </Row>
