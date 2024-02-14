@@ -4,7 +4,7 @@ import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 import { Grid, Table, TableColumnResizing, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from '@fortawesome/free-regular-svg-icons';
-import { dataToTableConverter, experimentalDataConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
+import { dataToTableConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
 import { handleGoogleAnalyticsEvent } from '../../helpers/googleAnalyticsHelper';
 import FilesByExperimentType from './FilesByExperimentType';
 
@@ -31,6 +31,7 @@ class ReportCard extends Component {
             dataTypeFileCounts: sessionStorage['dataTypeFileCounts']['repositoryDataTypes'],
             clinicalDataset: (sessionStorage['clinicalDatasets']['clinicalData']) ? JSON.parse(sessionStorage['clinicalDatasets']['clinicalData']) : {},
             totalFileCount: sessionStorage['totalFileCount'],
+            participantId: sessionStorage['selectedParticipant'],
             isLoaded: true
         })
         handleGoogleAnalyticsEvent("Repository", "Navigation", "Participant Information");
@@ -78,29 +79,6 @@ class ReportCard extends Component {
         return( key )
     }
 
-
-    getExperimentalLinkableColumns = () => {
-        return [
-            {
-                name: 'dataType',
-                sortable: false,
-                hideable: false,
-                defaultHidden: false,
-
-            },
-            {
-                name: 'count',
-                sortable: false,
-                hideable: false,
-                defaultHidden: false,
-
-            }
-        ];
-    };
-
-    getRowSets = (dataset) => {
-        return experimentalDataConverter(dataset)
-    }
 
     getRows = (dataset) => {
         return dataToTableConverter(dataset)
@@ -156,7 +134,7 @@ class ReportCard extends Component {
                                 <div className='report-header'>
                                     File Counts by Experimental Strategy
                                 </div>
-                                <FilesByExperimentType experimentalDataCounts={this.state.experimentalDataCounts} />
+                                <FilesByExperimentType experimentalDataCounts={this.state.experimentalDataCounts} participantId={this.state.participantId}/>
                             </Container>
                         </Col>
                     </Row>

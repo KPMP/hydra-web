@@ -16,7 +16,7 @@ class FilesByExperimentType extends Component {
     handleDataTypeValueClick(row) {
         let linkType = row.linkInformation.linkType;
         let linkValue = row.linkInformation.linkValue.replace('&', '%26');
-        let mapping = `/repository/?size=n_20_n&filters[0][field]=filters[0][type]=any&filters[1][field]=${linkType}&filters[1][values][0]=${linkValue}&filters[1][type]=any`;
+        let mapping = `/repository/?size=n_20_n&filters[0][field]=redcap_id&filters[0][values][0]=${this.props.participantId}&filters[0][type]=any&filters[1][field]=${linkType}&filters[1][values][0]=${linkValue}&filters[1][type]=any`;
         if(linkType && linkValue){
             return encodeURI(mapping).replace('%2526', '%26');
         } else {
@@ -53,9 +53,7 @@ class FilesByExperimentType extends Component {
                 
             },
             {
-                title: 
-                    <a href={`https://www.kpmp.org/controlled-data`} ><span className="data-type-table-header">Files</span></a>
-                ,
+                title: <span className="data-type-table-header">Files</span>,
                 name: 'count',
                 getCellValue: row => <div className='rt-td data-type-table-content' style={{'flex': '250 0 auto','textAlign': 'center'}} role='gridcell'>{this.handleEmptyCounts(row.count, row)}</div>
             }

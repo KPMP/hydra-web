@@ -9,13 +9,6 @@ export const resultConverter = (results) => {
     })
 };
 
-export const experimentalDataConverter = (data={}) => {
-    console.log(data)
-    return {
-        key: "stuff",
-        value: "stuff"
-    }
-}
 
 const formatData = (data=[], result=[], toolName='') => {
     data.forEach((datum) => {
