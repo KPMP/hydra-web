@@ -9,21 +9,6 @@ export const resultConverter = (results) => {
     })
 };
 
-export const experimentalDataConverter = (data={}) => {
-    let spatialData = data.spatialViewerDataTypes;
-    let explorerData = data.explorerDataTypes;
-    let result = formatData(spatialData, [], 'spatial-viewer');
-    result = formatData(explorerData, result, 'explorer');
-    return result;
-}
-
-const formatData = (data=[], result=[], toolName='') => {
-    data.forEach((datum) => {
-        result.push({key: datum.dataType, value: datum.count, tool: toolName, isAggregated: datum.isAggregatedData})
-    });
-    return result;
-}
-
 export const dataToTableConverter = (data=[]) => {
     return Object.keys(data).map((key, index) => {
         return {

@@ -92,7 +92,7 @@ export const fetchParticipantDataTypeCounts = async (redcapId) => {
 export const fetchParticipantClinicalDataset = async (redcapId) => {
   const query = gql`
   query {
-    participantClinicalDataset(redcapId: "${redcapId}"){
+    participantSummaryDataset(redcapId: "${redcapId}"){
       clinicalData
     }
   }`;
@@ -102,10 +102,10 @@ export const fetchParticipantClinicalDataset = async (redcapId) => {
         redcapId: redcapId
       }
     });
-  if (response && response.data && response.data.participantClinicalDataset) {
-      return response.data.participantClinicalDataset;
+  if (response && response.data && response.data.participantSummaryDataset) {
+      return response.data.participantSummaryDataset;
   } else {
-      store.dispatch(sendMessageToBackend("Could not retrieve participantClinicalDataset: " + response.error));
+      store.dispatch(sendMessageToBackend("Could not retrieve participantSummaryDataset (clinical data): " + response.error));
   }
 };
 
@@ -132,3 +132,31 @@ export const fetchParticipantTotalFileCount = async (redcapId) => {
     store.dispatch(sendMessageToBackend("Could not retrieve getTotalParticipantFilesCount: " + response.error));
   }
 }
+
+export const fetchParticipantExperimentStrategyFileCounts = async(redcapId) => {
+    const query = gql`
+    query {
+      getExperimentalStrategyCountsByParticipant(redcapId:"${redcapId}") {
+        dataType
+        count
+        linkInformation {
+          linkType
+          linkValue
+        }
+      }
+    }
+    `
+    const response = await apolloClient.query({
+      query: query,
+      variables: {
+        redcapId: redcapId
+      }
+    });
+    if (response && response.data && response.data.getExperimentalStrategyCountsByParticipant) {
+      return response.data.getExperimentalStrategyCountsByParticipant;
+    } else {
+      store.dispatch(sendMessageToBackend("Could not retrieve getExperimentalStrategyCountsByParticipant: " + response.error));
+    }
+
+  }
+
