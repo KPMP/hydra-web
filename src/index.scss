@@ -577,7 +577,8 @@ td:hover {
 .accordion-button{
   height: .25rem !important;
   font-size: .8125rem !important;
-  --bs-accordion-body-padding-y: .25rem !important;
+  --bs-accordion-body-padding-y: .5rem !important;
+  font-weight: 500;
 }
 
 .accordion-item:first-of-type(.collapsed) .accordion-button {
