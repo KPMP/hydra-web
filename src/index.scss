@@ -9,6 +9,7 @@
 $accordion-button-active-color: black;
 $accordion-button-color: black;
 $bs-border-color: #dee2e6;
+$accordion-icon-width: .8125rem;
 
 //pass variable overrides
 @import "../node_modules/bootstrap/scss/variables";
@@ -573,6 +574,13 @@ td:hover {
     --bs-accordion-border-color: #dee2e6;
 }
 
+.accordion-button{
+  height: .25rem !important;
+  font-size: .8125rem !important;
+  --bs-accordion-body-padding-y: .5rem !important;
+  font-weight: 500;
+}
+
 .accordion-item:first-of-type(.collapsed) .accordion-button {
     --bs-accordion-color: $accordion-button-color
     --bs-accorion-border-color: $accordion-button-color
@@ -581,8 +589,8 @@ td:hover {
 
 .accordion-button:not(.collapsed)::after {
     background-color: #e7f1ff;
-    --bs-accordion-btn-color: $accordion-button-color
-    --bs-accordion-active-color: $accordion-button-active-color
+    --bs-accordion-btn-color: $accordion-button-color;
+    --bs-accordion-active-color: $accordion-button-active-color;
 }
 
 .action-button {

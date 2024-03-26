@@ -41,6 +41,11 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
 import Api from '../../helpers/Api';
 
+let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
+if (process.env.REACT_APP_FILE_ENDPOINT) {
+    fileDownloadEndpoint = process.env.REACT_APP_FILE_ENDPOINT
+}
+
 class FileList extends Component {
 
     constructor(props) {
@@ -97,7 +102,7 @@ class FileList extends Component {
         const cards = this.getColumns().map((item, index) => {
             return {id: index, text: item.title, name: item.name, hideable: item.hideable, isSortField: item?.isSortField}
         });
-        this.setCards(cards)
+        this.setCards(cards.slice(1))
     };
 
     getWorkflowTypeValue = (row) => {
@@ -256,7 +261,7 @@ class FileList extends Component {
                 getCellValue: row => { return <span onClick={(e) => {
                     row['access'] === 'controlled' ?
                         this.toggleAccessAlertModal() : 
-                        this.downloadFile(`https://atlas.kpmp.org/api/v1/file/download/${row['package_id']}/${row['file_name']}`, row['file_name'])
+                        this.downloadFile(`${fileDownloadEndpoint}/${row['package_id']}/${row['file_name']}`, row['file_name'])
                 }} className="clickable download-btn">
                     <FontAwesomeIcon
                         className="fas" icon={faDownload} />

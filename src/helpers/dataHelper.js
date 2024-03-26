@@ -9,21 +9,6 @@ export const resultConverter = (results) => {
     })
 };
 
-export const experimentalDataConverter = (data={}) => {
-    let spatialData = data.spatialViewerDataTypes;
-    let explorerData = data.explorerDataTypes;
-    let result = formatData(spatialData, [], 'spatial-viewer');
-    result = formatData(explorerData, result, 'explorer');
-    return result;
-}
-
-const formatData = (data=[], result=[], toolName='') => {
-    data.forEach((datum) => {
-        result.push({key: datum.dataType, value: datum.count, tool: toolName, isAggregated: datum.isAggregatedData})
-    });
-    return result;
-}
-
 export const dataToTableConverter = (data=[]) => {
     return Object.keys(data).map((key, index) => {
         return {
@@ -53,7 +38,7 @@ export const removeUUID = (text) => {
 export const mapSummaryKeysToPresentationStyle = (data) => {
     const result = {};
     result['Participant ID'] = "";
-    result['Disease Type'] = "";
+    result['Enrollment Category'] = "";
     if (!data || data === {}) {
         return result;
     }
@@ -62,7 +47,7 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
         result['Participant ID'] = data['redcapId'] ? data['redcapId'] : "";
     }
     if (data['tissueType']) {
-        result['Disease Type'] = data['tissueType'] ? data['tissueType'] : "";
+        result['Enrollment Category'] = data['tissueType'] ? data['tissueType'] : "";
     }
     return result;
 };
