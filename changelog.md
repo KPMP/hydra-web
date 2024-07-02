@@ -2,6 +2,8 @@
 
 ## Release 1.4 [unreleased]
 Brief summary of what's in this release:
+- introduced this changelog
+- updated the package.json version
 
 
 ### Breaking changes
