@@ -9,9 +9,14 @@ class FileListHolder extends Component {
         super(props);
         this.state = {
             activeFilterTab: 'PARTICIPANT',
-            filterTabActive: true
+            filterTabActive: true,
+            search: ""
         };
 
+    }
+
+    clearSearch = () => {
+        this.setState({search: null})
     }
 
     setActiveFilterTab = (tabName) => {
@@ -41,6 +46,7 @@ class FileListHolder extends Component {
                         setResultsPerPage={setResultsPerPage}
                         removeFilter={removeFilter}
                         clearFilters={clearFilters}
+                        clearSearch={this.clearSearch}
                         setActiveFilterTab={this.setActiveFilterTab}
                         activeFilterTab={this.state.activeFilterTab}
                         filterTabActive={this.state.filterTabActive}
