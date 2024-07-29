@@ -7,8 +7,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
+
       gtag('config', 'G-64W6E37TQB');
+      gtag('get', 'G-64W6E37TQB', 'client_id', (clientID) => {
+        console.log(clientID)
+        }
+
     </script>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
