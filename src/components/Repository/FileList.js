@@ -38,7 +38,6 @@ import { Pagination } from './Plugins/pagination.js';
 import FileFacet from './FileFacet';
 import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
-import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
 import Api from '../../helpers/Api';
 
 let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
@@ -134,12 +133,7 @@ class FileList extends Component {
         </div>
     }
 
-    downloadFile = (url, fileName) => {
-        handleGoogleAnalyticsEvent(
-            'Repository',
-            'Download',
-            fileName
-        );
+    downloadFile = (url) => {
         let a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
