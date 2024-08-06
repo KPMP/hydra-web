@@ -386,6 +386,13 @@ class FileList extends Component {
                 hideable: false,
                 defaultHidden: true,
                 isSortField: true
+            },
+            {
+                name: 'experimental_strategy_sort',
+                sortable: false,
+                hideable: false,
+                defaultHidden: true,
+                isSortField: true
             }
         ];
         return columns;
@@ -418,6 +425,7 @@ class FileList extends Component {
             { columnName: 'file_name_sort', width: 0 },
             { columnName: 'participant_id_sort', width: 0 },
             { columnName: 'platform_sort', width: 0 },
+            { columnName: 'experimental_strategy_sort', width: 0 },
         ]
     };
   
@@ -563,6 +571,9 @@ class FileList extends Component {
                                                         }
                                                         else if (val.columnName === "platform") {
                                                             return { field: "platform_sort", direction: val.direction }
+                                                        }
+                                                        else if (val.columnName === "experimental_strategy") {
+                                                            return { field: "experimental_strategy_sort", direction: val.direction }
                                                         }
                                                         else {
                                                             return { field: val.columnName, direction: val.direction }
