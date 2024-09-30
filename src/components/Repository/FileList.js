@@ -364,6 +364,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
+                getCellValue: row => { return (row['dois'] ? (row['dois'].length > 1 ? row['dois'].join(", ") : row['dois']) : '') }
             },
             // Sort columns
             {
