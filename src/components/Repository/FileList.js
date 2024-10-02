@@ -38,7 +38,6 @@ import { Pagination } from './Plugins/pagination.js';
 import FileFacet from './FileFacet';
 import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
-import { handleGoogleAnalyticsEvent } from "../../helpers/googleAnalyticsHelper";
 import Api from '../../helpers/Api';
 
 let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
@@ -134,12 +133,7 @@ class FileList extends Component {
         </div>
     }
 
-    downloadFile = (url, fileName) => {
-        handleGoogleAnalyticsEvent(
-            'Repository',
-            'Download',
-            fileName
-        );
+    downloadFile = (url) => {
         let a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
@@ -370,6 +364,7 @@ class FileList extends Component {
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
+                getCellValue: row => { return (row['dois'] ? (row['dois'].length > 1 ? row['dois'].join(", ") : row['dois']) : '') }
             },
             // Sort columns
             {
@@ -388,6 +383,13 @@ class FileList extends Component {
             },
             {
                 name: 'platform_sort',
+                sortable: false,
+                hideable: false,
+                defaultHidden: true,
+                isSortField: true
+            },
+            {
+                name: 'experimental_strategy_sort',
                 sortable: false,
                 hideable: false,
                 defaultHidden: true,
@@ -424,6 +426,7 @@ class FileList extends Component {
             { columnName: 'file_name_sort', width: 0 },
             { columnName: 'participant_id_sort', width: 0 },
             { columnName: 'platform_sort', width: 0 },
+            { columnName: 'experimental_strategy_sort', width: 0 },
         ]
     };
   
@@ -531,6 +534,7 @@ class FileList extends Component {
                                             <span 
                                                 onClick={()=>{
                                                     this.props.clearFilters()
+                                                    this.props.clearSearch()
                                                 }}>
                                                     <FontAwesomeIcon alt="Clear All Filters" className="fa-light fa-trash-can" icon={faTrashCan} /> Clear Filters 
                                             </span>
@@ -568,6 +572,9 @@ class FileList extends Component {
                                                         }
                                                         else if (val.columnName === "platform") {
                                                             return { field: "platform_sort", direction: val.direction }
+                                                        }
+                                                        else if (val.columnName === "experimental_strategy") {
+                                                            return { field: "experimental_strategy_sort", direction: val.direction }
                                                         }
                                                         else {
                                                             return { field: val.columnName, direction: val.direction }
