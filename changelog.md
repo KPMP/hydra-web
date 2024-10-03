@@ -1,6 +1,6 @@
 # Changelog
 
-## Release 1.5 (unreleased)
+## Release 1.6 (unreleased)
 Brief summary of what's in this release:
 
 ### Breaking changes
@@ -8,7 +8,22 @@ Breaking changes include any database updates needed, if we need to edit any fil
 
 ### Non-breaking changes
 Just a place to keep track of things that have changed in the code that we may want to pay special attention to when smoke testing, etc.
+
+----
+
+## Release 1.5 (10/3/2024)
+Brief summary of what's in this release:
+- "Recently released" is on both tabs
+- Experimental Strategy sorting improvements
+- Remove download GA event (moved to Atlas File Service)
+- Participant ID visibility fix
+
+### Breaking changes
+None
+
+### Non-breaking changes
 - fixed a bug where the participant filters wouldn't go back to their default state after clicking the Clear Filters button
+
 ----
 
 ## Release 1.4 (released 07/08/2024)
