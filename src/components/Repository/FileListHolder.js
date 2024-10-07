@@ -91,37 +91,34 @@ class FileListHolder extends Component {
     };
 
     render() {
-        
         return (
             <SearchProvider config={searchConfig}>
-
-            
-            <WithSearch mapContextToProps={({ filters, current, setCurrent, results, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort }) =>
-             ({ filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort })}>
-                {(context) => {
-                const { filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort } = context;
-                return (
-                    <FileList
-                        props={this.props}
-                        currentPage={current}
-                        setCurrent={setCurrent}
-                        setSort={setSort}
-                        totalResults={totalResults}
-                        filters={filters}
-                        results={results}
-                        resultsPerPage={resultsPerPage}
-                        setResultsPerPage={setResultsPerPage}
-                        removeFilter={removeFilter}
-                        clearFilters={clearFilters}
-                        clearSearch={this.clearSearch}
-                        setActiveFilterTab={this.setActiveFilterTab}
-                        activeFilterTab={this.state.activeFilterTab}
-                        filterTabActive={this.state.filterTabActive}
-                        toggleFilterTab={this.toggleFilterTab}
-                    />
-                )}}
+                <WithSearch mapContextToProps={({ filters, current, setCurrent, results, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort }) =>
+                 ({ filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort })}>
+                    {(context) => {
+                    const { filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort } = context;
+                    return (
+                        <FileList
+                            props={this.props}
+                            currentPage={current}
+                            setCurrent={setCurrent}
+                            setSort={setSort}
+                            totalResults={totalResults}
+                            filters={filters}
+                            results={results}
+                            resultsPerPage={resultsPerPage}
+                            setResultsPerPage={setResultsPerPage}
+                            removeFilter={removeFilter}
+                            clearFilters={clearFilters}
+                            clearSearch={this.clearSearch}
+                            setActiveFilterTab={this.setActiveFilterTab}
+                            activeFilterTab={this.state.activeFilterTab}
+                            filterTabActive={this.state.filterTabActive}
+                            toggleFilterTab={this.toggleFilterTab}
+                        />
+                    )}}
                 </WithSearch>
-                </SearchProvider>
+            </SearchProvider>
         )
     }
 }
