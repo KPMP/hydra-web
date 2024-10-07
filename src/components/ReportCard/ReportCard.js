@@ -7,11 +7,14 @@ import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
 import { handleGoogleAnalyticsEvent } from '../../helpers/googleAnalyticsHelper';
 import FilesByExperimentType from './FilesByExperimentType';
+// import { SearchProvider, WithSearch } from '@elastic/react-search-ui';
+import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
 class ReportCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: new URLSearchParams(window.location.search).get("id"),
             summaryDataset: {},
             totalFileCount: "",
             experimentalDataCounts: {},
@@ -20,8 +23,12 @@ class ReportCard extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        // console.log(this.props)
+        // this.props.history.push("?id=" + this.state.id)
+        await this.props.setParticipantReport(this.state.id)
         let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'));
+        console.log(this.state.id)
         if (sessionStorage === null || Object.keys(sessionStorage["summaryDatasets"]).length === 0) {
             window.location.replace('/');
         }
@@ -79,8 +86,28 @@ class ReportCard extends Component {
     }
 
     render() {
+        const connector = new AppSearchAPIConnector({
+            searchKey: process.env.REACT_APP_SEARCH_KEY,
+            endpointBase: process.env.REACT_APP_SEARCH_ENDPOINT,
+            engineName: "atlas-repository",
+            cacheResponses: false
+          })
+          
+          const searchConfig = {
+            apiConnector: connector,
+            initialState: {
+              resultsPerPage: 20,
+              current: 1
+            },
+            trackUrlState: false,
+            alwaysSearchOnInitialLoad: true
+          }
+
         if (this.state.isLoaded) {
             return (
+//             <SearchProvider config={searchConfig}>
+//   <WithSearch mapContextToProps={({ isLoading }) => ({ isLoading })}>
+//   {({ isLoading }) =>
             
                 <div className='report-card ms-5 me-5'>
                     <Row className='pt-2'>
@@ -149,6 +176,7 @@ class ReportCard extends Component {
                         </Col>
                     </Row>
                 </div>
+                // </SearchProvider>
             )
         
         }
