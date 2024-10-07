@@ -7,8 +7,6 @@ import { faFile } from '@fortawesome/free-regular-svg-icons';
 import { dataToTableConverter, fileCountsToTableConverter, mapClinicalKeysToPresentationStyle } from '../../helpers/dataHelper';
 import { handleGoogleAnalyticsEvent } from '../../helpers/googleAnalyticsHelper';
 import FilesByExperimentType from './FilesByExperimentType';
-// import { SearchProvider, WithSearch } from '@elastic/react-search-ui';
-import AppSearchAPIConnector from "@elastic/search-ui-app-search-connector";
 
 class ReportCard extends Component {
     constructor(props) {
