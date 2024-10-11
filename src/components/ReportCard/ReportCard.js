@@ -24,7 +24,6 @@ class ReportCard extends Component {
     async componentDidMount() {
         await this.props.setParticipantReport(this.state.id)
         let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'));
-        console.log(this.state.id)
         if (sessionStorage === null || Object.keys(sessionStorage["summaryDatasets"]).length === 0) {
             window.location.replace('/');
         }
