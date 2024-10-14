@@ -12,6 +12,7 @@ class ReportCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: new URLSearchParams(window.location.search).get("id"),
             summaryDataset: {},
             totalFileCount: "",
             experimentalDataCounts: {},
@@ -20,7 +21,8 @@ class ReportCard extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.props.setParticipantReport(this.state.id)
         let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'));
         if (sessionStorage === null || Object.keys(sessionStorage["summaryDatasets"]).length === 0) {
             window.location.replace('/');

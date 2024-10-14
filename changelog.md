@@ -23,8 +23,8 @@ None
 
 ### Non-breaking changes
 - fixed a bug where the participant filters wouldn't go back to their default state after clicking the Clear Filters button
+- added participant id to the url in the report page
 
-----
 
 ## Release 1.4 (released 07/08/2024)
 Brief summary of what's in this release:
