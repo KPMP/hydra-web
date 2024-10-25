@@ -35,7 +35,6 @@ import { ToolbarButton } from './Plugins/toolbar-button.js';
 import { PaginationState } from './Plugins/pagination-state.js';
 import { Pagination } from './Plugins/pagination.js';
 
-import FileFacet from './FileFacet';
 import ParticipantFacet from './ParticipantFacet';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import Api from '../../helpers/Api';
@@ -462,10 +461,6 @@ class FileList extends Component {
 
     render() {
       
-        const tabEnum = {
-            PARTICIPANT: 'PARTICIPANT',
-            FILE: 'FILE'
-        };
         const { columnWidths, sorting } = this.props.props.tableSettings;
 
         return (
@@ -483,16 +478,6 @@ class FileList extends Component {
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                             <div className="filter-panel-tab-wrapper">
                                 
-                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
-                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
-                                        PARTICIPANT
-                                </div>
-
-                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
-                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
-                                        FILE
-                                </div>
-
                                 <div className="filter-tab filter-tab-control-icon clickable"
                                     alt="Close Filter Tab"
                                     onClick={() => {this.props.toggleFilterTab()}}>                                
@@ -501,16 +486,9 @@ class FileList extends Component {
                                 </div>
                             </div>
                             {this.accessAlertModal()}
-                            <React.Fragment>
-                           
-                                {this.props.activeFilterTab === tabEnum.FILE &&
-                                    <FileFacet/>
-                                }
-
-                                {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                                <ParticipantFacet/>
-                                }
-                            </React.Fragment>
+                            
+                            <ParticipantFacet/>
+                            
                         </div>
 
                         </Col>
