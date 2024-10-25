@@ -74,55 +74,55 @@ export const mapClinicalKeysToPresentationStyle = (data) => {
     if (!data || data === {}) {
         return result;
     }
-    if (data['A1c (%) (Binned)']) {
-        result['A1C (%)'] = data['A1c (%) (Binned)'] ? data['A1c (%) (Binned)'] : "";
+    if (data.a1c) {
+        result['A1C (%)'] = data.a1c ? data.alc : "";
     }
-    if (data['Albuminuria (mg) (Binned)']) {
-        result['Albuminuria (mg)'] = data['Albuminuria (mg) (Binned)'] ? data['Albuminuria (mg) (Binned)'] : "";
+    if (data.albuminuria) {
+        result['Albuminuria (mg)'] = data.albuminuria ? data.albuminuria : "";
     }
-    if (data['Baseline eGFR (ml/min/1.73m2) (Binned)']) {
-        result['Baseline eGFR (ml/min/1.73m2)'] = data['Baseline eGFR (ml/min/1.73m2) (Binned)'] ? data['Baseline eGFR (ml/min/1.73m2) (Binned)'].replace(' ml/min/1.73m2', '') : "";
+    if (data.baselineEgfr) {
+        result['Baseline eGFR (ml/min/1.73m2)'] = data.baselineEgfr ? data.baselineEgfr.replace(' ml/min/1.73m2', '') : "";
     }
-    if (data['Diabetes Duration (Years)']) {
-        result['Diabetes Duration (Years)'] = data['Diabetes Duration (Years)'] ? data['Diabetes Duration (Years)'].replace(' Years', '') : "";
+    if (data.diabetesDuration) {
+        result['Diabetes Duration (Years)'] = data.diabetesDuration ? data.diabetesDuration.replace(' Years', '') : "";
     }
-    if (data['Diabetes History']) {
-        result['Diabetes History']  = data['Diabetes History'] ? data['Diabetes History'] : "";
+    if (data.diabetesHistory) {
+        result['Diabetes History']  = data.diabetesHistory ? data.diabetesHistory : "";
     }
-    if (data['Hypertension Duration (Years)']) {
-        result['Hypertension Duration (years)'] = data['Hypertension Duration (Years)'] ? data['Hypertension Duration (Years)'].replace(' Years', '') : "";
+    if (data.hypertensionDuration) {
+        result['Hypertension Duration (years)'] = data.hypertensionDuration ? data.hypertensionDuration.replace(' Years', '') : "";
     } 
-    if (data['Hypertension History']) {
-        result['Hypertension History'] = data['Hypertension History'] ? data['Hypertension History'] : "";
+    if (data.hypertensionHistory) {
+        result['Hypertension History'] = data.hypertensionHistory ? data.hypertensionHistory : "";
     }
-    if (data['KDIGO Stage']) {
-        result['KDIGO Stage'] = data['KDIGO Stage'] ? data['KDIGO Stage'] : "";
+    if (data.kdigoStage) {
+        result['KDIGO Stage'] = data.kdigoStage ? data.kdigoStage : "";
     }
-    if (data['On RAAS Blockade']) {
-        result['On RAAS Blockade'] = data['On RAAS Blockade'] ? data['On RAAS Blockade'] : "";
+    if (data.onRaasBlockade) {
+        result['On RAAS Blockade'] = data.onRaasBlockade ? data.onRaasBlockade : "";
     }
-    if (data['Proteinuria (mg) (Binned)']) {
-        result['Proteinuria (mg)'] = data['Proteinuria (mg) (Binned)'] ? data['Proteinuria (mg) (Binned)'] : "";
+    if (data.proteinuria) {
+        result['Proteinuria (mg)'] = data.proteinuria ? data.proteinuria : "";
     }
-    if (data['Race']) {
-        result['Ethnicity'] = data['Race'] ? data['Race'] : "";
+    if (data.race) {
+        result['Ethnicity'] = data.race ? data.race : "";
     }
-    if (data['Age (Years) (Binned)']) {
-        result['Age (Years)'] = data['Age (Years) (Binned)'] ? data['Age (Years) (Binned)'].replace(' Years', '') : "";
+    if (data.age) {
+        result['Age (Years)'] = data.age ? data.age.replace(' Years', '') : "";
     }
 
-    if (data['Sample Type']) {
-        result['Sample Type'] = data['Sample Type'] ? data['Sample Type'] : "";
+    if (data.sampleType) {
+        result['Sample Type'] = data.sampleType ? data.sampleType : "";
     }
     
-    if (data['Sex']) {
-        result['Sex'] = data['Sex'] ? data['Sex'] : "";
+    if (data.sex) {
+        result['Sex'] = data.sex ? data.sex : "";
     }
-    if (data['Protocol']) {
-        result['Protocol'] = data['Protocol'] ? data['Protocol'] : "";
+    if (data.protocol) {
+        result['Protocol'] = data.protocol ? data.protocol : "";
     }
-    if (data['Tissue Source']) {
-        result['Tissue Source'] = data['Tissue Source'] ? data['Tissue Source'] : "";
+    if (data.tissueSource) {
+        result['Tissue Source'] = data.tissueSource ? data.tissueSource : "";
     }
     
     return result;
