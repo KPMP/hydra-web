@@ -35,7 +35,7 @@ import { ToolbarButton } from './Plugins/toolbar-button.js';
 import { PaginationState } from './Plugins/pagination-state.js';
 import { Pagination } from './Plugins/pagination.js';
 
-import ParticipantFacet from './ParticipantFacet';
+import AllFacets from './AllFacets.js';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import Api from '../../helpers/Api';
 
@@ -487,7 +487,7 @@ class FileList extends Component {
                             </div>
                             {this.accessAlertModal()}
                             
-                            <ParticipantFacet/>
+                            <AllFacets/>
                             
                         </div>
 
