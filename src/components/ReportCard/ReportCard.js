@@ -31,7 +31,7 @@ class ReportCard extends Component {
             summaryDataset: sessionStorage["summaryDatasets"],
             experimentalDataCounts: sessionStorage['experimentalDataCounts'],
             dataTypeFileCounts: sessionStorage['dataTypeFileCounts']['repositoryDataTypes'],
-            clinicalDataset: (sessionStorage['clinicalDatasets']['clinicalData']) ? JSON.parse(sessionStorage['clinicalDatasets']['clinicalData']) : {},
+            clinicalDataset: sessionStorage['clinicalDatasets'],
             totalFileCount: sessionStorage['totalFileCount'],
             participantId: sessionStorage['selectedParticipant'],
             isLoaded: true
@@ -81,6 +81,7 @@ class ReportCard extends Component {
     }
 
     render() {
+        console.log(this.state.clinicalDataset)
         if (this.state.isLoaded) {
             return (
             

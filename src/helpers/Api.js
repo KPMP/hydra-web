@@ -22,7 +22,7 @@ export const fetchParticipantSummaryDataset = async (redcapId) => {
   const query = gql`
   query {
     participantSummaryDataset(redcapId: "${redcapId}"){
-      tissueType
+      enrollmentCategory
       redcapId
     }
   }`;
@@ -92,8 +92,18 @@ export const fetchParticipantDataTypeCounts = async (redcapId) => {
 export const fetchParticipantClinicalDataset = async (redcapId) => {
   const query = gql`
   query {
-    participantSummaryDataset(redcapId: "${redcapId}"){
-      clinicalData
+    getParticipantClinicalDataset(redcapId: "${redcapId}"){
+        kdigoStage
+        baselineEgfr
+        proteinuria
+        a1c
+        albuminuria
+        diabetesHistory
+        diabetesDuration
+        hypertensionHistory
+        hypertensionDuration
+        onRaasBlockade
+        race
     }
   }`;
   const response = await apolloClient.query({
@@ -102,10 +112,10 @@ export const fetchParticipantClinicalDataset = async (redcapId) => {
         redcapId: redcapId
       }
     });
-  if (response && response.data && response.data.participantSummaryDataset) {
-      return response.data.participantSummaryDataset;
+  if (response && response.data && response.data.getParticipantClinicalDataset) {
+      return response.data.getParticipantClinicalDataset;
   } else {
-      store.dispatch(sendMessageToBackend("Could not retrieve participantSummaryDataset (clinical data): " + response.error));
+      store.dispatch(sendMessageToBackend("Could not retrieve getParticipantClinicalDataset (clinical data): " + response.error));
   }
 };
 
