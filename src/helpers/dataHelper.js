@@ -75,7 +75,7 @@ export const mapClinicalKeysToPresentationStyle = (data) => {
         return result;
     }
     if (data.a1c) {
-        result['A1C (%)'] = data.a1c ? data.alc : "";
+        result['A1C (%)'] = data.a1c ? data.a1c : "";
     }
     if (data.albuminuria) {
         result['Albuminuria (mg)'] = data.albuminuria ? data.albuminuria : "";
