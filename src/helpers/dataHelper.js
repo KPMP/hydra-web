@@ -107,8 +107,8 @@ export const mapClinicalKeysToPresentationStyle = (data) => {
     if (data.race) {
         result['Ethnicity'] = data.race ? data.race : "";
     }
-    if (data.age) {
-        result['Age (Years)'] = data.age ? data.age.replace(' Years', '') : "";
+    if (data.ageBinned) {
+        result['Age (Years)'] = data.ageBinned ? data.ageBinned.replace(' Years', '') : "";
     }
 
     if (data.sampleType) {
