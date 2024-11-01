@@ -6,19 +6,19 @@ describe('dataHelper', () => {
         it('should return remapped values when object params given', () => {
             let summaryUnmapped = {
                 redcapId: "test-redcapId",
-                tissueType: "test-tissueType"
+                enrollmentCategory: "test-enrollmentCategory"
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "test-redcapId",
-                'Enrollment Category': "test-tissueType"
+                'Enrollment Category': "test-enrollmentCategory"
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
         it('should return remapped values when some values from object params given', () => {
             let summaryUnmapped = {
                 redcapId: "test-redcapId",
-                tissueType: ""
+                enrollmentCategory: ""
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
@@ -30,12 +30,12 @@ describe('dataHelper', () => {
         it('should return remapped values when some values from object params given', () => {
             let summaryUnmapped = {
                 redcapId: "",
-                tissueType: "test-tissueType"
+                enrollmentCategory: "test-enrollmentCategory"
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': "test-tissueType"
+                'Enrollment Category': "test-enrollmentCategory"
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),

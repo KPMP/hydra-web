@@ -70,7 +70,7 @@ class AllFacets extends Component {
                         <AccordionBody accordionId="4">
                             <Row className='mb-2'>
                                 <Col>
-                                    <Facet field='tissue_type' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                    <Facet field='enrollment_category' label='' filterType='any' view={MultiCheckboxFacet}/>
                                 </Col>
                             </Row>
                         </AccordionBody></AccordionItem>

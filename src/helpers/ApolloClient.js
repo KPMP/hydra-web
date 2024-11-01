@@ -38,7 +38,7 @@ const typePolicies = {
   participantClinicalDataset: {
       keyFields: [
         "redcap_id",
-        "tissue_type",
+        "enrollment_category",
       ]
   }
 };
