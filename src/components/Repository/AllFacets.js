@@ -20,14 +20,14 @@ class AllFacets extends Component {
                     </Col>
                 </Row>
                 <UncontrolledAccordion
-                    defaultOpen={['1', '2', '3', '4', '5', '6', '7']}
+                    defaultOpen={['1']}
                     stayOpen
                 >
                   <AccordionItem>
-                <AccordionHeader targetId="5">
+                <AccordionHeader targetId="1">
                     Participant ID
                 </AccordionHeader>
-                <AccordionBody accordionId="5">
+                <AccordionBody accordionId="1">
                     <Row className='mb-2'>
                         <Col>
                             <Facet inputProps={{placeholder: "placeholder"}}
@@ -40,10 +40,10 @@ class AllFacets extends Component {
                     </Row>
                 </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="1">
+                        <AccordionHeader targetId="2">
                             Sex
                         </AccordionHeader>
-                        <AccordionBody accordionId="1">
+                        <AccordionBody accordionId="2">
                             <Row className='mb-2'>
                                 <Col>
                                     <Facet field='sex' label='' filterType='any' view={MultiCheckboxFacet}/>
@@ -52,10 +52,10 @@ class AllFacets extends Component {
                         </AccordionBody>
                     </AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="2">
+                        <AccordionHeader targetId="3">
                             Age
                         </AccordionHeader>
-                        <AccordionBody accordionId="2">
+                        <AccordionBody accordionId="3">
                             <Row className='mb-2'>
                                 <Col>
                                     <Facet field='age_binned' label='' filterType='any' view={MultiCheckboxFacet}/>
@@ -64,10 +64,10 @@ class AllFacets extends Component {
                         </AccordionBody>
                     </AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="3">
+                        <AccordionHeader targetId="4">
                             Enrollment Category
                         </AccordionHeader>
-                        <AccordionBody accordionId="3">
+                        <AccordionBody accordionId="4">
                             <Row className='mb-2'>
                                 <Col>
                                     <Facet field='tissue_type' label='' filterType='any' view={MultiCheckboxFacet}/>
@@ -75,10 +75,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="4">
+                        <AccordionHeader targetId="5">
                             Sample Type
                         </AccordionHeader>
-                        <AccordionBody accordionId="4">
+                        <AccordionBody accordionId="5">
                             <Row className='mb-2'>
                                 <Col>
                                     <Facet field='sample_type' label='' filterType='any' view={MultiCheckboxFacet}/>
@@ -108,16 +108,11 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
 
-                </UncontrolledAccordion>
-                <UncontrolledAccordion
-                    defaultOpen={['1', '2', '3', '4', '5', '6', '7', '8']}
-                    stayOpen
-                >
                     <AccordionItem>
-                        <AccordionHeader targetId="1">
+                        <AccordionHeader targetId="8">
                             Data Category
                         </AccordionHeader>
-                        <AccordionBody accordionId="1">
+                        <AccordionBody accordionId="8">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet field="data_category" label="" filterType="any" view={MultiCheckboxFacet}/>
@@ -125,10 +120,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="2">
+                        <AccordionHeader targetId="9">
                             Data Type
                         </AccordionHeader>
-                        <AccordionBody accordionId="2">
+                        <AccordionBody accordionId="9">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet field="data_type" label="" filterType="any" view={MultiCheckboxFacet}/>
@@ -136,10 +131,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="3">
+                        <AccordionHeader targetId="10">
                             Experimental Strategy
                         </AccordionHeader>
-                        <AccordionBody accordionId="3">
+                        <AccordionBody accordionId="10">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet field="experimental_strategy" label="" filterType="any"
@@ -148,10 +143,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="4">
+                        <AccordionHeader targetId="11">
                             Workflow Type
                         </AccordionHeader>
-                        <AccordionBody accordionId="4">
+                        <AccordionBody accordionId="11">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet inputProps={{placeholder: "placeholder"}}
@@ -164,10 +159,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="5">
+                        <AccordionHeader targetId="12">
                             Data Format
                         </AccordionHeader>
-                        <AccordionBody accordionId="5">
+                        <AccordionBody accordionId="12">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet field="data_format" label="" filterType="any" view={MultiCheckboxFacet}/>
@@ -175,10 +170,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="6">
+                        <AccordionHeader targetId="13">
                             Platform
                         </AccordionHeader>
-                        <AccordionBody accordionId="6">
+                        <AccordionBody accordionId="13">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet field="platform" label="" filterType="any" view={MultiCheckboxFacet}/>
@@ -186,10 +181,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="7">
+                        <AccordionHeader targetId="14">
                             Access
                         </AccordionHeader>
-                        <AccordionBody accordionId="7">
+                        <AccordionBody accordionId="14">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet field="access" label="" filterType="any" view={MultiCheckboxFacet}/>
@@ -197,10 +192,10 @@ class AllFacets extends Component {
                             </Row>
                         </AccordionBody></AccordionItem>
                     <AccordionItem>
-                        <AccordionHeader targetId="8">
+                        <AccordionHeader targetId="15">
                             DOIs
                         </AccordionHeader>
-                        <AccordionBody accordionId="8">
+                        <AccordionBody accordionId="15">
                             <Row className="mb-2">
                                 <Col>
                                     <Facet field="dois" label="" filterType="any" view={MultiCheckboxFacet}/>
