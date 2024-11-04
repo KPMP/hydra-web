@@ -34,7 +34,19 @@ const connector = new AppSearchAPIConnector({
           "sample_type",
           "tissue_source",
           "protocol",
-          "release_version"
+          "release_version",
+          "ethnicity",
+          "proteinuria",
+          "hypertension_history",
+          "hypertension_duration",
+          "on_raas_blockade",
+          "diabetes_duration",
+          "diabetes_history",
+          "kdigo_stage",
+          "a1c",
+          "albuminuria",
+          "baseline_egfr",
+          "primary_adjudicated_category"
         ],
         facets: {
           id: { type: "value", size: 500},
@@ -57,7 +69,19 @@ const connector = new AppSearchAPIConnector({
           sample_type: { type: "value", size: 250},
           tissue_source: { type: "value", size: 250},
           protocol: { type: "value", size: 250},
-          release_version: { type: "value", size: 250}
+          release_version: { type: "value", size: 250},
+          ethnicity: {type: "value", size: 250},
+          proteinuria: {type: "value", size: 250},
+          hypertension_history: {type: "value", size: 250},
+          hypertension_duration: {type: "value", size: 250},
+          on_raas_blockade:{type: "value", size: 250},
+          diabetes_duration: {type: "value", size: 250},
+          diabetes_history: {type: "value", size: 250},
+          kdigo_stage: {type: "value", size: 250},
+          a1c: {type: "value", size: 250},
+          albuminuria: {type: "value", size: 250},
+          baseline_egfr: {type: "value", size: 250},
+          primary_adjudicated_category: {type: "value", size: 250},
         }
     },
     initialState: {
