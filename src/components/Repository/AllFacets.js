@@ -81,7 +81,7 @@ class AllFacets extends Component {
                         <AccordionBody accordionId="5">
                             <Row className='mb-2'>
                                 <Col>
-                                    <Facet field='ethinicity' label='' filterType='any' view={MultiCheckboxFacet}/>
+                                    <Facet field='ethnicity' label='' filterType='any' view={MultiCheckboxFacet}/>
                                 </Col>
                             </Row>
                         </AccordionBody></AccordionItem>
@@ -111,7 +111,7 @@ class AllFacets extends Component {
                         <AccordionHeader targetId="8">
                             Baseline eGFR
                         </AccordionHeader>
-                        <AccordionBody accordionId="9">
+                        <AccordionBody accordionId="8">
                             <Row className='mb-2'>
                                 <Col>
                                     <Facet field='baseline_egfr' label='' filterType='any' view={MultiCheckboxFacet}/>
