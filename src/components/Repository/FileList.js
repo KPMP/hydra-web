@@ -436,6 +436,13 @@ class FileList extends Component {
                 hideable: true,
                 defaultHidden: true
             },
+            {
+                name: 'enrollment_category',
+                title: "Enrollment Category",
+                sortable: true,
+                hideable: true,
+                defaultHidden: true,
+            },
             // Sort columns
             {
                 name: 'participant_id_sort', 
@@ -513,6 +520,7 @@ class FileList extends Component {
             { columnName: 'primary_adjudicated_category', width: 200},
             { columnName: 'diabetes_history', width: 200},
             { columnName: 'diabetes_duration', width: 200},
+            { columnName: 'enrollment_category', width: 200},
             { columnName: 'file_name_sort', width: 0 },
             { columnName: 'participant_id_sort', width: 0 },
             { columnName: 'platform_sort', width: 0 },
