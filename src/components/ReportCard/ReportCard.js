@@ -50,7 +50,7 @@ class ReportCard extends Component {
     getDefaultColumnWidths = () => {
         return [
             { columnName: 'key', width: 215 },
-            { columnName: 'value', width: 180 },
+            { columnName: 'value', width: 200 },
         ]
     };
     getDefaultLinkColumnWidths = () => {

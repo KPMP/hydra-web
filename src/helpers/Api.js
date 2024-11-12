@@ -24,6 +24,7 @@ export const fetchParticipantSummaryDataset = async (redcapId) => {
     participantSummaryDataset(redcapId: "${redcapId}"){
       enrollmentCategory
       redcapId
+      adjudicatedCategory
     }
   }`;
   const response = await apolloClient.query({

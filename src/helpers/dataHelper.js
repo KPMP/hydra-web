@@ -39,6 +39,7 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
     const result = {};
     result['Participant ID'] = "";
     result['Enrollment Category'] = "";
+    result['Primary Adjudicated Category'] = "";
     if (!data || data === {}) {
         return result;
     }
@@ -48,6 +49,9 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
     }
     if (data['enrollmentCategory']) {
         result['Enrollment Category'] = data['enrollmentCategory'] ? data['enrollmentCategory'] : "";
+    }
+    if (data['adjudicatedCategory']) {
+        result['Primary Adjudicated Category'] = data['adjudicatedCategory'] ? data['adjudicatedCategory'] : "";
     }
     return result;
 };
