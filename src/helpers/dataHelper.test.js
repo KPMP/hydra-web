@@ -6,36 +6,42 @@ describe('dataHelper', () => {
         it('should return remapped values when object params given', () => {
             let summaryUnmapped = {
                 redcapId: "test-redcapId",
-                enrollmentCategory: "test-enrollmentCategory"
+                enrollmentCategory: "test-enrollmentCategory",
+                adjudicatedCategory: "test-adjudicatedCategory"
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "test-redcapId",
-                'Enrollment Category': "test-enrollmentCategory"
+                'Enrollment Category': "test-enrollmentCategory",
+                'Primary Adjudicated Category': "test-adjudicatedCategory"
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
         it('should return remapped values when some values from object params given', () => {
             let summaryUnmapped = {
                 redcapId: "test-redcapId",
-                enrollmentCategory: ""
+                enrollmentCategory: "",
+                adjudicatedCategory: ""
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "test-redcapId",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
         it('should return remapped values when some values from object params given', () => {
             let summaryUnmapped = {
                 redcapId: "",
-                enrollmentCategory: "test-enrollmentCategory"
+                enrollmentCategory: "test-enrollmentCategory",
+                adjudicatedCategory: ""
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': "test-enrollmentCategory"
+                'Enrollment Category': "test-enrollmentCategory",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
@@ -44,7 +50,8 @@ describe('dataHelper', () => {
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
@@ -53,7 +60,8 @@ describe('dataHelper', () => {
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         });
@@ -61,7 +69,8 @@ describe('dataHelper', () => {
             let summaryMappingResult = mapSummaryKeysToPresentationStyle();
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         });
