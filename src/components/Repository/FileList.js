@@ -359,90 +359,6 @@ class FileList extends Component {
                 defaultHidden: false,
                 getCellValue: row => { return (row['dois'] ? (row['dois'].length > 1 ? row['dois'].join(", ") : row['dois']) : '') }
             },
-            {
-                name: 'ethnicity',
-                title: 'Ethnicity',
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
-            {
-                name: 'a1c',
-                title: "A1C %",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true
-            },
-            {
-                name: 'albuminuria',
-                title: 'Albuminuria',
-                sortable: true,
-                hideable: true,
-                defaultHidden: true
-            },
-            {
-                name: 'baseline_egfr',
-                title: "Baseline eGFR",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true
-            },
-            {
-                name: 'diabetes_duration',
-                title: "Diabetes Duration",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
-            {
-                name: 'diabetes_history',
-                title: "Diabetes History",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
-            {
-                name: 'hypertension_duration',
-                title: "Hypertension Duration",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
-            {
-                name: 'hypertension_history',
-                title: "Hypertension History",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true
-            },
-            {
-                name: 'kdigo_stage',
-                title: 'KDIGO Stage',
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
-            {
-                name: 'primary_adjudicated_category',
-                title: "Primary Adjudicated Category",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
-            {
-                name: "proteinuria",
-                title: "Proteinuria",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true
-            },
-            {
-                name: 'enrollment_category',
-                title: "Enrollment Category",
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-            },
             // Sort columns
             {
                 name: 'participant_id_sort', 
@@ -507,20 +423,6 @@ class FileList extends Component {
             { columnName: 'data_type', width: 200 },
             { columnName: 'dois', width: 200 },
             { columnName: 'experimental_strategy', width: 210 },
-            { columnName: 'ethnicity', width: 200},
-            { columnName: 'age_binned', width: 200},
-            { columnName: 'proteinuria', width: 200},
-            { columnName: 'hypertension_history', width: 200},
-            { columnName: 'hypertension_duration', width: 200},
-            { columnName: 'on_raas_blockade', width: 200},
-            { columnName: 'kdigo_stage', width: 200},
-            { columnName: 'a1c', width: 200},
-            { columnName: 'albuminuria', width: 200},
-            { columnName: 'baseline_egfr', width: 200},
-            { columnName: 'primary_adjudicated_category', width: 200},
-            { columnName: 'diabetes_history', width: 200},
-            { columnName: 'diabetes_duration', width: 200},
-            { columnName: 'enrollment_category', width: 200},
             { columnName: 'file_name_sort', width: 0 },
             { columnName: 'participant_id_sort', width: 0 },
             { columnName: 'platform_sort', width: 0 },
