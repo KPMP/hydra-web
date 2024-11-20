@@ -109,7 +109,7 @@ describe('dataHelper', () => {
                 'KDIGO Stage': 'testdkigo_stage',
                 'RAAS Blockade': 'test-on_raas_blockade',
                 'Proteinuria (mg)': 'proteinuria',
-                'Race': 'test-Race',
+                'Race': 'test-race',
                 'Age (Years)': 'test-Age',
                 'Sample Type': 'test-sample_type',
                 'Sex': 'test-sex',
