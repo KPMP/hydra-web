@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
 import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -436,23 +436,70 @@ class FileList extends Component {
     };
 
     getFilterPills = (filters) => {
-        return filters.map(
-            filter => {
-                return filter.values.map(value => {
-                    return (
-                        <div
-                            key={(filter.field).toString() + value.toString()}
-                            className="border rounded activeFilter">
-                            <span>{value} <FontAwesomeIcon alt="Close Filter"
-                                    onClick={()=>{
-                                        this.props.removeFilter(filter.field, value)
-                                    }}
-                                    className="close-button fas fa-xmark ms-2"
-                                    icon={faXmark} /> </span>
-                        </div>)
-                })
-            })
+        const filterDisplayNames = {
+            participant: "Participant",
+            sample_type: "Sample Type",
+            data_format: "Data Format",
+            access: "Access",
+            redcap_id: "Participant ID",
+            file_name: "File Name",
+            data_category: "Data Category",
+            workflow_type: "Workflow Type",
+            platform: "Platform",
+            file_size: "File Size",
+            file_id: "File ID",
+            data_type: "Data Type",
+            dois: "DOIs",
+            experimental_strategy: "Experimental Strategy",
+            sex: "Sex",
+            age_binned: "Age (Binned)",
+            enrollment_category: "Enrollment Category",
+            tissue_source: "Tissue Source",
+            protocol: "Protocol",
+            release_version: "Release Version",
+            race: "Race",
+            proteinuria: "Proteinuria",
+            hypertension_history: "Hypertension History",
+            hypertension_duration: "Hypertension Duration",
+            on_raas_blockade: "RAAS Blockade",
+            diabetes_duration: "Diabetes Duration",
+            diabetes_history: "Diabetes History",
+            kdigo_stage: "KDIGO Stage",
+            a1c: "A1c",
+            albuminuria: "Albuminuria",
+            baseline_egfr: "Baseline eGFR",
+            primary_adjudicated_category: "Primary Adjudicated Category"
+        };
+    
+        return filters.map(filter => {
+            return filter.values.map(value => {
+                const sanitizedId = `${filter.field.toString()}-${value.toString()}`.replace(/[^a-zA-Z0-9-_]/g, '_');
+                return (
+                    <div
+                        key={sanitizedId}
+                        className="border rounded activeFilter"
+                        id={sanitizedId}
+                    >
+                        <span>{value}
+                            <UncontrolledTooltip placement="bottom" target={sanitizedId}>
+                                {filterDisplayNames[filter.field] || filter.field}
+                            </UncontrolledTooltip>
+                            <FontAwesomeIcon
+                                alt="Close Filter"
+                                onClick={() => {
+                                    this.props.removeFilter(filter.field, value);
+                                }}
+                                className="close-button fas fa-xmark ms-2"
+                                icon={faXmark}
+                            />
+                        </span>
+                    </div>
+                );
+            });
+        });
     };
+    
+    
 
     getTotalPages = () => {
         let val = Math.ceil(this.props.totalResults / this.props.resultsPerPage);
