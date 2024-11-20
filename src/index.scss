@@ -593,9 +593,12 @@ td:hover {
     --bs-accordion-active-color: $accordion-button-active-color;
 }
 
-
 .accordion-body {
-    padding: 0.5rem;
+    padding: 0.5rem 0rem;
+}
+
+.inner-accordion .accordion-body {
+    padding: 0rem 1rem;
 }
 
 .inner-accordion .accordion-button:not(.collapsed) {
