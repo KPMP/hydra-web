@@ -367,12 +367,7 @@ class AllFacets extends Component {
                                     <AccordionBody accordionId="30">
                                         <Row className="mb-2">
                                             <Col>
-                                                <Facet inputProps={{ placeholder: "placeholder" }}
-                                                    isFilterable={true} field="workflow_type"
-                                                    label=""
-                                                    filterType="any"
-                                                    view={(props) => <MultiCheckboxFacet {...props}
-                                                        searchPlaceholder={"Search..."} />} />
+                                                <Facet field='workflow_type' label='' filterType='any' view={MultiCheckboxFacet} />
                                             </Col>
                                         </Row>
                                     </AccordionBody>
