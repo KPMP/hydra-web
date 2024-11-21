@@ -452,7 +452,7 @@ class FileList extends Component {
             dois: "DOIs",
             experimental_strategy: "Experimental Strategy",
             sex: "Sex",
-            age_binned: "Age (Binned)",
+            age_binned: "Age",
             enrollment_category: "Enrollment Category",
             tissue_source: "Tissue Source",
             protocol: "Protocol",
