@@ -89,7 +89,7 @@ describe('dataHelper', () => {
                 "kdigoStage": "testdkigo_stage",
                 "onRaasBlockade": "test-on_raas_blockade",
                 "proteinuria": "proteinuria",
-                "race": "test-race",
+                "race": "test-Race",
                 "age": "test-Age",
                 "sex": "test-sex",
                 "protocol": "test-protocol",
