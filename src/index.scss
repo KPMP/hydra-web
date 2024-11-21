@@ -597,6 +597,10 @@ td:hover {
     padding: 0.5rem 0rem;
 }
 
+.accordion-button:not(.inner-accordion .accordion-button) {
+    background-color: var(--bs-accordion-active-bg);
+}
+
 .inner-accordion .accordion-body {
     padding: 0rem 1rem;
 }
