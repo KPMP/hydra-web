@@ -476,7 +476,6 @@ class FileList extends Component {
             if (!value) return null;
     
             const sanitizedId = `${category}-${value}`.replace(/[^a-zA-Z0-9-_]/g, '_');
-            console.log(sanitizedId)
     
             return (
                 <div
