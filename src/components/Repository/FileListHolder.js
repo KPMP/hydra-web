@@ -121,6 +121,13 @@ class FileListHolder extends Component {
                  ({ filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort })}>
                     {(context) => {
                     const { filters, results, current, setCurrent, resultsPerPage, setResultsPerPage, removeFilter, clearFilters, totalResults, setSort } = context;
+                     const mappedFilters = filters.flatMap((filter) => {
+                        return filter.values.map((value) => ({
+                            category: filter.field,
+                            value,
+                        }));
+                    });
+                    
                     return (
                         <FileList
                             props={this.props}
@@ -128,7 +135,7 @@ class FileListHolder extends Component {
                             setCurrent={setCurrent}
                             setSort={setSort}
                             totalResults={totalResults}
-                            filters={filters}
+                            filters={mappedFilters}
                             results={results}
                             resultsPerPage={resultsPerPage}
                             setResultsPerPage={setResultsPerPage}

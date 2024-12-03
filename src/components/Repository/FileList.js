@@ -472,34 +472,34 @@ class FileList extends Component {
         };
     
         return filters.map(filter => {
-            return filter.values.map(value => {
-                const sanitizedId = `${filter.field.toString()}-${value.toString()}`.replace(/[^a-zA-Z0-9-_]/g, '_');
-                return (
-                    <div
-                        key={sanitizedId}
-                        className="border rounded activeFilter"
-                        id={sanitizedId}
-                    >
-                        <span>{value}
-                            <UncontrolledTooltip placement="bottom" target={sanitizedId}>
-                                {filterDisplayNames[filter.field] || filter.field}
-                            </UncontrolledTooltip>
-                            <FontAwesomeIcon
-                                alt="Close Filter"
-                                onClick={() => {
-                                    this.props.removeFilter(filter.field, value);
-                                }}
-                                className="close-button fas fa-xmark ms-2"
-                                icon={faXmark}
-                            />
-                        </span>
-                    </div>
-                );
-            });
-        });
+            const { category, value } = filter;
+            if (!value) return null;
+    
+            const sanitizedId = `${category}-${value}`.replace(/[^a-zA-Z0-9-_]/g, '_');
+    
+            return (
+                <div
+                    key={sanitizedId}
+                    className="border rounded activeFilter"
+                    id={sanitizedId}
+                >
+                    <span>{value}
+                        <UncontrolledTooltip placement="bottom" target={sanitizedId}>
+                            {filterDisplayNames[category] || category}
+                        </UncontrolledTooltip>
+                        <FontAwesomeIcon
+                            alt="Close Filter"
+                            onClick={() => {
+                                this.props.removeFilter(category, value);
+                            }}
+                            className="close-button fas fa-xmark ms-2"
+                            icon={faXmark}
+                        />
+                    </span>
+                </div>
+            );
+        }).filter(Boolean);
     };
-    
-    
 
     getTotalPages = () => {
         let val = Math.ceil(this.props.totalResults / this.props.resultsPerPage);
