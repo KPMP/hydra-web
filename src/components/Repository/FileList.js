@@ -72,7 +72,7 @@ class FileList extends Component {
         // If we have 10K results and no filters, get the total file count
         if (this.props.totalResults === 10000 && this.props.filters.length === 0) {
             const summary = await fetchAtlasTotalFileCount();
-            this.setState({tableData: data, resultCount: summary.totalCount});
+            this.setState({tableData: data, resultCount: summary.totalFiles});
         } else {
             this.setState({ tableData: data, resultCount: this.props.totalResults });
         }
