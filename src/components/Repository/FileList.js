@@ -38,6 +38,7 @@ import { Pagination } from './Plugins/pagination.js';
 import AllFacets from './AllFacets.js';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import Api from '../../helpers/Api';
+import { fetchAtlasTotalFileCount } from '../../helpers/Api.js';
 
 let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
 if (process.env.REACT_APP_FILE_ENDPOINT) {
@@ -66,9 +67,16 @@ class FileList extends Component {
 
     }
 
-    getSearchResults = () => {
+    async getSearchResults () {
         let data = resultConverter(this.props.results);
-        this.setState({ tableData: data, resultCount: this.props.totalResults });
+        // If we have 10K results and no filters, get the total file count
+        if (this.props.totalResults === 10000 && this.props.filters.length === 0) {
+            const summary = await fetchAtlasTotalFileCount();
+            this.setState({tableData: data, resultCount: summary.totalCount});
+        } else {
+            this.setState({ tableData: data, resultCount: this.props.totalResults });
+        }
+        
     };
 
     async componentDidMount() {
@@ -140,6 +148,7 @@ class FileList extends Component {
         a.click();
         document.body.removeChild(a);
     }
+
     getAllResults = async () => {
         let filterMap = [];
         // eslint-disable-next-line array-callback-return

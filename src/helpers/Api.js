@@ -176,3 +176,21 @@ export const fetchParticipantExperimentStrategyFileCounts = async(redcapId) => {
 
   }
 
+  export const fetchAtlasTotalFileCount = async () => {
+    let query = gql`
+        query {
+          getAtlasSummaryRows {
+            totalFiles
+          }
+        }`;
+    const response = await apolloClient.query({
+        query: query,
+        fetchPolicy: 'cache-first'
+    });
+    if (response.data && response.data.getAtlasSummaryRows) {
+        return response.data.getAtlasSummaryRows;
+    }else {
+        store.dispatch(sendMessageToBackend("Could not retrieve file counts: " + response.error));
+    }
+}
+
