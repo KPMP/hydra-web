@@ -58,7 +58,7 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
 
 export const mapClinicalKeysToPresentationStyle = (data) => {
     const result = {};
-    result['A1C']= "";
+    result['A1c']= "";
     result['Albuminuria'] = "";
     result['Baseline eGFR'] = "";
     result['Diabetes Duration'] = "";
@@ -79,7 +79,7 @@ export const mapClinicalKeysToPresentationStyle = (data) => {
         return result;
     }
     if (data.a1c) {
-        result['A1C'] = data.a1c ? data.a1c : "";
+        result['A1c'] = data.a1c ? data.a1c : "";
     }
     if (data.albuminuria) {
         result['Albuminuria'] = data.albuminuria ? data.albuminuria : "";

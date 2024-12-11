@@ -99,7 +99,7 @@ describe('dataHelper', () => {
             };
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
             const expectedClinicalMapping =   {
-                'A1C': "test-a1c",
+                'A1c': "test-a1c",
                 'Albuminuria': 'test-albuminuria',
                 'Baseline eGFR': 'test-baseline_egfr',
                 'Diabetes Duration': 'test-diabetes_duration',
@@ -125,7 +125,7 @@ describe('dataHelper', () => {
             };
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
             const expectedClinicalMapping = {
-                'A1C': "test-a1c",
+                'A1c': "test-a1c",
                 'Albuminuria': 'test-albuminuria',
                 'Baseline eGFR': '',
                 'Diabetes Duration': '',
@@ -148,7 +148,7 @@ describe('dataHelper', () => {
             let clinicalUnmapped = {};
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
             const expectedClinicalMapping = {
-                'A1C': "",
+                'A1c': "",
                 'Albuminuria': '',
                 'Baseline eGFR': '',
                 'Diabetes Duration': '',
@@ -171,7 +171,7 @@ describe('dataHelper', () => {
             let clinicalUnmapped = null;
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
             const expectedClinicalMapping = {
-                'A1C': "",
+                'A1c': "",
                 'Albuminuria': '',
                 'Baseline eGFR': '',
                 'Diabetes Duration': '',
