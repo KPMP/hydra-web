@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Col, Container, Row, Spinner, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledTooltip } from "reactstrap";
 import { resultConverter } from "../../helpers/dataHelper";
 import { faXmark, faAnglesRight, faAnglesLeft, faDownload, faUnlock, faUnlockKeyhole, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,10 +35,10 @@ import { ToolbarButton } from './Plugins/toolbar-button.js';
 import { PaginationState } from './Plugins/pagination-state.js';
 import { Pagination } from './Plugins/pagination.js';
 
-import FileFacet from './FileFacet';
-import ParticipantFacet from './ParticipantFacet';
+import AllFacets from './AllFacets.js';
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
 import Api from '../../helpers/Api';
+import { fetchAtlasTotalFileCount } from '../../helpers/Api.js';
 
 let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
 if (process.env.REACT_APP_FILE_ENDPOINT) {
@@ -67,9 +67,16 @@ class FileList extends Component {
 
     }
 
-    getSearchResults = () => {
+    async getSearchResults () {
         let data = resultConverter(this.props.results);
-        this.setState({ tableData: data, resultCount: this.props.totalResults });
+        // If we have 10K results and no filters, get the total file count
+        if (this.props.totalResults === 10000 && this.props.filters.length === 0) {
+            const summary = await fetchAtlasTotalFileCount();
+            this.setState({tableData: data, resultCount: summary.totalFiles});
+        } else {
+            this.setState({ tableData: data, resultCount: this.props.totalResults });
+        }
+        
     };
 
     async componentDidMount() {
@@ -141,6 +148,7 @@ class FileList extends Component {
         a.click();
         document.body.removeChild(a);
     }
+
     getAllResults = async () => {
         let filterMap = [];
         // eslint-disable-next-line array-callback-return
@@ -236,12 +244,6 @@ class FileList extends Component {
         copy(fileName);
     }
 
-    clickReportCard = (row) => {
-       
-        this.props.props.history.push('/report');
-        this.props.props.setExperimentalDataCounts(row['redcapid'])
-    }
-
     // This is used for column ordering too.
     getColumns = () => {
         const { setParticipantReport } = this.props.props;
@@ -284,7 +286,7 @@ class FileList extends Component {
                             this.setState({reportIsLoading: true});
                             await setParticipantReport(row['redcap_id'][0]).then(() => {
                                 this.setState({reportIsLoading: false});
-                                this.props.props.history.push('/report'); 
+                                this.props.props.history.push('/report?id=' + row['redcap_id']); 
                             })
                         }} type='button' data-toggle="tooltip" data-placement="top" title="View participant information" className='table-column btn btn-link p-0'>{row["redcap_id"]}</button>
                     : row["redcap_id"]
@@ -443,23 +445,70 @@ class FileList extends Component {
     };
 
     getFilterPills = (filters) => {
-        return filters.map(
-            filter => {
-                return filter.values.map(value => {
-                    return (
-                        <div
-                            key={(filter.field).toString() + value.toString()}
-                            className="border rounded activeFilter">
-                            <span>{value} <FontAwesomeIcon alt="Close Filter"
-                                    onClick={()=>{
-                                        this.props.removeFilter(filter.field, value)
-                                    }}
-                                    className="close-button fas fa-xmark ms-2"
-                                    icon={faXmark} /> </span>
-                        </div>)
-                })
-            })
+        const filterDisplayNames = {
+            participant: "Participant",
+            sample_type: "Sample Type",
+            data_format: "Data Format",
+            access: "Access",
+            redcap_id: "Participant ID",
+            file_name: "File Name",
+            data_category: "Data Category",
+            workflow_type: "Workflow Type",
+            platform: "Platform",
+            file_size: "File Size",
+            file_id: "File ID",
+            data_type: "Data Type",
+            dois: "DOIs",
+            experimental_strategy: "Experimental Strategy",
+            sex: "Sex",
+            age_binned: "Age",
+            enrollment_category: "Enrollment Category",
+            tissue_source: "Tissue Source",
+            protocol: "Protocol",
+            release_version: "Release Version",
+            race: "Race",
+            proteinuria: "Proteinuria",
+            hypertension_history: "Hypertension History",
+            hypertension_duration: "Hypertension Duration",
+            on_raas_blockade: "RAAS Blockade",
+            diabetes_duration: "Diabetes Duration",
+            diabetes_history: "Diabetes History",
+            kdigo_stage: "KDIGO Stage",
+            a1c: "A1c",
+            albuminuria: "Albuminuria",
+            baseline_egfr: "Baseline eGFR",
+            primary_adjudicated_category: "Primary Adjudicated Category"
+        };
+    
+        return filters.map(filter => {
+            return filter.values.map(value => {
+                const sanitizedId = `${filter.field.toString()}-${value.toString()}`.replace(/[^a-zA-Z0-9-_]/g, '_');
+                return (
+                    <div
+                        key={sanitizedId}
+                        className="border rounded activeFilter"
+                        id={sanitizedId}
+                    >
+                        <span>{value}
+                            <UncontrolledTooltip placement="bottom" target={sanitizedId}>
+                                {filterDisplayNames[filter.field] || filter.field}
+                            </UncontrolledTooltip>
+                            <FontAwesomeIcon
+                                alt="Close Filter"
+                                onClick={() => {
+                                    this.props.removeFilter(filter.field, value);
+                                }}
+                                className="close-button fas fa-xmark ms-2"
+                                icon={faXmark}
+                            />
+                        </span>
+                    </div>
+                );
+            });
+        });
     };
+    
+    
 
     getTotalPages = () => {
         let val = Math.ceil(this.props.totalResults / this.props.resultsPerPage);
@@ -468,10 +517,6 @@ class FileList extends Component {
 
     render() {
       
-        const tabEnum = {
-            PARTICIPANT: 'PARTICIPANT',
-            FILE: 'FILE'
-        };
         const { columnWidths, sorting } = this.props.props.tableSettings;
 
         return (
@@ -489,16 +534,6 @@ class FileList extends Component {
                         <div className={`filter-panel-wrapper ${this.props.filterTabActive ? '': 'hidden'}`}>
                             <div className="filter-panel-tab-wrapper">
                                 
-                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.PARTICIPANT)}}
-                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.PARTICIPANT ? 'active' : ''} rounded border`}>
-                                        PARTICIPANT
-                                </div>
-
-                                <div onClick={() => {this.props.setActiveFilterTab(tabEnum.FILE)}}
-                                    className={`filter-tab ${this.props.activeFilterTab === tabEnum.FILE ? 'active' : ''} rounded border`}>
-                                        FILE
-                                </div>
-
                                 <div className="filter-tab filter-tab-control-icon clickable"
                                     alt="Close Filter Tab"
                                     onClick={() => {this.props.toggleFilterTab()}}>                                
@@ -507,16 +542,9 @@ class FileList extends Component {
                                 </div>
                             </div>
                             {this.accessAlertModal()}
-                            <React.Fragment>
-                           
-                                {this.props.activeFilterTab === tabEnum.FILE &&
-                                    <FileFacet/>
-                                }
-
-                                {this.props.activeFilterTab === tabEnum.PARTICIPANT &&
-                                <ParticipantFacet/>
-                                }
-                            </React.Fragment>
+                            
+                            <AllFacets/>
+                            
                         </div>
 
                         </Col>

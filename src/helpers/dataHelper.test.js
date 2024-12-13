@@ -6,36 +6,42 @@ describe('dataHelper', () => {
         it('should return remapped values when object params given', () => {
             let summaryUnmapped = {
                 redcapId: "test-redcapId",
-                tissueType: "test-tissueType"
+                enrollmentCategory: "test-enrollmentCategory",
+                adjudicatedCategory: "test-adjudicatedCategory"
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "test-redcapId",
-                'Enrollment Category': "test-tissueType"
+                'Enrollment Category': "test-enrollmentCategory",
+                'Primary Adjudicated Category': "test-adjudicatedCategory"
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
         it('should return remapped values when some values from object params given', () => {
             let summaryUnmapped = {
                 redcapId: "test-redcapId",
-                tissueType: ""
+                enrollmentCategory: "",
+                adjudicatedCategory: ""
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "test-redcapId",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
         it('should return remapped values when some values from object params given', () => {
             let summaryUnmapped = {
                 redcapId: "",
-                tissueType: "test-tissueType"
+                enrollmentCategory: "test-enrollmentCategory",
+                adjudicatedCategory: ""
             };
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': "test-tissueType"
+                'Enrollment Category': "test-enrollmentCategory",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
@@ -44,7 +50,8 @@ describe('dataHelper', () => {
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         }),
@@ -53,7 +60,8 @@ describe('dataHelper', () => {
             let summaryMappingResult = mapSummaryKeysToPresentationStyle(summaryUnmapped);
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         });
@@ -61,7 +69,8 @@ describe('dataHelper', () => {
             let summaryMappingResult = mapSummaryKeysToPresentationStyle();
             let expectedSummaryMapping = {
                 'Participant ID': "",
-                'Enrollment Category': ""
+                'Enrollment Category': "",
+                'Primary Adjudicated Category': ""
             }
             expect(summaryMappingResult).toEqual(expectedSummaryMapping);
         });
@@ -69,109 +78,116 @@ describe('dataHelper', () => {
 
     describe('mapClinicalKeysToPresentationStyle', () => {
         it('should return remapped values when object params given', () => {
-            let clinicalUnmapped = {};
-            clinicalUnmapped['A1c (%) (Binned)']= "test-a1c";
-            clinicalUnmapped['Albuminuria (mg) (Binned)'] = "test-albuminuria";
-            clinicalUnmapped['Baseline eGFR (ml/min/1.73m2) (Binned)'] = "test-baseline_egfr";
-            clinicalUnmapped['Diabetes Duration (Years)'] = "test-diabetes_duration";
-            clinicalUnmapped['Diabetes History'] = "test-diabetes_history";
-            clinicalUnmapped['Hypertension Duration (Years)'] = "test-hypertension_duration";
-            clinicalUnmapped['Hypertension History'] = "test-hypertension_history";
-            clinicalUnmapped['KDIGO Stage'] = "test-kdigo_stage";
-            clinicalUnmapped['On RAAS Blockade'] = "test-on_raas_blockade";
-            clinicalUnmapped['Proteinuria (mg) (Binned)'] = "test-proteinuria";
-            clinicalUnmapped['Race'] = "test-Ethnicity";
-            clinicalUnmapped['Age (Years) (Binned)'] = "test-Age";
-            clinicalUnmapped['Sex'] = "test-sex";
-            clinicalUnmapped['Protocol'] = "test-Protocol";
-            clinicalUnmapped['Sample Type'] = "test-Sample Type";
-            clinicalUnmapped['Tissue Source'] = "test-Tissue Source";
+            let clinicalUnmapped = {
+                "a1c": "test-a1c",
+                "albuminuria": "test-albuminuria",
+                "baselineEgfr": "test-baseline_egfr",
+                "diabetesDuration": "test-diabetes_duration",
+                "diabetesHistory": "test-diabetes_history",
+                "hypertensionDuration": "test-hypertension_duration",
+                "hypertensionHistory": "test-hypertension_history",
+                "kdigoStage": "testdkigo_stage",
+                "onRaasBlockade": "test-on_raas_blockade",
+                "proteinuria": "proteinuria",
+                "race": "test-race",
+                "age": "test-Age",
+                "sex": "test-sex",
+                "protocol": "test-protocol",
+                "sampleType": "test-sample_type",
+                "tissueSource": "test-tissue_source",
+                "ageBinned": "test-age"
+            };
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
-            const expectedClinicalMapping = {};
-            expectedClinicalMapping['A1C (%)']= "test-a1c";
-            expectedClinicalMapping['Albuminuria (mg)'] = "test-albuminuria";
-            expectedClinicalMapping['Baseline eGFR (ml/min/1.73m2)'] = "test-baseline_egfr";
-            expectedClinicalMapping['Diabetes Duration (Years)'] = "test-diabetes_duration";
-            expectedClinicalMapping['Diabetes History'] = "test-diabetes_history";
-            expectedClinicalMapping['Hypertension Duration (years)'] = "test-hypertension_duration";
-            expectedClinicalMapping['Hypertension History'] = "test-hypertension_history";
-            expectedClinicalMapping['KDIGO Stage'] = "test-kdigo_stage";
-            expectedClinicalMapping['On RAAS Blockade'] = "test-on_raas_blockade";
-            expectedClinicalMapping['Proteinuria (mg)'] = "test-proteinuria";
-            expectedClinicalMapping['Ethnicity'] = "test-Ethnicity";
-            expectedClinicalMapping['Age (Years)'] = "test-Age";
-            expectedClinicalMapping['Sex'] = "test-sex";
-            expectedClinicalMapping['Protocol'] = "test-Protocol";
-            expectedClinicalMapping['Sample Type'] = "test-Sample Type";
-            expectedClinicalMapping['Tissue Source'] = "test-Tissue Source";
+            const expectedClinicalMapping =   {
+                'A1c': "test-a1c",
+                'Albuminuria': 'test-albuminuria',
+                'Baseline eGFR': 'test-baseline_egfr',
+                'Diabetes Duration': 'test-diabetes_duration',
+                'Diabetes History': 'test-diabetes_history',
+                'Hypertension Duration': 'test-hypertension_duration',
+                'Hypertension History': 'test-hypertension_history',
+                'KDIGO Stage': 'testdkigo_stage',
+                'RAAS Blockade': 'test-on_raas_blockade',
+                'Proteinuria': 'proteinuria',
+                'Race': 'test-race',
+                'Age': 'test-age',
+                'Sample Type': 'test-sample_type',
+                'Sex': 'test-sex',
+                'Protocol': 'test-protocol',
+                'Tissue Source': 'test-tissue_source'
+              }
             expect(clinicalMappingResult).toEqual(expectedClinicalMapping);
         }),
         it('should return remapped values when object params given even when bad data is sent', () => {
-            let clinicalUnmapped = {};
-            clinicalUnmapped['A1c (%) (EXAMPLE SHOULD BE BINNED)']= "test-a1c";
-            clinicalUnmapped['Albuminuria (mg) (Binned)'] = "test-albuminuria";
+            let clinicalUnmapped = {
+                "a1c": "test-a1c",
+                "albuminuria": "test-albuminuria",
+            };
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
-            const expectedClinicalMapping = {};
-            expectedClinicalMapping['A1C (%)']= "";
-            expectedClinicalMapping['Albuminuria (mg)'] = "test-albuminuria";
-            expectedClinicalMapping['Baseline eGFR (ml/min/1.73m2)'] = "";
-            expectedClinicalMapping['Diabetes Duration (Years)'] = "";
-            expectedClinicalMapping['Diabetes History'] = "";
-            expectedClinicalMapping['Hypertension Duration (years)'] = "";
-            expectedClinicalMapping['Hypertension History'] = "";
-            expectedClinicalMapping['KDIGO Stage'] = "";
-            expectedClinicalMapping['On RAAS Blockade'] = "";
-            expectedClinicalMapping['Proteinuria (mg)'] = "";
-            expectedClinicalMapping['Ethnicity'] = "";
-            expectedClinicalMapping['Age (Years)'] = "";
-            expectedClinicalMapping['Sex'] = "";
-            expectedClinicalMapping['Protocol'] = "";
-            expectedClinicalMapping['Sample Type'] = "";
-            expectedClinicalMapping['Tissue Source'] = "";
+            const expectedClinicalMapping = {
+                'A1c': "test-a1c",
+                'Albuminuria': 'test-albuminuria',
+                'Baseline eGFR': '',
+                'Diabetes Duration': '',
+                'Diabetes History': '',
+                'Hypertension Duration': '',
+                'Hypertension History': '',
+                'KDIGO Stage': '',
+                'RAAS Blockade': '',
+                'Proteinuria': '',
+                'Race': '',
+                'Age': '',
+                'Sample Type': '',
+                'Sex': '',
+                'Protocol': '',
+                'Tissue Source': ''
+            };
             expect(clinicalMappingResult).toEqual(expectedClinicalMapping);
         }),
         it('should return remapped values when empty object params given', () => {
             let clinicalUnmapped = {};
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
-            const expectedClinicalMapping = {};
-            expectedClinicalMapping['A1C (%)']= "";
-            expectedClinicalMapping['Albuminuria (mg)'] = "";
-            expectedClinicalMapping['Baseline eGFR (ml/min/1.73m2)'] = "";
-            expectedClinicalMapping['Diabetes Duration (Years)'] = "";
-            expectedClinicalMapping['Diabetes History'] = "";
-            expectedClinicalMapping['Hypertension Duration (years)'] = "";
-            expectedClinicalMapping['Hypertension History'] = "";
-            expectedClinicalMapping['KDIGO Stage'] = "";
-            expectedClinicalMapping['On RAAS Blockade'] = "";
-            expectedClinicalMapping['Proteinuria (mg)'] = "";
-            expectedClinicalMapping['Ethnicity'] = "";
-            expectedClinicalMapping['Age (Years)'] = "";
-            expectedClinicalMapping['Sex'] = "";
-            expectedClinicalMapping['Protocol'] = "";
-            expectedClinicalMapping['Sample Type'] = "";
-            expectedClinicalMapping['Tissue Source'] = "";
+            const expectedClinicalMapping = {
+                'A1c': "",
+                'Albuminuria': '',
+                'Baseline eGFR': '',
+                'Diabetes Duration': '',
+                'Diabetes History': '',
+                'Hypertension Duration': '',
+                'Hypertension History': '',
+                'KDIGO Stage': '',
+                'RAAS Blockade': '',
+                'Proteinuria': '',
+                'Race': '',
+                'Age': '',
+                'Sample Type': '',
+                'Sex': '',
+                'Protocol': '',
+                'Tissue Source': ''
+            };
             expect(clinicalMappingResult).toEqual(expectedClinicalMapping);
         }),
         it('should return remapped values when null params given', () => {
             let clinicalUnmapped = null;
             const clinicalMappingResult = mapClinicalKeysToPresentationStyle(clinicalUnmapped);
-            const expectedClinicalMapping = {};
-            expectedClinicalMapping['A1C (%)']= "";
-            expectedClinicalMapping['Albuminuria (mg)'] = "";
-            expectedClinicalMapping['Baseline eGFR (ml/min/1.73m2)'] = "";
-            expectedClinicalMapping['Diabetes Duration (Years)'] = "";
-            expectedClinicalMapping['Diabetes History'] = "";
-            expectedClinicalMapping['Hypertension Duration (years)'] = "";
-            expectedClinicalMapping['Hypertension History'] = "";
-            expectedClinicalMapping['KDIGO Stage'] = "";
-            expectedClinicalMapping['On RAAS Blockade'] = "";
-            expectedClinicalMapping['Proteinuria (mg)'] = "";
-            expectedClinicalMapping['Ethnicity'] = "";
-            expectedClinicalMapping['Age (Years)'] = "";
-            expectedClinicalMapping['Sex'] = "";
-            expectedClinicalMapping['Protocol'] = "";
-            expectedClinicalMapping['Sample Type'] = "";
-            expectedClinicalMapping['Tissue Source'] = "";
+            const expectedClinicalMapping = {
+                'A1c': "",
+                'Albuminuria': '',
+                'Baseline eGFR': '',
+                'Diabetes Duration': '',
+                'Diabetes History': '',
+                'Hypertension Duration': '',
+                'Hypertension History': '',
+                'KDIGO Stage': '',
+                'RAAS Blockade': '',
+                'Proteinuria': '',
+                'Race': '',
+                'Age': '',
+                'Sample Type': '',
+                'Sex': '',
+                'Protocol': '',
+                'Tissue Source': ''
+            };
             expect(clinicalMappingResult).toEqual(expectedClinicalMapping);
         })
     })

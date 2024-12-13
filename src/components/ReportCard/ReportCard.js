@@ -12,6 +12,7 @@ class ReportCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: new URLSearchParams(window.location.search).get("id"),
             summaryDataset: {},
             totalFileCount: "",
             experimentalDataCounts: {},
@@ -20,7 +21,8 @@ class ReportCard extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.props.setParticipantReport(this.state.id)
         let sessionStorage = JSON.parse(window.sessionStorage.getItem('hydra-redux-store'));
         if (sessionStorage === null || Object.keys(sessionStorage["summaryDatasets"]).length === 0) {
             window.location.replace('/');
@@ -29,7 +31,7 @@ class ReportCard extends Component {
             summaryDataset: sessionStorage["summaryDatasets"],
             experimentalDataCounts: sessionStorage['experimentalDataCounts'],
             dataTypeFileCounts: sessionStorage['dataTypeFileCounts']['repositoryDataTypes'],
-            clinicalDataset: (sessionStorage['clinicalDatasets']['clinicalData']) ? JSON.parse(sessionStorage['clinicalDatasets']['clinicalData']) : {},
+            clinicalDataset: sessionStorage['clinicalDatasets'],
             totalFileCount: sessionStorage['totalFileCount'],
             participantId: sessionStorage['selectedParticipant'],
             isLoaded: true
@@ -48,7 +50,7 @@ class ReportCard extends Component {
     getDefaultColumnWidths = () => {
         return [
             { columnName: 'key', width: 215 },
-            { columnName: 'value', width: 180 },
+            { columnName: 'value', width: 200 },
         ]
     };
     getDefaultLinkColumnWidths = () => {
@@ -79,6 +81,7 @@ class ReportCard extends Component {
     }
 
     render() {
+        console.log(this.state.clinicalDataset)
         if (this.state.isLoaded) {
             return (
             

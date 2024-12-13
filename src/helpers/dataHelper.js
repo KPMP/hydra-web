@@ -39,6 +39,7 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
     const result = {};
     result['Participant ID'] = "";
     result['Enrollment Category'] = "";
+    result['Primary Adjudicated Category'] = "";
     if (!data || data === {}) {
         return result;
     }
@@ -46,26 +47,29 @@ export const mapSummaryKeysToPresentationStyle = (data) => {
     if (data['redcapId']) {
         result['Participant ID'] = data['redcapId'] ? data['redcapId'] : "";
     }
-    if (data['tissueType']) {
-        result['Enrollment Category'] = data['tissueType'] ? data['tissueType'] : "";
+    if (data['enrollmentCategory']) {
+        result['Enrollment Category'] = data['enrollmentCategory'] ? data['enrollmentCategory'] : "";
+    }
+    if (data['adjudicatedCategory']) {
+        result['Primary Adjudicated Category'] = data['adjudicatedCategory'] ? data['adjudicatedCategory'] : "";
     }
     return result;
 };
 
 export const mapClinicalKeysToPresentationStyle = (data) => {
     const result = {};
-    result['A1C (%)']= "";
-    result['Albuminuria (mg)'] = "";
-    result['Baseline eGFR (ml/min/1.73m2)'] = "";
-    result['Diabetes Duration (Years)'] = "";
+    result['A1c']= "";
+    result['Albuminuria'] = "";
+    result['Baseline eGFR'] = "";
+    result['Diabetes Duration'] = "";
     result['Diabetes History'] = "";
-    result['Hypertension Duration (years)'] = "";
+    result['Hypertension Duration'] = "";
     result['Hypertension History'] = "";
     result['KDIGO Stage'] = "";
-    result['On RAAS Blockade'] = "";
-    result['Proteinuria (mg)'] = "";
-    result['Ethnicity'] = "";
-    result['Age (Years)'] = "";
+    result['RAAS Blockade'] = "";
+    result['Proteinuria'] = "";
+    result['Race'] = "";
+    result['Age'] = "";
     result['Sample Type'] = "";
     result['Sex'] = "";
     result['Protocol'] = "";
@@ -74,55 +78,55 @@ export const mapClinicalKeysToPresentationStyle = (data) => {
     if (!data || data === {}) {
         return result;
     }
-    if (data['A1c (%) (Binned)']) {
-        result['A1C (%)'] = data['A1c (%) (Binned)'] ? data['A1c (%) (Binned)'] : "";
+    if (data.a1c) {
+        result['A1c'] = data.a1c ? data.a1c : "";
     }
-    if (data['Albuminuria (mg) (Binned)']) {
-        result['Albuminuria (mg)'] = data['Albuminuria (mg) (Binned)'] ? data['Albuminuria (mg) (Binned)'] : "";
+    if (data.albuminuria) {
+        result['Albuminuria'] = data.albuminuria ? data.albuminuria : "";
     }
-    if (data['Baseline eGFR (ml/min/1.73m2) (Binned)']) {
-        result['Baseline eGFR (ml/min/1.73m2)'] = data['Baseline eGFR (ml/min/1.73m2) (Binned)'] ? data['Baseline eGFR (ml/min/1.73m2) (Binned)'].replace(' ml/min/1.73m2', '') : "";
+    if (data.baselineEgfr) {
+        result['Baseline eGFR'] = data.baselineEgfr ? data.baselineEgfr : "";
     }
-    if (data['Diabetes Duration (Years)']) {
-        result['Diabetes Duration (Years)'] = data['Diabetes Duration (Years)'] ? data['Diabetes Duration (Years)'].replace(' Years', '') : "";
+    if (data.diabetesDuration) {
+        result['Diabetes Duration'] = data.diabetesDuration ? data.diabetesDuration : "";
     }
-    if (data['Diabetes History']) {
-        result['Diabetes History']  = data['Diabetes History'] ? data['Diabetes History'] : "";
+    if (data.diabetesHistory) {
+        result['Diabetes History']  = data.diabetesHistory ? data.diabetesHistory : "";
     }
-    if (data['Hypertension Duration (Years)']) {
-        result['Hypertension Duration (years)'] = data['Hypertension Duration (Years)'] ? data['Hypertension Duration (Years)'].replace(' Years', '') : "";
+    if (data.hypertensionDuration) {
+        result['Hypertension Duration'] = data.hypertensionDuration ? data.hypertensionDuration : "";
     } 
-    if (data['Hypertension History']) {
-        result['Hypertension History'] = data['Hypertension History'] ? data['Hypertension History'] : "";
+    if (data.hypertensionHistory) {
+        result['Hypertension History'] = data.hypertensionHistory ? data.hypertensionHistory : "";
     }
-    if (data['KDIGO Stage']) {
-        result['KDIGO Stage'] = data['KDIGO Stage'] ? data['KDIGO Stage'] : "";
+    if (data.kdigoStage) {
+        result['KDIGO Stage'] = data.kdigoStage ? data.kdigoStage : "";
     }
-    if (data['On RAAS Blockade']) {
-        result['On RAAS Blockade'] = data['On RAAS Blockade'] ? data['On RAAS Blockade'] : "";
+    if (data.onRaasBlockade) {
+        result['RAAS Blockade'] = data.onRaasBlockade ? data.onRaasBlockade : "";
     }
-    if (data['Proteinuria (mg) (Binned)']) {
-        result['Proteinuria (mg)'] = data['Proteinuria (mg) (Binned)'] ? data['Proteinuria (mg) (Binned)'] : "";
+    if (data.proteinuria) {
+        result['Proteinuria'] = data.proteinuria ? data.proteinuria : "";
     }
-    if (data['Race']) {
-        result['Ethnicity'] = data['Race'] ? data['Race'] : "";
+    if (data.race) {
+        result['Race'] = data.race ? data.race : "";
     }
-    if (data['Age (Years) (Binned)']) {
-        result['Age (Years)'] = data['Age (Years) (Binned)'] ? data['Age (Years) (Binned)'].replace(' Years', '') : "";
+    if (data.ageBinned) {
+        result['Age'] = data.ageBinned ? data.ageBinned : "";
     }
 
-    if (data['Sample Type']) {
-        result['Sample Type'] = data['Sample Type'] ? data['Sample Type'] : "";
+    if (data.sampleType) {
+        result['Sample Type'] = data.sampleType ? data.sampleType : "";
     }
     
-    if (data['Sex']) {
-        result['Sex'] = data['Sex'] ? data['Sex'] : "";
+    if (data.sex) {
+        result['Sex'] = data.sex ? data.sex : "";
     }
-    if (data['Protocol']) {
-        result['Protocol'] = data['Protocol'] ? data['Protocol'] : "";
+    if (data.protocol) {
+        result['Protocol'] = data.protocol ? data.protocol : "";
     }
-    if (data['Tissue Source']) {
-        result['Tissue Source'] = data['Tissue Source'] ? data['Tissue Source'] : "";
+    if (data.tissueSource) {
+        result['Tissue Source'] = data.tissueSource ? data.tissueSource : "";
     }
     
     return result;

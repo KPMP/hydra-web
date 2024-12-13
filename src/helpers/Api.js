@@ -22,8 +22,9 @@ export const fetchParticipantSummaryDataset = async (redcapId) => {
   const query = gql`
   query {
     participantSummaryDataset(redcapId: "${redcapId}"){
-      tissueType
+      enrollmentCategory
       redcapId
+      adjudicatedCategory
     }
   }`;
   const response = await apolloClient.query({
@@ -92,8 +93,23 @@ export const fetchParticipantDataTypeCounts = async (redcapId) => {
 export const fetchParticipantClinicalDataset = async (redcapId) => {
   const query = gql`
   query {
-    participantSummaryDataset(redcapId: "${redcapId}"){
-      clinicalData
+    getParticipantClinicalDataset(redcapId: "${redcapId}"){
+        kdigoStage
+        baselineEgfr
+        proteinuria
+        a1c
+        albuminuria
+        diabetesHistory
+        diabetesDuration
+        hypertensionHistory
+        hypertensionDuration
+        onRaasBlockade
+        race
+        ageBinned
+        sex
+        sampleType
+        tissueSource
+        protocol
     }
   }`;
   const response = await apolloClient.query({
@@ -102,10 +118,10 @@ export const fetchParticipantClinicalDataset = async (redcapId) => {
         redcapId: redcapId
       }
     });
-  if (response && response.data && response.data.participantSummaryDataset) {
-      return response.data.participantSummaryDataset;
+  if (response && response.data && response.data.getParticipantClinicalDataset) {
+      return response.data.getParticipantClinicalDataset;
   } else {
-      store.dispatch(sendMessageToBackend("Could not retrieve participantSummaryDataset (clinical data): " + response.error));
+      store.dispatch(sendMessageToBackend("Could not retrieve getParticipantClinicalDataset (clinical data): " + response.error));
   }
 };
 
@@ -159,4 +175,22 @@ export const fetchParticipantExperimentStrategyFileCounts = async(redcapId) => {
     }
 
   }
+
+  export const fetchAtlasTotalFileCount = async () => {
+    let query = gql`
+        query {
+          getAtlasSummaryRows {
+            totalFiles
+          }
+        }`;
+    const response = await apolloClient.query({
+        query: query,
+        fetchPolicy: 'cache-first'
+    });
+    if (response.data && response.data.getAtlasSummaryRows) {
+        return response.data.getAtlasSummaryRows;
+    }else {
+        store.dispatch(sendMessageToBackend("Could not retrieve file counts: " + response.error));
+    }
+}
 

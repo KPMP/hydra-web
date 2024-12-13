@@ -248,7 +248,7 @@ td:hover {
     max-width: 155px;
 }
 
-.tissue-type {
+.enrollment-category {
     min-width: 100px;
     width: 100px;
     max-width: 100px;
@@ -288,7 +288,7 @@ td:hover {
         max-width: 200px;
     }
 
-    .tissue-type {
+    .enrollment-category {
         min-width: 100px;
         width: 100px;
         max-width: 100px;
@@ -591,6 +591,30 @@ td:hover {
     background-color: #e7f1ff;
     --bs-accordion-btn-color: $accordion-button-color;
     --bs-accordion-active-color: $accordion-button-active-color;
+}
+
+.accordion-body {
+    padding: 0.5rem 0rem;
+}
+
+.accordion-button:not(.inner-accordion .accordion-button) {
+    background-color: var(--bs-accordion-active-bg);
+}
+
+.inner-accordion .accordion-body {
+    padding: 0rem 1rem;
+}
+
+.inner-accordion .accordion-button:not(.collapsed) {
+    background-color: #ffffff;
+}
+
+.inner-accordion .accordion-button:not(.collapsed)::after {
+    background-color: #ffffff;
+}
+
+.inner-accordion .accordion-button::after {
+    margin: 0px 10px;
 }
 
 .action-button {
