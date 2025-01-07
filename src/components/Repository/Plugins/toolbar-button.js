@@ -7,8 +7,10 @@ import {
 import SortDialog from './SortDialog/sortDialog';
 import ColumnArrangementDialog from './ColumnArrangmentDialog/columnArrangementDialog';
 import { faBars, faSortAmountDownAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faWindows, faApple, faLinux } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSVLink } from "react-csv";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 const pluginDependencies = [
   { name: "Toolbar" },
@@ -21,9 +23,27 @@ export class ToolbarButton extends React.PureComponent {
     super(props);
     this.state = {
       csvData: [],
-      csvRef: React.createRef()
+      csvRef: React.createRef(),
+      isOpen: false,
+      dropdownOpen: false
     };
   }
+
+  handleMouseEnter = () => {
+    this.setState({ dropdownOpen: true });
+  }
+
+  handleMouseLeave = () => {
+    this.setState({ dropdownOpen: false });
+  }
+
+  dropdownToggle = () => {
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  }
+
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  } 
 
   getExportFilename = () => {
     return "atlas_repository_filelist-" + new Date().toISOString().split('T')[0].replace(/\D/g,'');
@@ -35,6 +55,7 @@ export class ToolbarButton extends React.PureComponent {
       if (this.state.csvData.length > 0) {
         this.state.csvRef.current.link.click();
       }
+      console.log(this.state.csvData);
     });
   }
 
@@ -66,6 +87,23 @@ export class ToolbarButton extends React.PureComponent {
                 <React.Fragment>
                 <div className="me-auto">Files ({this.props.resultCount})</div>
               <div className="ms-auto">
+                <Dropdown className="icon-info bulk-download" style={{float:"left", backgroundColor: "#43649d"}} isOpen={this.state.dropdownOpen} toggle={this.dropdownToggle} direction="down">
+                    <DropdownToggle style={{backgroundColor: "#43649d"}}caret>Bulk Download</DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={this.getCsvData()}>
+                        <FontAwesomeIcon className="fas fa-windows" icon={faWindows}/> &nbsp;
+                            Windows
+                        </DropdownItem>
+                        <DropdownItem onClick={this.getCsvData()}>
+                        <FontAwesomeIcon className="fas fa-apple" icon={faApple}/> &nbsp;
+                            MacOS
+                        </DropdownItem>
+                        <DropdownItem onClick={this.getCsvData()}>
+                            <FontAwesomeIcon className="fas fa-linux" icon={faLinux} /> &nbsp;
+                            Linux
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
                   <button 
                     type="button" 
                     className="btn border rounded action-button icon-info"
