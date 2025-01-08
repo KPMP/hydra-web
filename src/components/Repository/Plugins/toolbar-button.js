@@ -11,6 +11,7 @@ import { faWindows, faApple, faLinux } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSVLink } from "react-csv";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import FileSaver from "file-saver";
 
 const pluginDependencies = [
   { name: "Toolbar" },
@@ -25,10 +26,8 @@ export class ToolbarButton extends React.PureComponent {
       csvData: [],
       csvRef: React.createRef(),
       isOpen: false,
-      dropdownOpen: false,
-      clickHandled: false
+      dropdownOpen: false
     };
-    this.handleDropdownClickOnce = this.handleDropdownClickOnce.bind(this);
     this.dropdownToggle = this.dropdownToggle.bind(this);
   }
 
@@ -52,22 +51,53 @@ export class ToolbarButton extends React.PureComponent {
     return "atlas_repository_filelist-" + new Date().toISOString().split('T')[0].replace(/\D/g,'');
   }
 
-  handleDropdownClickOnce(event) {
-    if (!this.state.clickHandled) {
-      this.setState({ clickHandled: true });
-      this.getCsvData();
-    }
+  downloadBatchFile(res) {
+    let batchContent = "@echo off\n";
+    res.forEach(element => {
+        console.log(element);
+        const fileName = element['File Name'];
+        const encodedFileName = encodeURIComponent(fileName);
+        const internalPackageId = element["Internal Package ID"];
+        batchContent += `curl -o "%USERPROFILE%\\Downloads\\${fileName}" "https://atlas.kpmp.org/api/v1/file/download/${internalPackageId}/${encodedFileName}"\n`;
+    });
+    batchContent += "echo Download complete.\npause\n";
+    const blob = new Blob([batchContent], { type: "text/plain;charset=utf-8" });
+    FileSaver.saveAs(blob, "atlas_repository_bulk_download.bat");
+  }
+
+  downloadShellScript(res) {
+    let scriptContent = "#!/bin/bash\n";
+    res.forEach(element => {
+        console.log(element);
+        const fileName = element['File Name'];
+        const encodedFileName = encodeURIComponent(fileName);
+        const internalPackageId = element["Internal Package ID"];
+        scriptContent += `curl -o "$HOME/Downloads/${fileName}" "https://atlas.kpmp.org/api/v1/file/download/${internalPackageId}/${encodedFileName}"\n`;
+    });
+    scriptContent += "echo Download complete.\n";
+    const blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
+    FileSaver.saveAs(blob, "atlas_repository_bulk_download.sh");
+}
+
+  getBulkDownloadScript(os) {
+    this.props.cleanResults().then((res) => {
+        if (os === "Windows") {
+            this.downloadBatchFile(res);
+        }else if (os === "MacOS") {
+            this.downloadShellScript(res);
+        }else if(os === "Linux") {
+            this.downloadShellScript(res);
+        }
+    });
   }
 
   getCsvData = () => {
     this.props.cleanResults().then((res) => {
-      this.setState({csvData: res});
-      if (this.state.csvData.length > 0) {
-        this.state.csvRef.current.link.click();
-      }
-      console.log(this.state.csvData);
-      this.setState({ clickHandled: false });
-    });
+        this.setState({csvData: res});
+        if (this.state.csvData.length > 0) {
+            this.state.csvRef.current.link.click();
+          }
+      });
   }
 
   render() {
@@ -98,20 +128,21 @@ export class ToolbarButton extends React.PureComponent {
                 <React.Fragment>
                 <div className="me-auto">Files ({this.props.resultCount})</div>
               <div className="ms-auto">
-                <Dropdown className="icon-info bulk-download" style={{float:"left", backgroundColor: "#43649d"}} isOpen={this.state.dropdownOpen} toggle={this.dropdownToggle()} 
-                // onMouseEnter={this.handleMouseEnter()} onMouseLeave={this.handleMouseLeave()} 
+                <Dropdown 
+                style={{float:"left", paddingRight: ".3rem"}} isOpen={this.state.dropdownOpen} toggle={this.dropdownToggle} 
+                onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} 
                 direction="down">
-                    <DropdownToggle style={{backgroundColor: "#43649d"}}caret>Bulk Download</DropdownToggle>
+                    <DropdownToggle className="border rounded" color="primary" style={{backgroundColor: "#43649d", maxHeight: "2.2rem"}} caret>Bulk Download</DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem onClick={this.handleDropdownClickOnce()}>
+                        <DropdownItem onClick={() => this.getBulkDownloadScript("Windows")}>
                         <FontAwesomeIcon className="fas fa-windows" icon={faWindows}/> &nbsp;
                             Windows
                         </DropdownItem>
-                        <DropdownItem onClick={this.handleDropdownClickOnce()}>
+                        <DropdownItem onClick={() => this.getBulkDownloadScript("MacOS")}>
                         <FontAwesomeIcon className="fas fa-apple" icon={faApple}/> &nbsp;
                             MacOS
                         </DropdownItem>
-                        <DropdownItem onClick={this.handleDropdownClickOnce()}>
+                        <DropdownItem onClick={() => this.getBulkDownloadScript("Linux")}>
                             <FontAwesomeIcon className="fas fa-linux" icon={faLinux} /> &nbsp;
                             Linux
                         </DropdownItem>
