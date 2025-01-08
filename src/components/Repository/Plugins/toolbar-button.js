@@ -25,8 +25,11 @@ export class ToolbarButton extends React.PureComponent {
       csvData: [],
       csvRef: React.createRef(),
       isOpen: false,
-      dropdownOpen: false
+      dropdownOpen: false,
+      clickHandled: false
     };
+    this.handleDropdownClickOnce = this.handleDropdownClickOnce.bind(this);
+    this.dropdownToggle = this.dropdownToggle.bind(this);
   }
 
   handleMouseEnter = () => {
@@ -49,6 +52,13 @@ export class ToolbarButton extends React.PureComponent {
     return "atlas_repository_filelist-" + new Date().toISOString().split('T')[0].replace(/\D/g,'');
   }
 
+  handleDropdownClickOnce(event) {
+    if (!this.state.clickHandled) {
+      this.setState({ clickHandled: true });
+      this.getCsvData();
+    }
+  }
+
   getCsvData = () => {
     this.props.cleanResults().then((res) => {
       this.setState({csvData: res});
@@ -56,6 +66,7 @@ export class ToolbarButton extends React.PureComponent {
         this.state.csvRef.current.link.click();
       }
       console.log(this.state.csvData);
+      this.setState({ clickHandled: false });
     });
   }
 
@@ -87,18 +98,20 @@ export class ToolbarButton extends React.PureComponent {
                 <React.Fragment>
                 <div className="me-auto">Files ({this.props.resultCount})</div>
               <div className="ms-auto">
-                <Dropdown className="icon-info bulk-download" style={{float:"left", backgroundColor: "#43649d"}} isOpen={this.state.dropdownOpen} toggle={this.dropdownToggle} direction="down">
+                <Dropdown className="icon-info bulk-download" style={{float:"left", backgroundColor: "#43649d"}} isOpen={this.state.dropdownOpen} toggle={this.dropdownToggle()} 
+                // onMouseEnter={this.handleMouseEnter()} onMouseLeave={this.handleMouseLeave()} 
+                direction="down">
                     <DropdownToggle style={{backgroundColor: "#43649d"}}caret>Bulk Download</DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem onClick={this.getCsvData()}>
+                        <DropdownItem onClick={this.handleDropdownClickOnce()}>
                         <FontAwesomeIcon className="fas fa-windows" icon={faWindows}/> &nbsp;
                             Windows
                         </DropdownItem>
-                        <DropdownItem onClick={this.getCsvData()}>
+                        <DropdownItem onClick={this.handleDropdownClickOnce()}>
                         <FontAwesomeIcon className="fas fa-apple" icon={faApple}/> &nbsp;
                             MacOS
                         </DropdownItem>
-                        <DropdownItem onClick={this.getCsvData()}>
+                        <DropdownItem onClick={this.handleDropdownClickOnce()}>
                             <FontAwesomeIcon className="fas fa-linux" icon={faLinux} /> &nbsp;
                             Linux
                         </DropdownItem>
