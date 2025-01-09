@@ -54,7 +54,6 @@ export class ToolbarButton extends React.PureComponent {
   downloadBatchFile(res) {
     let batchContent = "@echo off\n";
     res.forEach(element => {
-        console.log(element);
         const fileName = element['File Name'];
         const encodedFileName = encodeURIComponent(fileName);
         const internalPackageId = element["Internal Package ID"];
