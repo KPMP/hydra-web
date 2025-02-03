@@ -17,7 +17,10 @@ const pluginDependencies = [
   { name: "Toolbar" },
   { name: "ToolbarButtonState" }
 ];
-
+let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
+if (process.env.REACT_APP_FILE_ENDPOINT) {
+    fileDownloadEndpoint = process.env.REACT_APP_FILE_ENDPOINT
+}
 export class ToolbarButton extends React.PureComponent {
 
   constructor(props) {
@@ -57,7 +60,8 @@ export class ToolbarButton extends React.PureComponent {
         const fileName = element['File Name'];
         const encodedFileName = encodeURIComponent(fileName);
         const internalPackageId = element["Internal Package ID"];
-        batchContent += `curl -o "%USERPROFILE%\\Downloads\\${fileName}" "https://atlas.kpmp.org/api/v1/file/download/${internalPackageId}/${encodedFileName}"\n`;
+        batchContent += `curl -o "%USERPROFILE%\\Downloads\\${fileName}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}"\n`;
+        batchContent += `IF %ERRORLEVEL% NEQ 0 echo OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE.You have received this message due to amount of data requested for download. \nIf you believe you received this message in error or you would like assistance with your download, please email us at: \nKPMPAtlasDownloadSupport@umich.edu.`;
     });
     batchContent += "echo Download complete.\npause\n";
     const blob = new Blob([batchContent], { type: "text/plain;charset=utf-8" });
@@ -67,16 +71,18 @@ export class ToolbarButton extends React.PureComponent {
   downloadShellScript(res) {
     let scriptContent = "#!/bin/bash\n";
     res.forEach(element => {
-        console.log(element);
         const fileName = element['File Name'];
         const encodedFileName = encodeURIComponent(fileName);
         const internalPackageId = element["Internal Package ID"];
-        scriptContent += `curl -o "$HOME/Downloads/${fileName}" "https://atlas.kpmp.org/api/v1/file/download/${internalPackageId}/${encodedFileName}"\n`;
+        
+        scriptContent += `curl -o "$HOME/Downloads/${fileName}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}" --fail --silent --show-error || echo "OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE.You have received this message due to amount of data requested for download. \nIf you believe you received this message in error or you would like assistance with your download, please email us at: \nKPMPAtlasDownloadSupport@umich.edu."\n`;
     });
     scriptContent += "echo Download complete.\n";
+    
     const blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "atlas_repository_bulk_download.sh");
 }
+
 
   getBulkDownloadScript(os) {
     this.props.cleanResults().then((res) => {
