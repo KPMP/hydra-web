@@ -56,29 +56,76 @@ export class ToolbarButton extends React.PureComponent {
 
   downloadBatchFile(res) {
     let batchContent = "@echo off\n";
+    batchContent += "set error_occurred=false\n";
+    batchContent += "set error_404=false\n";
+    batchContent += "set error_403=false\n";
+    batchContent += "set controlled_access_files=\n";
     res.forEach(element => {
         const fileName = element['File Name'];
-        const encodedFileName = encodeURIComponent(fileName);
+        const encodedFileName = encodeURIComponent(fileName).replace(/%20/g, '%%20');
         const internalPackageId = element["Internal Package ID"];
-        batchContent += `curl -o "%USERPROFILE%\\Downloads\\${fileName}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}"\n`;
-        batchContent += `IF %ERRORLEVEL% NEQ 0 echo OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE.You have received this message due to amount of data requested for download. \nIf you believe you received this message in error or you would like assistance with your download, please email us at: \nKPMPAtlasDownloadSupport@umich.edu.`;
+        
+        batchContent += `
+            curl -o "%USERPROFILE%\\Downloads\\${fileName}" -w "%%{http_code}" "https://qa-atlas.kpmp.org/api/v1/file/download/${internalPackageId}/${encodedFileName}" --fail --silent --show-error
+            set status_code=%errorlevel%
+            if %status_code% == 404 (
+                set error_404=true
+                set controlled_access_files=%controlled_access_files% "${fileName}"
+            ) else if %status_code% == 403 (
+                set error_403=true
+                echo OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE. You have received this message due to the amount of data requested for download.
+                echo If you believe you received this message in error or you would like assistance with your download, please email us at: KPMPAtlasDownloadSupport@umich.edu.
+                exit /b 1
+            ) `;
     });
-    batchContent += "echo Download complete.\npause\n";
+    batchContent += `
+        if %error_404% == true (
+            echo One or more files is controlled access. You will not be able to download the following files because they require a Data Use Agreement:
+            for %%f in (%controlled_access_files%) do (
+                echo %%f
+            )
+        )
+        if %error_404% == false (
+            echo Download complete.
+        )
+        `;
     const blob = new Blob([batchContent], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "atlas_repository_bulk_download.bat");
-  }
+}
 
   downloadShellScript(res) {
     let scriptContent = "#!/bin/bash\n";
+    scriptContent += "error_404=false\n";
+    scriptContent += "error_403=false\n";
+    scriptContent += "declare -a controlled_access_files\n";
     res.forEach(element => {
         const fileName = element['File Name'];
         const encodedFileName = encodeURIComponent(fileName);
         const internalPackageId = element["Internal Package ID"];
         
-        scriptContent += `curl -o "$HOME/Downloads/${fileName}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}" --fail --silent --show-error || echo "OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE.You have received this message due to amount of data requested for download. \nIf you believe you received this message in error or you would like assistance with your download, please email us at: \nKPMPAtlasDownloadSupport@umich.edu."\n`;
+        scriptContent += `
+            status_code=$(curl -o "$HOME/Downloads/${fileName}" -w "%{http_code}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}" --fail --silent --show-error)
+            if [ "$status_code" -eq 404 ]; then
+                error_404=true
+                controlled_access_files+=("${fileName}")
+            elif [ "$status_code" -eq 403 ]; then
+                error_403=true`;
     });
-    scriptContent += "echo Download complete.\n";
-    
+    scriptContent += `
+        if [ "$error_404" = true ]; then
+            echo "One or more files is controlled access. You will not be able to download the following files becuase they require a Data Use Agreement: \n"
+            for file in "\${controlled_access_files[@]}"; do
+                echo "$file"
+            done
+        fi
+        if [ "$error_403" = true ]; then
+            echo "OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE.You have received this message due to amount of data requested for download. \nIf you believe you received this message in error or you would like assistance with your download, please email us at: \nKPMPAtlasDownloadSupport@umich.edu."
+            exit 1
+        fi
+        if [ "$error_404" = false ]; then
+            echo "Download complete."
+        fi
+        `;
     const blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "atlas_repository_bulk_download.sh");
 }
