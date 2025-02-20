@@ -88,6 +88,7 @@ export class ToolbarButton extends React.PureComponent {
         if %error_404% == false (
             echo Download complete.
         )
+            pause
         `;
     const blob = new Blob([batchContent], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, "atlas_repository_bulk_download.bat");
