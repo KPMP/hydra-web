@@ -66,7 +66,7 @@ export class ToolbarButton extends React.PureComponent {
         const internalPackageId = element["Internal Package ID"];
         
         batchContent += `
-            curl -o "%USERPROFILE%\\Downloads\\${fileName}" -w "%%{http_code}" "https://qa-atlas.kpmp.org/api/v1/file/download/${internalPackageId}/${encodedFileName}" --fail --write-out --show-error
+            curl -o "%USERPROFILE%\\Downloads\\${fileName}" --fail --write-out --show-error -w "%%{http_code}" "https://qa-atlas.kpmp.org/api/v1/file/download/${internalPackageId}/${encodedFileName}"
             set status_code=%errorlevel%
             if %status_code% == 404 (
                 set error_404=true
@@ -105,12 +105,13 @@ export class ToolbarButton extends React.PureComponent {
         const internalPackageId = element["Internal Package ID"];
         
         scriptContent += `
-            status_code=$(curl -o "$HOME/Downloads/${fileName}" -w "%{http_code}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}" --fail --write-out --show-error)
+            status_code=$(curl -o "$HOME/Downloads/${fileName}" --fail --write-out --show-error -w "%{http_code}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}")
             if [ "$status_code" -eq 404 ]; then
                 error_404=true
                 controlled_access_files+=("${fileName}")
             elif [ "$status_code" -eq 403 ]; then
-                error_403=true`;
+                error_403=true
+            fi`;
     });
     scriptContent += `
         if [ "$error_404" = true ]; then
