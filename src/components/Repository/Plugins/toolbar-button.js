@@ -70,12 +70,7 @@ export class ToolbarButton extends React.PureComponent {
             if %response%==404 (
                 set error_404=true
                 set controlled_access_files=%controlled_access_files% "${fileName}"
-            ) else if %response%==403 (
-                set error_403=true
-                echo OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE. You have received this message due to the amount of data requested for download.
-                echo If you believe you received this message in error or you would like assistance with your download, please email us at: KPMPAtlasDownloadSupport@umich.edu.
-                exit /b 1
-            ) `;
+            )`;
     });
     batchContent += `
         if %error_404%==true (
