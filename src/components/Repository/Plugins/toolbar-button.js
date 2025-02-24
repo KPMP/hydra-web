@@ -67,10 +67,10 @@ export class ToolbarButton extends React.PureComponent {
 
         batchContent += `For /F %%G In ('%__AppDir__%curl.exe -o ${fileName} "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}"  --fail --write-out --show-error -w "%%{http_code}\n"') Do Set "response=%%G"
             echo response code is %response%
-            if %status_code% == 404 (
+            if %response%==404 (
                 set error_404=true
                 set controlled_access_files=%controlled_access_files% "${fileName}"
-            ) else if %status_code% == 403 (
+            ) else if %response%==403 (
                 set error_403=true
                 echo OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE. You have received this message due to the amount of data requested for download.
                 echo If you believe you received this message in error or you would like assistance with your download, please email us at: KPMPAtlasDownloadSupport@umich.edu.
@@ -78,13 +78,13 @@ export class ToolbarButton extends React.PureComponent {
             ) `;
     });
     batchContent += `
-        if %error_404% == true (
+        if %error_404%==true (
             echo One or more files is controlled access. You will not be able to download the following files because they require a Data Use Agreement:
             for %%f in (%controlled_access_files%) do (
                 echo %%f
             )
         )
-        if %error_404% == false (
+        if %error_404%==false (
             echo Download complete.
         )
             pause
