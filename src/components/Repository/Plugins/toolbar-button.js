@@ -100,6 +100,7 @@ export class ToolbarButton extends React.PureComponent {
         const internalPackageId = element["Internal Package ID"];
         
         scriptContent += `
+            echo "Trying file ${fileName}"
             status_code=$(curl -o "$HOME/Downloads/${fileName}" --fail --write-out --show-error -w "%{http_code}" "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}")
             if [ "$status_code" -eq 404 ]; then
                 error_404=true
