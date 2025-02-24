@@ -115,10 +115,6 @@ export class ToolbarButton extends React.PureComponent {
                 echo "$file"
             done
         fi
-        if [ "$error_403" = true ]; then
-            echo "OUR REQUEST EXCEEDS THE MAXIMUM DATA LIMIT FOR DOWNLOAD. PLEASE CONTACT SUPPORT FOR ASSISTANCE.You have received this message due to amount of data requested for download. \nIf you believe you received this message in error or you would like assistance with your download, please email us at: \nKPMPAtlasDownloadSupport@umich.edu."
-            exit 1
-        fi
         if [ "$error_404" = false ]; then
             echo "Download complete."
         fi
