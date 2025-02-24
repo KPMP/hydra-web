@@ -64,9 +64,8 @@ export class ToolbarButton extends React.PureComponent {
         const fileName = element['File Name'];
         const encodedFileName = encodeURIComponent(fileName).replace(/%20/g, '%%20');
         const internalPackageId = element["Internal Package ID"];
-        
-        batchContent += `
-            For /F %%G In ('%__AppDir__%curl.exe -o ${fileName} "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}"  --fail --write-out --show-error -w "%%{http_code}"') Do Set "response=%%G"
+
+        batchContent += `For /F %%G In ('%__AppDir__%curl.exe -o ${fileName} "${fileDownloadEndpoint}/${internalPackageId}/${encodedFileName}"  --fail --write-out --show-error -w "%%{http_code}\n"') Do Set "response=%%G"
             echo response code is %response%
             if %status_code% == 404 (
                 set error_404=true
