@@ -10,9 +10,8 @@ import { faBars, faSortAmountDownAlt, faDownload } from "@fortawesome/free-solid
 import { faWindows, faApple, faLinux } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSVLink } from "react-csv";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from "reactstrap";
 import FileSaver from "file-saver";
-import {default as ReactGA4} from 'react-ga4';
 
 const pluginDependencies = [
   { name: "Toolbar" },
