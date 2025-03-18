@@ -10,8 +10,9 @@ import { faBars, faSortAmountDownAlt, faDownload } from "@fortawesome/free-solid
 import { faWindows, faApple, faLinux } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSVLink } from "react-csv";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink } from "reactstrap";
 import FileSaver from "file-saver";
+import {default as ReactGA4} from 'react-ga4';
 
 const pluginDependencies = [
   { name: "Toolbar" },
@@ -29,7 +30,8 @@ export class ToolbarButton extends React.PureComponent {
       csvData: [],
       csvRef: React.createRef(),
       isOpen: false,
-      dropdownOpen: false
+      dropdownOpen: false,
+      
     };
     this.dropdownToggle = this.dropdownToggle.bind(this);
   }
@@ -191,6 +193,10 @@ export class ToolbarButton extends React.PureComponent {
                         <DropdownItem onClick={() => this.getBulkDownloadScript("Linux")}>
                             <FontAwesomeIcon className="fas fa-linux" icon={faLinux} /> &nbsp;
                             Linux
+                        </DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem >
+                            <a style={{"color":"inherit"}} href="https://www.kpmp.org/help-docs/software?tabname=atlasrepository" target="_blank" rel="noopener noreferrer"><span className="nav-text px-1">Instructions</span></a>
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
