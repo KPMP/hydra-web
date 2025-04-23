@@ -1,6 +1,15 @@
 # Changelog
 
-## Release 1.6 (unreleased)
+## Release 1.7
+Brief summary of what's in this release:
+- Added bulk download option (turned off for the time being)
+- Upgraded libraries
+
+### Breaking changes
+None
+----
+
+## Release 1.6
 Brief summary of what's in this release:
 - Combined filter trees into single one
 - reorganized filters (made filter groupings)
