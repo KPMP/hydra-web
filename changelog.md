@@ -6,7 +6,8 @@ Brief summary of what's in this release:
 - Upgraded libraries
 
 ### Breaking changes
-None
+
+
 ----
 
 ## Release 1.6
