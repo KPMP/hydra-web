@@ -7,20 +7,20 @@ import {
 import SortDialog from './SortDialog/sortDialog';
 import ColumnArrangementDialog from './ColumnArrangmentDialog/columnArrangementDialog';
 import { faBars, faSortAmountDownAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
-import { faWindows, faApple, faLinux } from "@fortawesome/free-brands-svg-icons";
+// import { faWindows, faApple, faLinux } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSVLink } from "react-csv";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from "reactstrap";
-import FileSaver from "file-saver";
+// import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from "reactstrap";
+// import FileSaver from "file-saver";
 
 const pluginDependencies = [
   { name: "Toolbar" },
   { name: "ToolbarButtonState" }
 ];
-let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
-if (process.env.REACT_APP_FILE_ENDPOINT) {
-    fileDownloadEndpoint = process.env.REACT_APP_FILE_ENDPOINT
-}
+// let fileDownloadEndpoint = "https://" + window.location.hostname + "/api/v1/file/download"
+// if (process.env.REACT_APP_FILE_ENDPOINT) {
+//     fileDownloadEndpoint = process.env.REACT_APP_FILE_ENDPOINT
+// }
 export class ToolbarButton extends React.PureComponent {
 
   constructor(props) {
