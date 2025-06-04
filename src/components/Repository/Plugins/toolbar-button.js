@@ -7,6 +7,7 @@ import {
 import SortDialog from './SortDialog/sortDialog';
 import ColumnArrangementDialog from './ColumnArrangmentDialog/columnArrangementDialog';
 import { faBars, faSortAmountDownAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
+// Commenting out the unused imports and variables below until we resotre the bulk download section
 // import { faWindows, faApple, faLinux } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSVLink } from "react-csv";
