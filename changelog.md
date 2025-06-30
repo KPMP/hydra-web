@@ -2,10 +2,12 @@
 
 ## Release 1.8 [unreleased]
 Brief summary of what's in this release:
-
+- update to the common components to get new help dropdown options
+- updates to the participants by -omics tables to be more data driven
+- change order of columns in the repo table
 
 ### Breaking changes
-
+- This version cannot work with older versions of the back-end as it expects data for the -omics tables a little differently
 
 ----
 
