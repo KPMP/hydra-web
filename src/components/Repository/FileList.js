@@ -307,7 +307,7 @@ class FileList extends Component {
                 defaultHidden: false,
                 getCellValue: row => { 
                     return <span data-tooltip-id='copy' data-tooltip-content='Copied' onClick={() => this.copyFileName(row['file_name'])}>
-                                <FontAwesomeIcon icon={faCopy}/> {(row['experimental_strategy'] == "Whole Genome Sequencing") ? row['file_name'] : row['file_name'].slice(37)}
+                                <FontAwesomeIcon icon={faCopy}/> {(row['experimental_strategy'] === "Whole Genome Sequencing") ? row['file_name'] : row['file_name'].slice(37)}
                                 <span id='tooltip'>
                                     <Tooltip id='copy' openOnClick='true' place='left'/>
                                 </span>
