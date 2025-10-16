@@ -1,6 +1,10 @@
 # Changelog
 
-## Release 1.8 [unreleased]
+## Release 1.9 (unreleased)
+Brief summary of what's in this release:
+- Updates to handle Whole Genome Sequencing data files
+
+## Release 1.8 (06/30/2025)
 Brief summary of what's in this release:
 - update to the common components to get new help dropdown options
 - updates to the participants by -omics tables to be more data driven
