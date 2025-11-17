@@ -1,8 +1,17 @@
 # Changelog
 
-## Release 1.9 (unreleased)
+## Release 1.10 (unreleased)
+Brief summary:
+
+### Breaking changes
+
+---
+
+## Release 1.9 (11/13/2025)
 Brief summary of what's in this release:
 - Updates to handle Whole Genome Sequencing data files
+
+---
 
 ## Release 1.8 (06/30/2025)
 Brief summary of what's in this release:
