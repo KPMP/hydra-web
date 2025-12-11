@@ -350,14 +350,6 @@ class FileList extends Component {
                 defaultHidden: true,
             },
             {
-                name: 'experimental_strategy',
-                title: 'Experimental Strategy',
-                sortable: true,
-                hideable: true,
-                defaultHidden: true,
-                getCellValue: row => { return (row['experimental_strategy'] ? (row['experimental_strategy'].length > 1 ? row['experimental_strategy'].join(", ") : row['experimental_strategy']) : '--') }
-            },  
-            {
                 name: 'platform',
                 title: 'Platform',
                 sortable: true,
@@ -372,6 +364,14 @@ class FileList extends Component {
                 defaultHidden: false,
                 getCellValue: row => { return (row['dois'] ? (row['dois'].length > 1 ? row['dois'].join(", ") : row['dois']) : '') }
             },
+            {
+                name: 'experimental_strategy',
+                title: 'Experimental Strategy',
+                sortable: true,
+                hideable: true,
+                defaultHidden: false,
+                getCellValue: row => { return (row['experimental_strategy'] ? (row['experimental_strategy'].length > 1 ? row['experimental_strategy'].join(", ") : row['experimental_strategy']) : '--') }
+            },  
             // Sort columns
             {
                 name: 'participant_id_sort', 
