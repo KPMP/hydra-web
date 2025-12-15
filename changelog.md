@@ -1,9 +1,17 @@
 # Changelog
 
-## Release 1.10 (unreleased)
+
+## Release 1.11 (unreleased)
 Brief summary:
 
 ### Breaking changes
+
+---
+
+## Release 1.10 
+Brief summary:
+
+- Made "Experimental Strategy" a default column.
 
 ---
 
