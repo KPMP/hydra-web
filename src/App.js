@@ -58,7 +58,7 @@ class App extends Component {
       <Provider store={store}>
           <BrowserRouter history={history} basename={packagejson.baseURL}>
             <ErrorBoundaryContainer>
-              <NavBar app='atlas' />
+              <NavBar app='atlas' comparatorOn={process.env.REACT_APP_COMPARATOR_ON}/>
               <Switch>
                 <Route exact path="/" component={FileListContainer} store={store} />
                 <Route exact path="/report" component={ReportCardContainer} store={store}/>
