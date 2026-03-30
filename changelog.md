@@ -1,8 +1,12 @@
 # Changelog
 
+## Release 1.12 (unreleased)
+Brief Summary:
 
-## Release 1.11 (unreleased)
+
+## Release 1.11
 Brief summary:
+- updated common components
 
 ### Breaking changes
 
