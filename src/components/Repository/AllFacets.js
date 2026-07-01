@@ -238,19 +238,8 @@ class AllFacets extends Component {
                             Dataset metadata
                         </AccordionHeader>
                         <AccordionBody accordionId="3">
+                            
                             <UncontrolledAccordion flush stayOpen className='inner-accordion'>
-                                <AccordionItem>
-                                    <AccordionHeader targetId="20">
-                                        Access
-                                    </AccordionHeader>
-                                    <AccordionBody accordionId="20">
-                                        <Row className="mb-2">
-                                            <Col>
-                                                <Facet field="access" label="" filterType="any" view={MultiCheckboxFacet} />
-                                            </Col>
-                                        </Row>
-                                    </AccordionBody>
-                                </AccordionItem>
                                 <AccordionItem>
                                     <AccordionHeader targetId="21">
                                         Data Category
@@ -263,18 +252,8 @@ class AllFacets extends Component {
                                         </Row>
                                     </AccordionBody>
                                 </AccordionItem>
-                                <AccordionItem>
-                                    <AccordionHeader targetId="22">
-                                        Data Format
-                                    </AccordionHeader>
-                                    <AccordionBody accordionId="22">
-                                        <Row className="mb-2">
-                                            <Col>
-                                                <Facet field="data_format" label="" filterType="any" view={MultiCheckboxFacet} />
-                                            </Col>
-                                        </Row>
-                                    </AccordionBody>
-                                </AccordionItem>
+
+
                                 <AccordionItem>
                                     <AccordionHeader targetId="23">
                                         Data Type
@@ -287,18 +266,8 @@ class AllFacets extends Component {
                                         </Row>
                                     </AccordionBody>
                                 </AccordionItem>
-                                <AccordionItem>
-                                    <AccordionHeader targetId="24">
-                                        DOIs
-                                    </AccordionHeader>
-                                    <AccordionBody accordionId="24">
-                                        <Row className="mb-2">
-                                            <Col>
-                                                <Facet field="dois" label="" filterType="any" view={MultiCheckboxFacet} />
-                                            </Col>
-                                        </Row>
-                                    </AccordionBody>
-                                </AccordionItem>
+
+
                                 <AccordionItem>
                                     <AccordionHeader targetId="25">
                                         Experimental Strategy
@@ -312,54 +281,8 @@ class AllFacets extends Component {
                                         </Row>
                                     </AccordionBody>
                                 </AccordionItem>
-                                <AccordionItem>
-                                    <AccordionHeader targetId="26">
-                                        Platform
-                                    </AccordionHeader>
-                                    <AccordionBody accordionId="26">
-                                        <Row className="mb-2">
-                                            <Col>
-                                                <Facet field="platform" label="" filterType="any" view={MultiCheckboxFacet} />
-                                            </Col>
-                                        </Row>
-                                    </AccordionBody>
-                                </AccordionItem>
-                                <AccordionItem>
-                                    <AccordionHeader targetId="27">
-                                        Protocol
-                                    </AccordionHeader>
-                                    <AccordionBody accordionId="27">
-                                        <Row className='mb-2'>
-                                            <Col>
-                                                <Facet field='protocol' label='' filterType='any' view={MultiCheckboxFacet} />
-                                            </Col>
-                                        </Row>
-                                    </AccordionBody>
-                                </AccordionItem>
-                                <AccordionItem>
-                                    <AccordionHeader targetId="28">
-                                        Sample Type
-                                    </AccordionHeader>
-                                    <AccordionBody accordionId="28">
-                                        <Row className='mb-2'>
-                                            <Col>
-                                                <Facet field='sample_type' label='' filterType='any' view={MultiCheckboxFacet} />
-                                            </Col>
-                                        </Row>
-                                    </AccordionBody>
-                                </AccordionItem>
-                                <AccordionItem>
-                                    <AccordionHeader targetId="29">
-                                        Tissue Source
-                                    </AccordionHeader>
-                                    <AccordionBody accordionId="29">
-                                        <Row className='mb-2'>
-                                            <Col>
-                                                <Facet field='tissue_source' label='' filterType='any' view={MultiCheckboxFacet} />
-                                            </Col>
-                                        </Row>
-                                    </AccordionBody>
-                                </AccordionItem>
+
+
                                 <AccordionItem>
                                     <AccordionHeader targetId="30">
                                         Workflow Type
@@ -372,6 +295,105 @@ class AllFacets extends Component {
                                         </Row>
                                     </AccordionBody>
                                 </AccordionItem>
+
+
+                                <AccordionItem>
+                                    <AccordionHeader targetId="26">
+                                        Platform
+                                    </AccordionHeader>
+                                    <AccordionBody accordionId="26">
+                                        <Row className="mb-2">
+                                            <Col>
+                                                <Facet field="platform" label="" filterType="any" view={MultiCheckboxFacet} />
+                                            </Col>
+                                        </Row>
+                                    </AccordionBody>
+                                </AccordionItem>
+
+
+                                <AccordionItem>
+                                    <AccordionHeader targetId="22">
+                                        Data Format
+                                    </AccordionHeader>
+                                    <AccordionBody accordionId="22">
+                                        <Row className="mb-2">
+                                            <Col>
+                                                <Facet field="data_format" label="" filterType="any" view={MultiCheckboxFacet} />
+                                            </Col>
+                                        </Row>
+                                    </AccordionBody>
+                                </AccordionItem>
+
+
+                                <AccordionItem>
+                                    <AccordionHeader targetId="20">
+                                        Access
+                                    </AccordionHeader>
+                                    <AccordionBody accordionId="20">
+                                        <Row className="mb-2">
+                                            <Col>
+                                                <Facet field="access" label="" filterType="any" view={MultiCheckboxFacet} />
+                                            </Col>
+                                        </Row>
+                                    </AccordionBody>
+                                </AccordionItem>
+
+
+                                <AccordionItem>
+                                    <AccordionHeader targetId="24">
+                                        DOIs
+                                    </AccordionHeader>
+                                    <AccordionBody accordionId="24">
+                                        <Row className="mb-2">
+                                            <Col>
+                                                <Facet field="dois" label="" filterType="any" view={MultiCheckboxFacet} />
+                                            </Col>
+                                        </Row>
+                                    </AccordionBody>
+                                </AccordionItem>
+                                
+                                
+                                <AccordionItem>
+                                    <AccordionHeader targetId="27">
+                                        Protocol
+                                    </AccordionHeader>
+                                    <AccordionBody accordionId="27">
+                                        <Row className='mb-2'>
+                                            <Col>
+                                                <Facet field='protocol' label='' filterType='any' view={MultiCheckboxFacet} />
+                                            </Col>
+                                        </Row>
+                                    </AccordionBody>
+                                </AccordionItem>
+
+
+                                <AccordionItem>
+                                    <AccordionHeader targetId="28">
+                                        Sample Type
+                                    </AccordionHeader>
+                                    <AccordionBody accordionId="28">
+                                        <Row className='mb-2'>
+                                            <Col>
+                                                <Facet field='sample_type' label='' filterType='any' view={MultiCheckboxFacet} />
+                                            </Col>
+                                        </Row>
+                                    </AccordionBody>
+                                </AccordionItem>
+
+
+                                <AccordionItem>
+                                    <AccordionHeader targetId="29">
+                                        Tissue Source
+                                    </AccordionHeader>
+                                    <AccordionBody accordionId="29">
+                                        <Row className='mb-2'>
+                                            <Col>
+                                                <Facet field='tissue_source' label='' filterType='any' view={MultiCheckboxFacet} />
+                                            </Col>
+                                        </Row>
+                                    </AccordionBody>
+                                </AccordionItem>
+                                
                             </UncontrolledAccordion>
                         </AccordionBody>
                     </AccordionItem>
