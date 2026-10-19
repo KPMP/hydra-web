@@ -1,8 +1,12 @@
 # Changelog
 
-## Release 1.12 (unreleased)
-Brief Summary:
+## Release 1.13 (unreleased)
 
+## Release 1.12
+Brief Summary:
+- Changed `Workflow Type` to `Workflow Type / Panel`
+
+---
 
 ## Release 1.11
 Brief summary:

@@ -322,7 +322,7 @@ class FileList extends Component {
             },
             {
                 name: 'workflow_type',
-                title: 'Workflow Type',
+                title: 'Workflow Type / Panel',
                 sortable: true,
                 hideable: true,
                 defaultHidden: false,
@@ -457,7 +457,7 @@ class FileList extends Component {
             redcap_id: "Participant ID",
             file_name: "File Name",
             data_category: "Data Category",
-            workflow_type: "Workflow Type",
+            workflow_type: "Workflow Type / Panel",
             platform: "Platform",
             file_size: "File Size",
             file_id: "File ID",

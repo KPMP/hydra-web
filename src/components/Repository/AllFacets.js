@@ -285,7 +285,7 @@ class AllFacets extends Component {
 
                                 <AccordionItem>
                                     <AccordionHeader targetId="30">
-                                        Workflow Type
+                                        Workflow Type / Panel
                                     </AccordionHeader>
                                     <AccordionBody accordionId="30">
                                         <Row className="mb-2">
